@@ -164,6 +164,13 @@ img{max-width:100%;height:auto}
   margin:0 0 12px;
 }
 .key b{color:var(--ink)}
+.rationale{
+  background:var(--lav-pale);border:1px solid #e6dcfb;border-radius:14px;
+  padding:10px 14px;margin:0 0 12px;font-size:12.5px;line-height:1.85;
+}
+.rationale p{margin:0}
+.rationale p + p{margin-top:6px}
+.rationale b{color:#5b49b8}
 .script{flex:1}
 .script h3{font-size:11px;letter-spacing:.08em;color:var(--muted);margin:7px 0 6px;font-weight:900}
 .script p{margin:0 0 8px;font-size:13.2px;line-height:1.9;color:var(--body)}
@@ -309,6 +316,8 @@ img{max-width:100%;height:auto}
   html[data-theme="dark"] .role{
     background:linear-gradient(135deg,#141c2b,#1a2336);
   }
+  html[data-theme="dark"] .rationale{border-color:#3a3358}
+  html[data-theme="dark"] .rationale b{color:var(--lav)}
   html[data-theme="dark"] .toc a:hover,
   html[data-theme="dark"] .toc a.active{
     background:#1a2336;
@@ -438,8 +447,14 @@ img{max-width:100%;height:auto}
   .meta{gap:2mm;margin-top:1mm}
   .pill{font-size:7.5pt;padding:1mm 2mm;border:1px solid #e1e9f5;background:#fff !important}
   .key{font-size:8.5pt;padding:2mm 3mm;margin:0 0 2mm;border:1px solid #dbe8fa;background:#f3f8ff !important}
+  .rationale{
+    font-size:8pt;line-height:1.5;padding:1.6mm 2.6mm;margin:0 0 1.8mm;
+    border:1px solid #e6dcfb;background:#faf7ff !important;border-radius:0;
+  }
+  .rationale p + p{margin-top:1mm}
+  .rationale b{color:#5b49b8}
   .script h3{font-size:7.5pt;margin:1mm 0 1mm;color:#7b90ad}
-  .script p{font-size:9.6pt;line-height:1.65;margin:0 0 1.8mm;color:#222}
+  .script p{font-size:9.4pt;line-height:1.6;margin:0 0 1.6mm;color:#222}
   .cues{margin-top:2mm;gap:1.5mm}
   .cues li{font-size:7pt;padding:1mm 1.6mm;background:#fff;border:1px solid #e1e9f5}
   .transition{font-size:8pt;padding:1.5mm 2mm;margin-top:2mm;background:#faf8ff !important;border:1px dashed #d8cff3}
