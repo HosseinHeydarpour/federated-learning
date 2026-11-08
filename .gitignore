@@ -1,6 +1,7 @@
 __pycache__/
 preview/
 *.pyc
+~$*
 
 # figures extracted from papers (copyright), kept local only
 paper-figures/
