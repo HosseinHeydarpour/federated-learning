@@ -282,9 +282,11 @@ def card(s):
     cues = "".join(f"<li>{esc(x)}</li>" for x in s["cues"])
     img = f"slides/slide-{s['n']:02d}.png"
     return f"""
-    <article class="slide-card" id="slide-{s['n']}" data-speaker="{speaker_cls}">
+    <article class="slide-card" id="slide-{s['n']}" data-speaker="{speaker_cls}" data-slide="{s['n']}">
       <div class="slide-media">
-        <img src="{img}" alt="اسلاید {fa(s['n'])}: {esc(s['title'])}">
+        <a class="slide-zoom" href="{img}" data-fancybox="slides" data-caption="اسلاید {fa(s['n'])} — {esc(s['title'])}" aria-label="بزرگ‌نمایی اسلاید {fa(s['n'])}">
+          <img src="{img}" alt="اسلاید {fa(s['n'])}: {esc(s['title'])}">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -298,6 +300,7 @@ def card(s):
               <span class="pill">{esc(s['section'])}</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="{s['n']}" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> {esc(s['key'])}</div>
         <div class="rationale">
@@ -337,6 +340,7 @@ HTML = f"""<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>راهنمای ارائه | بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرال اینترنت اشیا</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="vendor/fancybox/fancybox.css">
 <script>
 try {{
   var saved = localStorage.getItem('guide-theme');
@@ -392,6 +396,10 @@ try {{
         <a class="download-btn" data-tour="pdf" href="presenter-guide.pdf" download>دانلود PDF راهنما</a>
       </div>
       <p class="screen-note no-print">برای چاپ: دکمهٔ بالا را بزنید یا Ctrl+P. در تنظیمات چاپ، A4، جهت عمودی و «چاپ پس‌زمینه‌ها» (Print backgrounds) را روشن کنید.</p>
+      <div class="read-progress no-print">
+        <span class="read-count" data-read-text>۰ از ۲۰ اسلاید خوانده شده</span>
+        <span class="read-track"><i data-read-bar></i></span>
+      </div>
     </section>
 
     <div class="section-title"><h2>نقشهٔ زمانی</h2><span>جمع: {TOTAL}</span></div>
@@ -409,6 +417,7 @@ try {{
 </main>
 
 <footer class="footer no-print">راهنمای ارائه · دانشگاه سلمان فارسی کازرون · گروه مهندسی کامپیوتر · پاییز ۱۴۰۵</footer>
+<script src="vendor/fancybox/fancybox.umd.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

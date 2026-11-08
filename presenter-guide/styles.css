@@ -318,6 +318,12 @@ img{max-width:100%;height:auto}
   }
   html[data-theme="dark"] .rationale{border-color:#3a3358}
   html[data-theme="dark"] .rationale b{color:var(--lav)}
+  html[data-theme="dark"] .read-btn{background:var(--paper);border-color:var(--line)}
+  html[data-theme="dark"] .read-btn.is-read{background:#1b2f45;border-color:#2c4a6e;color:var(--blue)}
+  html[data-theme="dark"] .slide-card.is-read{border-color:#2f5a41}
+  html[data-theme="dark"] .slide-card.is-read .slide-num{
+    background:linear-gradient(135deg,#1d3a2b,#1a3326);color:#7fd6a2;
+  }
   html[data-theme="dark"] .toc a:hover,
   html[data-theme="dark"] .toc a.active{
     background:#1a2336;
@@ -355,6 +361,25 @@ img{max-width:100%;height:auto}
   html[data-theme="dark"] .theme-btn:hover,
   html[data-theme="dark"] .filter-btn:hover{border-color:var(--blue-mid)}
 }
+
+/* ---------- enlarge + read state ---------- */
+.slide-zoom{display:block;border-radius:14px;cursor:zoom-in}
+.slide-zoom:focus-visible{outline:2px solid var(--lav);outline-offset:3px}
+.read-btn{
+  margin-inline-start:auto;flex:0 0 auto;
+  border:1px solid var(--line);background:#fff;color:var(--muted);
+  border-radius:999px;padding:6px 13px;cursor:pointer;
+  font-family:inherit;font-size:11.5px;font-weight:800;
+}
+.read-btn:hover{border-color:var(--blue-mid);color:var(--blue)}
+.read-btn.is-read{background:var(--blue-pale);border-color:#cfe0f7;color:var(--blue)}
+.slide-card.is-read{border-color:#cfe6d6}
+.slide-card.is-read .slide-num{background:linear-gradient(135deg,#e8f6ec,#d8efe0);color:#2c7a4b}
+.read-progress{display:flex;align-items:center;gap:10px;margin-top:14px}
+.read-count{font-size:11.5px;font-weight:800;color:var(--muted);white-space:nowrap}
+.read-track{flex:1;max-width:260px;height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.read-track i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--blue),var(--lav));transition:width .3s ease}
+.fancybox__caption{direction:rtl;text-align:center;font-family:"Vazirmatn","Segoe UI",Tahoma,sans-serif}
 
 @media screen and (max-width:1050px){
   .layout{grid-template-columns:1fr;padding:22px 18px 60px}

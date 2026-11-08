@@ -94,6 +94,58 @@
   });
 })();
 
+// ---------- enlarge a slide ----------
+(function () {
+  if (!window.Fancybox) return;
+  window.Fancybox.bind('[data-fancybox="slides"]', {
+    animated: true,
+    Images: { zoom: true },
+    Toolbar: { display: { left: ["infobar"], middle: [], right: ["zoomIn", "zoomOut", "toggle1to1", "close"] } },
+  });
+})();
+
+// ---------- read / unread marks ----------
+(function () {
+  const KEY = "guide-read";
+  const fa = n => String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  const btns = Array.from(document.querySelectorAll("[data-read]"));
+  const textEl = document.querySelector("[data-read-text]");
+  const barEl = document.querySelector("[data-read-bar]");
+  const read = new Set();
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "[]");
+    if (Array.isArray(saved)) saved.forEach(n => read.add(Number(n)));
+  } catch (e) {}
+
+  function sync() {
+    btns.forEach(btn => {
+      const n = Number(btn.dataset.read);
+      const on = read.has(n);
+      btn.classList.toggle("is-read", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.textContent = on ? "خوانده شد ✓" : "خواندم";
+      const card = btn.closest(".slide-card");
+      if (card) card.classList.toggle("is-read", on);
+    });
+    const total = btns.length;
+    const done = btns.filter(b => read.has(Number(b.dataset.read))).length;
+    if (textEl) textEl.textContent = `${fa(done)} از ${fa(total)} اسلاید خوانده شده`;
+    if (barEl) barEl.style.width = total ? (done / total) * 100 + "%" : "0%";
+    try { localStorage.setItem(KEY, JSON.stringify([...read])); } catch (e) {}
+  }
+
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const n = Number(btn.dataset.read);
+      read.has(n) ? read.delete(n) : read.add(n);
+      sync();
+    });
+  });
+
+  sync();
+})();
+
 // ---------- guided tour ----------
 (function () {
   const KEY = "guide-tour-done";

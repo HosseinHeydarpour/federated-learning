@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>راهنمای ارائه | بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرال اینترنت اشیا</title>
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="vendor/fancybox/fancybox.css">
 <script>
 try {
   var saved = localStorage.getItem('guide-theme');
@@ -60,6 +61,10 @@ try {
         <a class="download-btn" data-tour="pdf" href="presenter-guide.pdf" download>دانلود PDF راهنما</a>
       </div>
       <p class="screen-note no-print">برای چاپ: دکمهٔ بالا را بزنید یا Ctrl+P. در تنظیمات چاپ، A4، جهت عمودی و «چاپ پس‌زمینه‌ها» (Print backgrounds) را روشن کنید.</p>
+      <div class="read-progress no-print">
+        <span class="read-count" data-read-text>۰ از ۲۰ اسلاید خوانده شده</span>
+        <span class="read-track"><i data-read-bar></i></span>
+      </div>
     </section>
 
     <div class="section-title"><h2>نقشهٔ زمانی</h2><span>جمع: ۳۰:۰۰</span></div>
@@ -73,9 +78,11 @@ try {
 
     <div class="section-title"><h2>اسلاید به اسلاید</h2><span>متن گفتار پیشنهادی</span></div>
     
-    <article class="slide-card" id="slide-1" data-speaker="diana">
+    <article class="slide-card" id="slide-1" data-speaker="diana" data-slide="1">
       <div class="slide-media">
-        <img src="slides/slide-01.png" alt="اسلاید ۱: جلد">
+        <a class="slide-zoom" href="slides/slide-01.png" data-fancybox="slides" data-caption="اسلاید ۱ — جلد" aria-label="بزرگ‌نمایی اسلاید ۱">
+          <img src="slides/slide-01.png" alt="اسلاید ۱: جلد">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -89,6 +96,7 @@ try {
               <span class="pill">افتتاحیه</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="1" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> یک روز عادی با دستگاه‌های هوشمند؛ سپس یک پرسش: داده‌هایشان چه می‌شود؟</div>
         <div class="rationale">
@@ -107,9 +115,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-2" data-speaker="diana">
+    <article class="slide-card" id="slide-2" data-speaker="diana" data-slide="2">
       <div class="slide-media">
-        <img src="slides/slide-02.png" alt="اسلاید ۲: فهرست مطالب">
+        <a class="slide-zoom" href="slides/slide-02.png" data-fancybox="slides" data-caption="اسلاید ۲ — فهرست مطالب" aria-label="بزرگ‌نمایی اسلاید ۲">
+          <img src="slides/slide-02.png" alt="اسلاید ۲: فهرست مطالب">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -123,6 +133,7 @@ try {
               <span class="pill">مسیر ارائه</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="2" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> مسیر شش‌بخشی و توزیع ۳۰ دقیقه.</div>
         <div class="rationale">
@@ -141,9 +152,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-3" data-speaker="diana">
+    <article class="slide-card" id="slide-3" data-speaker="diana" data-slide="3">
       <div class="slide-media">
-        <img src="slides/slide-03.png" alt="اسلاید ۳: مقدمه: مسئله، هدف و مسیر">
+        <a class="slide-zoom" href="slides/slide-03.png" data-fancybox="slides" data-caption="اسلاید ۳ — مقدمه: مسئله، هدف و مسیر" aria-label="بزرگ‌نمایی اسلاید ۳">
+          <img src="slides/slide-03.png" alt="اسلاید ۳: مقدمه: مسئله، هدف و مسیر">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -157,6 +170,7 @@ try {
               <span class="pill">مقدمه</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="3" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> یادگیری فدرال داده خام را جابه‌جا نمی‌کند، اما تضمین حریم خصوصی هم نمی‌دهد.</div>
         <div class="rationale">
@@ -175,9 +189,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-4" data-speaker="diana">
+    <article class="slide-card" id="slide-4" data-speaker="diana" data-slide="4">
       <div class="slide-media">
-        <img src="slides/slide-04.png" alt="اسلاید ۴: روش انتخاب مقالات علمی">
+        <a class="slide-zoom" href="slides/slide-04.png" data-fancybox="slides" data-caption="اسلاید ۴ — روش انتخاب مقالات علمی" aria-label="بزرگ‌نمایی اسلاید ۴">
+          <img src="slides/slide-04.png" alt="اسلاید ۴: روش انتخاب مقالات علمی">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -191,6 +207,7 @@ try {
               <span class="pill">روش‌شناسی</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="4" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> ۲۹۳ رکورد، ۱ مقاله از زنجیرهٔ ارجاع، و نمونهٔ هدفمند ۵ مقاله.</div>
         <div class="rationale">
@@ -209,9 +226,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-5" data-speaker="mozhan">
+    <article class="slide-card" id="slide-5" data-speaker="mozhan" data-slide="5">
       <div class="slide-media">
-        <img src="slides/slide-05.png" alt="اسلاید ۵: اینترنت اشیا چیست و چرا مهم است؟">
+        <a class="slide-zoom" href="slides/slide-05.png" data-fancybox="slides" data-caption="اسلاید ۵ — اینترنت اشیا چیست و چرا مهم است؟" aria-label="بزرگ‌نمایی اسلاید ۵">
+          <img src="slides/slide-05.png" alt="اسلاید ۵: اینترنت اشیا چیست و چرا مهم است؟">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -225,6 +244,7 @@ try {
               <span class="pill">زمینه</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="5" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> اینترنت اشیا = دستگاه‌های روزمرهٔ متصل؛ دادهٔ حساس همین‌جاست.</div>
         <div class="rationale">
@@ -243,9 +263,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-6" data-speaker="mozhan">
+    <article class="slide-card" id="slide-6" data-speaker="mozhan" data-slide="6">
       <div class="slide-media">
-        <img src="slides/slide-06.png" alt="اسلاید ۶: چرا آموزش متمرکز پاسخ نیست؟">
+        <a class="slide-zoom" href="slides/slide-06.png" data-fancybox="slides" data-caption="اسلاید ۶ — چرا آموزش متمرکز پاسخ نیست؟" aria-label="بزرگ‌نمایی اسلاید ۶">
+          <img src="slides/slide-06.png" alt="اسلاید ۶: چرا آموزش متمرکز پاسخ نیست؟">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -259,6 +281,7 @@ try {
               <span class="pill">مسئله</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="6" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> تمرکز داده، چهار ریسک اصلی دارد.</div>
         <div class="rationale">
@@ -277,9 +300,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-7" data-speaker="mozhan">
+    <article class="slide-card" id="slide-7" data-speaker="mozhan" data-slide="7">
       <div class="slide-media">
-        <img src="slides/slide-07.png" alt="اسلاید ۷: یادگیری فدرال چگونه کار می‌کند">
+        <a class="slide-zoom" href="slides/slide-07.png" data-fancybox="slides" data-caption="اسلاید ۷ — یادگیری فدرال چگونه کار می‌کند" aria-label="بزرگ‌نمایی اسلاید ۷">
+          <img src="slides/slide-07.png" alt="اسلاید ۷: یادگیری فدرال چگونه کار می‌کند">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -293,6 +318,7 @@ try {
               <span class="pill">راه‌حل</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="7" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> یادگیری = پیدا کردن الگو؛ FL = آموزش مدل کنار داده، نه بردن داده.</div>
         <div class="rationale">
@@ -311,9 +337,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-8" data-speaker="diana">
+    <article class="slide-card" id="slide-8" data-speaker="diana" data-slide="8">
       <div class="slide-media">
-        <img src="slides/slide-08.png" alt="اسلاید ۸: حریم خصوصی، ویژگی ذاتی یادگیری فدرال نیست">
+        <a class="slide-zoom" href="slides/slide-08.png" data-fancybox="slides" data-caption="اسلاید ۸ — حریم خصوصی، ویژگی ذاتی یادگیری فدرال نیست" aria-label="بزرگ‌نمایی اسلاید ۸">
+          <img src="slides/slide-08.png" alt="اسلاید ۸: حریم خصوصی، ویژگی ذاتی یادگیری فدرال نیست">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -327,6 +355,7 @@ try {
               <span class="pill">ادعای اصلی</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="8" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> بازسازی گرادیان، دادهٔ نمونه را افشا می‌کند.</div>
         <div class="rationale">
@@ -345,9 +374,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-9" data-speaker="diana">
+    <article class="slide-card" id="slide-9" data-speaker="diana" data-slide="9">
       <div class="slide-media">
-        <img src="slides/slide-09.png" alt="اسلاید ۹: مدل تهدید">
+        <a class="slide-zoom" href="slides/slide-09.png" data-fancybox="slides" data-caption="اسلاید ۹ — مدل تهدید" aria-label="بزرگ‌نمایی اسلاید ۹">
+          <img src="slides/slide-09.png" alt="اسلاید ۹: مدل تهدید">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -361,6 +392,7 @@ try {
               <span class="pill">تهدیدها</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="9" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> سه بازیگر، دو دستهٔ حمله.</div>
         <div class="rationale">
@@ -379,9 +411,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-10" data-speaker="diana">
+    <article class="slide-card" id="slide-10" data-speaker="diana" data-slide="10">
       <div class="slide-media">
-        <img src="slides/slide-10.png" alt="اسلاید ۱۰: حملات؛ دو دسته">
+        <a class="slide-zoom" href="slides/slide-10.png" data-fancybox="slides" data-caption="اسلاید ۱۰ — حملات؛ دو دسته" aria-label="بزرگ‌نمایی اسلاید ۱۰">
+          <img src="slides/slide-10.png" alt="اسلاید ۱۰: حملات؛ دو دسته">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -395,6 +429,7 @@ try {
               <span class="pill">تهدیدها</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="10" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> حریم خصوصی و یکپارچگی را با هم اشتباه نگیریم.</div>
         <div class="rationale">
@@ -413,9 +448,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-11" data-speaker="mozhan">
+    <article class="slide-card" id="slide-11" data-speaker="mozhan" data-slide="11">
       <div class="slide-media">
-        <img src="slides/slide-11.png" alt="اسلاید ۱۱: حریم خصوصی تفاضلی">
+        <a class="slide-zoom" href="slides/slide-11.png" data-fancybox="slides" data-caption="اسلاید ۱۱ — حریم خصوصی تفاضلی" aria-label="بزرگ‌نمایی اسلاید ۱۱">
+          <img src="slides/slide-11.png" alt="اسلاید ۱۱: حریم خصوصی تفاضلی">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -429,6 +466,7 @@ try {
               <span class="pill">دفاع‌ها</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="11" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> DP تنها روشی است که تضمین ریاضی می‌دهد؛ ε اندازهٔ نویز است.</div>
         <div class="rationale">
@@ -447,9 +485,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-12" data-speaker="mozhan">
+    <article class="slide-card" id="slide-12" data-speaker="mozhan" data-slide="12">
       <div class="slide-media">
-        <img src="slides/slide-12.png" alt="اسلاید ۱۲: رمزنگاری">
+        <a class="slide-zoom" href="slides/slide-12.png" data-fancybox="slides" data-caption="اسلاید ۱۲ — رمزنگاری" aria-label="بزرگ‌نمایی اسلاید ۱۲">
+          <img src="slides/slide-12.png" alt="اسلاید ۱۲: رمزنگاری">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -463,6 +503,7 @@ try {
               <span class="pill">دفاع‌ها</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="12" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> رمزنگاری محرمانگی می‌دهد، نه لزوماً تضمین DP.</div>
         <div class="rationale">
@@ -481,9 +522,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-13" data-speaker="mozhan">
+    <article class="slide-card" id="slide-13" data-speaker="mozhan" data-slide="13">
       <div class="slide-media">
-        <img src="slides/slide-13.png" alt="اسلاید ۱۳: بلاک‌چین">
+        <a class="slide-zoom" href="slides/slide-13.png" data-fancybox="slides" data-caption="اسلاید ۱۳ — بلاک‌چین" aria-label="بزرگ‌نمایی اسلاید ۱۳">
+          <img src="slides/slide-13.png" alt="اسلاید ۱۳: بلاک‌چین">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -497,6 +540,7 @@ try {
               <span class="pill">دفاع‌ها</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="13" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> بلاک‌چین وابستگی را کم می‌کند، محرمانگی نمی‌دهد.</div>
         <div class="rationale">
@@ -515,9 +559,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-14" data-speaker="mozhan">
+    <article class="slide-card" id="slide-14" data-speaker="mozhan" data-slide="14">
       <div class="slide-media">
-        <img src="slides/slide-14.png" alt="اسلاید ۱۴: تجمیع مقاوم">
+        <a class="slide-zoom" href="slides/slide-14.png" data-fancybox="slides" data-caption="اسلاید ۱۴ — تجمیع مقاوم" aria-label="بزرگ‌نمایی اسلاید ۱۴">
+          <img src="slides/slide-14.png" alt="اسلاید ۱۴: تجمیع مقاوم">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -531,6 +577,7 @@ try {
               <span class="pill">دفاع‌ها</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="14" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> تجمیع مقاوم برای یکپارچگی است، نه حریم خصوصی.</div>
         <div class="rationale">
@@ -549,9 +596,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-15" data-speaker="diana">
+    <article class="slide-card" id="slide-15" data-speaker="diana" data-slide="15">
       <div class="slide-media">
-        <img src="slides/slide-15.png" alt="اسلاید ۱۵: مقایسهٔ روش‌ها در یک نگاه">
+        <a class="slide-zoom" href="slides/slide-15.png" data-fancybox="slides" data-caption="اسلاید ۱۵ — مقایسهٔ روش‌ها در یک نگاه" aria-label="بزرگ‌نمایی اسلاید ۱۵">
+          <img src="slides/slide-15.png" alt="اسلاید ۱۵: مقایسهٔ روش‌ها در یک نگاه">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -565,6 +614,7 @@ try {
               <span class="pill">مقایسه</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="15" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> انتخاب روش به تهدید، بودجه و توان دستگاه بستگی دارد.</div>
         <div class="rationale">
@@ -583,9 +633,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-16" data-speaker="diana">
+    <article class="slide-card" id="slide-16" data-speaker="diana" data-slide="16">
       <div class="slide-media">
-        <img src="slides/slide-16.png" alt="اسلاید ۱۶: خانهٔ هوشمند؛ یک معماری ترکیبی">
+        <a class="slide-zoom" href="slides/slide-16.png" data-fancybox="slides" data-caption="اسلاید ۱۶ — خانهٔ هوشمند؛ یک معماری ترکیبی" aria-label="بزرگ‌نمایی اسلاید ۱۶">
+          <img src="slides/slide-16.png" alt="اسلاید ۱۶: خانهٔ هوشمند؛ یک معماری ترکیبی">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -599,6 +651,7 @@ try {
               <span class="pill">مطالعهٔ موردی</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="16" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> یک سناریوی مفهومی برای ترکیب روش‌ها.</div>
         <div class="rationale">
@@ -617,9 +670,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-17" data-speaker="diana">
+    <article class="slide-card" id="slide-17" data-speaker="diana" data-slide="17">
       <div class="slide-media">
-        <img src="slides/slide-17.png" alt="اسلاید ۱۷: تشخیص نفوذ با یادگیری فدرال">
+        <a class="slide-zoom" href="slides/slide-17.png" data-fancybox="slides" data-caption="اسلاید ۱۷ — تشخیص نفوذ با یادگیری فدرال" aria-label="بزرگ‌نمایی اسلاید ۱۷">
+          <img src="slides/slide-17.png" alt="اسلاید ۱۷: تشخیص نفوذ با یادگیری فدرال">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -633,6 +688,7 @@ try {
               <span class="pill">مطالعهٔ موردی</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="17" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> جدول ۳: دقت ۹۵٫۰۵٪ و FPR ۳٫۹٪؛ بدون سنجش نشت.</div>
         <div class="rationale">
@@ -651,9 +707,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-18" data-speaker="mozhan">
+    <article class="slide-card" id="slide-18" data-speaker="mozhan" data-slide="18">
       <div class="slide-media">
-        <img src="slides/slide-18.png" alt="اسلاید ۱۸: چالش‌ها و مسیر پیش‌رو">
+        <a class="slide-zoom" href="slides/slide-18.png" data-fancybox="slides" data-caption="اسلاید ۱۸ — چالش‌ها و مسیر پیش‌رو" aria-label="بزرگ‌نمایی اسلاید ۱۸">
+          <img src="slides/slide-18.png" alt="اسلاید ۱۸: چالش‌ها و مسیر پیش‌رو">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -667,6 +725,7 @@ try {
               <span class="pill">جمع‌بندی</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="18" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> چهار چالش، سه مسیر، یک ملاحظهٔ قانونی.</div>
         <div class="rationale">
@@ -685,9 +744,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-19" data-speaker="mozhan">
+    <article class="slide-card" id="slide-19" data-speaker="mozhan" data-slide="19">
       <div class="slide-media">
-        <img src="slides/slide-19.png" alt="اسلاید ۱۹: جمع‌بندی و نتیجه">
+        <a class="slide-zoom" href="slides/slide-19.png" data-fancybox="slides" data-caption="اسلاید ۱۹ — جمع‌بندی و نتیجه" aria-label="بزرگ‌نمایی اسلاید ۱۹">
+          <img src="slides/slide-19.png" alt="اسلاید ۱۹: جمع‌بندی و نتیجه">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -701,6 +762,7 @@ try {
               <span class="pill">جمع‌بندی</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="19" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> ضرورت، نتیجه و گام بعدی.</div>
         <div class="rationale">
@@ -719,9 +781,11 @@ try {
         </div>
       </div>
     </article>
-    <article class="slide-card" id="slide-20" data-speaker="mozhan">
+    <article class="slide-card" id="slide-20" data-speaker="mozhan" data-slide="20">
       <div class="slide-media">
-        <img src="slides/slide-20.png" alt="اسلاید ۲۰: منابع و مراجع">
+        <a class="slide-zoom" href="slides/slide-20.png" data-fancybox="slides" data-caption="اسلاید ۲۰ — منابع و مراجع" aria-label="بزرگ‌نمایی اسلاید ۲۰">
+          <img src="slides/slide-20.png" alt="اسلاید ۲۰: منابع و مراجع">
+        </a>
       </div>
       <div class="slide-body">
         <div class="slide-head">
@@ -735,6 +799,7 @@ try {
               <span class="pill">پایان</span>
             </div>
           </div>
+          <button class="read-btn no-print" type="button" data-read="20" aria-pressed="false">خواندم</button>
         </div>
         <div class="key"><b>پیام کلیدی:</b> منابع کلیدی برای پیگیری.</div>
         <div class="rationale">
@@ -757,6 +822,7 @@ try {
 </main>
 
 <footer class="footer no-print">راهنمای ارائه · دانشگاه سلمان فارسی کازرون · گروه مهندسی کامپیوتر · پاییز ۱۴۰۵</footer>
+<script src="vendor/fancybox/fancybox.umd.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
