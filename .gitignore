@@ -1,0 +1,9 @@
+__pycache__/
+preview/
+*.pyc
+
+# reference papers and scratch files, not part of the site
+*.pdf
+!presenter-guide/presenter-guide.pdf
+template_options.png
+build_deck_dark_legacy.py

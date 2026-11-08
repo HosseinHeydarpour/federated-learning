@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>راهنمای ارائه | بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرال اینترنت اشیا</title>
+<link rel="stylesheet" href="styles.css">
+<script>
+try {
+  var saved = localStorage.getItem('guide-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark';
+} catch (e) {}
+</script>
+</head>
+<body>
+<header class="topbar no-print">
+  <div class="brand"><span class="mark">SFU</span><div><div>راهنمای ارائه</div><div class="sub">نسخهٔ چاپی · ۲۰ اسلاید · ۳۰ دقیقه</div></div></div>
+  <div class="top-actions">
+    <button class="theme-btn" type="button" data-theme-toggle aria-label="تغییر حالت تاریک">
+      <span class="theme-icon" aria-hidden="true">◐</span>
+      <span data-theme-label>حالت تاریک</span>
+    </button>
+    <button class="print-btn" data-print><span class="print-full">چاپ / ذخیره PDF</span><span class="print-short">چاپ</span></button>
+  </div>
+</header>
+
+<main class="layout">
+  <aside class="sidebar no-print">
+    <h2>اسلایدها</h2>
+    <ul class="toc"><li data-speaker="diana"><a href="#slide-1"><span class="n">۱</span><span class="t">جلد</span><span class="d">۰:۳۰</span></a></li><li data-speaker="diana"><a href="#slide-2"><span class="n">۲</span><span class="t">فهرست مطالب</span><span class="d">۱:۰۰</span></a></li><li data-speaker="diana"><a href="#slide-3"><span class="n">۳</span><span class="t">مقدمه: مسئله، هدف و مسیر</span><span class="d">۲:۰۰</span></a></li><li data-speaker="diana"><a href="#slide-4"><span class="n">۴</span><span class="t">روش انتخاب مقالات علمی</span><span class="d">۱:۳۰</span></a></li><li data-speaker="mozhan"><a href="#slide-5"><span class="n">۵</span><span class="t">اینترنت اشیا چیست و چرا مهم است؟</span><span class="d">۱:۳۰</span></a></li><li data-speaker="mozhan"><a href="#slide-6"><span class="n">۶</span><span class="t">چرا آموزش متمرکز پاسخ نیست؟</span><span class="d">۱:۳۰</span></a></li><li data-speaker="mozhan"><a href="#slide-7"><span class="n">۷</span><span class="t">یادگیری فدرال چگونه کار می‌کند</span><span class="d">۲:۰۰</span></a></li><li data-speaker="diana"><a href="#slide-8"><span class="n">۸</span><span class="t">حریم خصوصی، ویژگی ذاتی یادگیری فدرال نیست</span><span class="d">۲:۰۰</span></a></li><li data-speaker="diana"><a href="#slide-9"><span class="n">۹</span><span class="t">مدل تهدید</span><span class="d">۱:۳۰</span></a></li><li data-speaker="diana"><a href="#slide-10"><span class="n">۱۰</span><span class="t">حملات؛ دو دسته</span><span class="d">۱:۳۰</span></a></li><li data-speaker="mozhan"><a href="#slide-11"><span class="n">۱۱</span><span class="t">حریم خصوصی تفاضلی</span><span class="d">۲:۰۰</span></a></li><li data-speaker="mozhan"><a href="#slide-12"><span class="n">۱۲</span><span class="t">رمزنگاری</span><span class="d">۱:۳۰</span></a></li><li data-speaker="mozhan"><a href="#slide-13"><span class="n">۱۳</span><span class="t">بلاک‌چین</span><span class="d">۱:۳۰</span></a></li><li data-speaker="mozhan"><a href="#slide-14"><span class="n">۱۴</span><span class="t">تجمیع مقاوم</span><span class="d">۱:۳۰</span></a></li><li data-speaker="diana"><a href="#slide-15"><span class="n">۱۵</span><span class="t">مقایسهٔ روش‌ها در یک نگاه</span><span class="d">۲:۰۰</span></a></li><li data-speaker="diana"><a href="#slide-16"><span class="n">۱۶</span><span class="t">خانهٔ هوشمند؛ یک معماری ترکیبی</span><span class="d">۱:۳۰</span></a></li><li data-speaker="diana"><a href="#slide-17"><span class="n">۱۷</span><span class="t">تشخیص نفوذ با یادگیری فدرال</span><span class="d">۲:۰۰</span></a></li><li data-speaker="mozhan"><a href="#slide-18"><span class="n">۱۸</span><span class="t">چالش‌ها و مسیر پیش‌رو</span><span class="d">۱:۳۰</span></a></li><li data-speaker="mozhan"><a href="#slide-19"><span class="n">۱۹</span><span class="t">جمع‌بندی و نتیجه</span><span class="d">۱:۰۰</span></a></li><li data-speaker="mozhan"><a href="#slide-20"><span class="n">۲۰</span><span class="t">منابع و مراجع</span><span class="d">۰:۳۰</span></a></li></ul>
+  </aside>
+
+  <div class="content">
+    <section class="hero">
+      <div class="eyebrow">PRESENTER GUIDE · 30 MIN</div>
+      <h1>بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرالِ اینترنت اشیا</h1>
+      <p class="lead">راهنمای اسلاید به اسلاید برای دو ارائه‌دهنده؛ هر اسلاید شامل پیام کلیدی، متن پیشنهادی گفتار، نکته‌های اجرا و انتقال به اسلاید بعد است. زمان کل ۳۰ دقیقه است و برای چاپ A4 تنظیم شده است.</p>
+      <div class="chips">
+        <span class="chip"><strong>۲۰</strong> اسلاید</span>
+        <span class="chip"><strong>۳۰:۰۰</strong> دقیقه</span>
+        <span class="chip"><strong>۲</strong> ارائه‌دهنده</span>
+        <span class="chip">هر اسلاید یک صفحهٔ چاپ</span>
+      </div>
+      <div class="roles">
+        <div class="role diana"><div class="avatar">د</div><div><h3>دیانا صباحی · ۱۵:۳۰</h3><p>اسلایدهای ۱–۴، ۸–۱۰ و ۱۵–۱۷</p></div></div>
+        <div class="role mozhan"><div class="avatar">م</div><div><h3>موژان شجاعی · ۱۴:۳۰</h3><p>اسلایدهای ۵–۷، ۱۱–۱۴ و ۱۸–۲۰</p></div></div>
+      </div>
+      <div class="filters no-print" role="group" aria-label="فیلتر ارائه‌دهنده">
+        <span class="filter-label">نمایش بر اساس ارائه‌دهنده:</span>
+        <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">همه</button>
+        <button class="filter-btn" type="button" data-filter="diana" aria-pressed="false">دیانا</button>
+        <button class="filter-btn" type="button" data-filter="mozhan" aria-pressed="false">موژان</button>
+        <span class="filter-count" data-filter-count>۲۰ اسلاید</span>
+      </div>
+      <div class="downloads no-print">
+        <a class="download-btn primary" href="downloads/FL_IoT_Privacy_FA.pptx" download>دانلود پاورپوینت</a>
+        <a class="download-btn" href="downloads/fonts.zip" download>دانلود فونت‌ها</a>
+        <a class="download-btn" href="presenter-guide.pdf" download>دانلود PDF راهنما</a>
+      </div>
+      <p class="screen-note no-print">برای چاپ: دکمهٔ بالا را بزنید یا Ctrl+P. در تنظیمات چاپ، A4، جهت عمودی و «چاپ پس‌زمینه‌ها» (Print backgrounds) را روشن کنید.</p>
+    </section>
+
+    <div class="section-title"><h2>نقشهٔ زمانی</h2><span>جمع: ۳۰:۰۰</span></div>
+    <section class="overview">
+      <table>
+        <thead><tr><th>ردیف</th><th>اسلاید</th><th>گوینده</th><th>زمان</th></tr></thead>
+        <tbody><tr data-speaker="diana"><td data-label="ردیف">۱</td><td data-label="اسلاید">جلد</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۰:۳۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۲</td><td data-label="اسلاید">فهرست مطالب</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۱:۰۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۳</td><td data-label="اسلاید">مقدمه: مسئله، هدف و مسیر</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۲:۰۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۴</td><td data-label="اسلاید">روش انتخاب مقالات علمی</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۵</td><td data-label="اسلاید">اینترنت اشیا چیست و چرا مهم است؟</td><td data-label="گوینده">موژان</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۶</td><td data-label="اسلاید">چرا آموزش متمرکز پاسخ نیست؟</td><td data-label="گوینده">موژان</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۷</td><td data-label="اسلاید">یادگیری فدرال چگونه کار می‌کند</td><td data-label="گوینده">موژان</td><td data-label="زمان">۲:۰۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۸</td><td data-label="اسلاید">حریم خصوصی، ویژگی ذاتی یادگیری فدرال نیست</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۲:۰۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۹</td><td data-label="اسلاید">مدل تهدید</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۱۰</td><td data-label="اسلاید">حملات؛ دو دسته</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۱۱</td><td data-label="اسلاید">حریم خصوصی تفاضلی</td><td data-label="گوینده">موژان</td><td data-label="زمان">۲:۰۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۱۲</td><td data-label="اسلاید">رمزنگاری</td><td data-label="گوینده">موژان</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۱۳</td><td data-label="اسلاید">بلاک‌چین</td><td data-label="گوینده">موژان</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۱۴</td><td data-label="اسلاید">تجمیع مقاوم</td><td data-label="گوینده">موژان</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۱۵</td><td data-label="اسلاید">مقایسهٔ روش‌ها در یک نگاه</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۲:۰۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۱۶</td><td data-label="اسلاید">خانهٔ هوشمند؛ یک معماری ترکیبی</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="diana"><td data-label="ردیف">۱۷</td><td data-label="اسلاید">تشخیص نفوذ با یادگیری فدرال</td><td data-label="گوینده">دیانا</td><td data-label="زمان">۲:۰۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۱۸</td><td data-label="اسلاید">چالش‌ها و مسیر پیش‌رو</td><td data-label="گوینده">موژان</td><td data-label="زمان">۱:۳۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۱۹</td><td data-label="اسلاید">جمع‌بندی و نتیجه</td><td data-label="گوینده">موژان</td><td data-label="زمان">۱:۰۰</td></tr><tr data-speaker="mozhan"><td data-label="ردیف">۲۰</td><td data-label="اسلاید">منابع و مراجع</td><td data-label="گوینده">موژان</td><td data-label="زمان">۰:۳۰</td></tr></tbody>
+      </table>
+      <div class="total-line"><span>دیانا: ۱۵:۳۰ · موژان: ۱۴:۳۰</span><strong>جمع کل: ۳۰:۰۰</strong></div>
+    </section>
+
+    <div class="section-title"><h2>اسلاید به اسلاید</h2><span>متن گفتار پیشنهادی</span></div>
+    
+    <article class="slide-card" id="slide-1" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-01.png" alt="اسلاید ۱: جلد">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱</div>
+          <div>
+            <h2>جلد</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۰:۳۰</span>
+              <span class="pill cum">تجمعی: ۰:۳۰</span>
+              <span class="pill">افتتاحیه</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> یک روز عادی با دستگاه‌های هوشمند؛ سپس یک پرسش: داده‌هایشان چه می‌شود؟</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>یک روز عادی را تصور کنید: ساعت هوشمندتان ضربان قلب را می‌فرستد، ترموستات دمای خانه را تنظیم می‌کند و دوربین خانه رفت‌وآمد را ثبت می‌کند.</p><p>همین دستگاه‌ها موضوع سمینار ما هستند: اینترنت اشیا و حریم خصوصی داده‌هایشان در یادگیری فدرال.</p><p>من دیانا صباحی هستم و همراه موژان شجاعی در سی دقیقه از مسئله شروع می‌کنیم، تهدیدها و روش‌ها را می‌بینیم و در پایان یک چارچوب انتخاب روش ارائه می‌دهیم.</p>
+        </div>
+        <ul class="cues"><li>تماس چشمی و لبخند</li><li>اشاره به عنوان و پژوهشگران</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>دیانا → فهرست مطالب</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱ از ۲۰</span>
+          <span>دیانا · ۰:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-2" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-02.png" alt="اسلاید ۲: فهرست مطالب">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۲</div>
+          <div>
+            <h2>فهرست مطالب</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۱:۰۰</span>
+              <span class="pill cum">تجمعی: ۱:۳۰</span>
+              <span class="pill">مسیر ارائه</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> مسیر شش‌بخشی و توزیع ۳۰ دقیقه.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>مثل یک سفر سی‌دقیقه‌ای است: اول می‌بینیم این دستگاه‌ها چه هستند، بعد خطرها را می‌شناسیم، بعد راه‌حل‌ها را مقایسه می‌کنیم.</p><p>ارائه شش بخش دارد: مقدمه و مسئله؛ اینترنت اشیا و یادگیری فدرال؛ تهدیدها و حملات؛ روش‌های دفاعی؛ مقایسه و مطالعات موردی؛ جمع‌بندی و نتیجه.</p><p>زمان کل سی دقیقه است. اگر زمان کم شد، جزئیات حملات را در پرسش‌وپاسخ توضیح می‌دهیم.</p>
+        </div>
+        <ul class="cues"><li>۳۰ دقیقه را یادآوری کن</li><li>به شش بخش اشاره کن</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>دیانا → مقدمه</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۲ از ۲۰</span>
+          <span>دیانا · ۱:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-3" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-03.png" alt="اسلاید ۳: مقدمه: مسئله، هدف و مسیر">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۳</div>
+          <div>
+            <h2>مقدمه: مسئله، هدف و مسیر</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۲:۰۰</span>
+              <span class="pill cum">تجمعی: ۳:۳۰</span>
+              <span class="pill">مقدمه</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> یادگیری فدرال داده خام را جابه‌جا نمی‌کند، اما تضمین حریم خصوصی هم نمی‌دهد.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>ساعت هوشمند شما می‌داند کی می‌خوابید، ترموستات می‌داند کی خانه‌اید و دوربین می‌داند کی می‌آیید. این‌ها دادهٔ حساس‌اند.</p><p>در آموزش متمرکز، همهٔ این داده‌ها به یک سرور می‌رود؛ کاربر کنترل داده را از دست می‌دهد. هدف این ارائه، بررسی مقاله‌های علمی و مقایسهٔ روش‌های حفظ حریم خصوصی در یادگیری فدرال (FL) اینترنت اشیا است.</p><p>سه تعریف کوتاه: مدل یعنی الگوهای آموخته‌شده از داده؛ یادگیری یعنی پیدا کردن این الگوها از مثال‌ها؛ و FL یعنی آموزش مدل کنار داده، بدون جمع‌کردن داده در یک سرور.</p><p>چرا مدل و یادگیری لازم‌اند؟ دستگاه‌های اینترنت اشیا فقط داده تولید می‌کنند. بدون مدل، این داده‌ها فقط عدد و لاگ‌اند؛ مثلاً ساعت هوشمند فقط ضربان را نشان می‌دهد. با مدل، همان ساعت می‌گوید «این ضربان غیرعادی است». یادگیری هم لازم است، چون یک قاعدهٔ ثابت برای همهٔ خانه‌ها و بیماران جواب نمی‌دهد.</p><p>کاربردها هم واضح‌اند: تنظیم خودکار ترموستات، هشدار ضربان غیرعادی، تشخیص حرکت مشکوک در دوربین، و پیش‌بینی خرابی دستگاه در کارخانه.</p><p>پرسش اصلی: آیا یادگیری فدرال به‌تنهایی حریم خصوصی را تضمین می‌کند؟ پاسخ کوتاه: نه. FL داده خام را جابه‌جا نمی‌کند، اما به‌روزرسانی مدل می‌تواند حامل اطلاعات باشد.</p><p>مسیر: زمینه و مسئله، تهدیدها و دفاع‌ها، مقایسه و نتیجه. پس از این اسلاید، روش انتخاب مقالات علمی را می‌بینیم.</p>
+        </div>
+        <ul class="cues"><li>پاسخ «نه» را قلاب کن</li><li>هدف و روش را جدا بگو</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>دیانا → روش انتخاب مقالات علمی</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۳ از ۲۰</span>
+          <span>دیانا · ۲:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-4" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-04.png" alt="اسلاید ۴: روش انتخاب مقالات علمی">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۴</div>
+          <div>
+            <h2>روش انتخاب مقالات علمی</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۵:۰۰</span>
+              <span class="pill">روش‌شناسی</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> ۲۹۳ رکورد، ۱ مقاله از زنجیرهٔ ارجاع، و نمونهٔ هدفمند ۵ مقاله.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>مثل پیدا کردن پنج کتاب خوب از بین صدها کتاب در کتابخانه: اول همه را می‌بینیم، بعد غربال می‌کنیم.</p><p>در ScienceDirect با کلیدواژه‌های federated learning، IoT و privacy/security در بازهٔ ۲۰۲۴–۲۰۲۵ جست‌وجو کردم؛ ۲۹۳ رکورد بازیابی شد. یک مقالهٔ کلیدی هم از زنجیرهٔ ارجاع اضافه شد.</p><p>معیار ورود: داوری همتا، انگلیسی، پیوند FL و IoT، و تمرکز بر حریم خصوصی یا امنیت؛ معیار خروج: خارج از بازه، غیرداوری، بدون پیوند موضوعی، یا نبود متن کامل.</p><p>در پایان پنج مقاله انتخاب کردم: سه مقاله و دو چارچوب. این پنج مقاله را خودم انتخاب کردم؛ پس نتیجه فقط دربارهٔ همین‌هاست، نه همهٔ پژوهش‌ها.</p>
+        </div>
+        <ul class="cues"><li>۲۹۳ و ۵ را بگو</li><li>بگو نمونه هدفمند است</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>تحویل: دیانا این بخش را به موژان می‌سپارد.</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۴ از ۲۰</span>
+          <span>دیانا · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-5" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-05.png" alt="اسلاید ۵: اینترنت اشیا چیست و چرا مهم است؟">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۵</div>
+          <div>
+            <h2>اینترنت اشیا چیست و چرا مهم است؟</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۶:۳۰</span>
+              <span class="pill">زمینه</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> اینترنت اشیا = دستگاه‌های روزمرهٔ متصل؛ دادهٔ حساس همین‌جاست.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>خانه‌تان را تصور کنید: ترموستات، دوربین، چراغ هوشمند، ساعت هوشمند و ماشین. همه حسگر دارند و داده می‌سازند.</p><p>اینترنت اشیا یعنی همین دستگاه‌های روزمره که به شبکه وصل‌اند و داده تولید می‌کنند. پنج حوزهٔ مهم: خانهٔ هوشمند، سلامت پوشیدنی، شهر هوشمند، صنعت متصل و حمل‌ونقل.</p><p>چرا مهم است؟ چون دادهٔ حساس همین‌جاست: عادت‌ها، ضربان، موقعیت و خط تولید. جمع‌کردن این داده‌ها در یک مرکز، هزینه، تأخیر و ریسک امنیتی دارد؛ برای همین باید حریم خصوصی را از همان دستگاه‌هایی که داده را می‌سازند شروع کنیم.</p>
+        </div>
+        <ul class="cues"><li>با مثال خانه شروع کن</li><li>تعریف و مثال را جدا بگو</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>موژان → چرا آموزش متمرکز پاسخ نیست؟</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۵ از ۲۰</span>
+          <span>موژان · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-6" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-06.png" alt="اسلاید ۶: چرا آموزش متمرکز پاسخ نیست؟">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۶</div>
+          <div>
+            <h2>چرا آموزش متمرکز پاسخ نیست؟</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۸:۰۰</span>
+              <span class="pill">مسئله</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> تمرکز داده، چهار ریسک اصلی دارد.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>فرض کنید همهٔ داده‌های خانه، بیمارستان و کارخانه را در یک انبار بزرگ بریزیم. اگر یک بار انبار لو برود، همه چیز لو می‌رود.</p><p>در آموزش متمرکز، دستگاه‌ها دادهٔ خام را به سرور می‌فرستند. چهار پیامد دارد: انتقال دادهٔ حساس، نقطهٔ شکست واحد، هزینه و الزامات قانونی، و از دست رفتن کنترل کاربر.</p><p>یک سرور همهٔ داده‌ها را دارد؛ یک نفوذ می‌تواند همه را افشا کند. بنابراین ایده ساده است: داده را جابه‌جا نکنیم، مدل را جابه‌جا کنیم.</p>
+        </div>
+        <ul class="cues"><li>چهار پیامد را بشمار</li><li>گذار «مدل را جابه‌جا می‌کنیم»</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>موژان → یادگیری فدرال</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۶ از ۲۰</span>
+          <span>موژان · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-7" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-07.png" alt="اسلاید ۷: یادگیری فدرال چگونه کار می‌کند">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۷</div>
+          <div>
+            <h2>یادگیری فدرال چگونه کار می‌کند</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۲:۰۰</span>
+              <span class="pill cum">تجمعی: ۱۰:۰۰</span>
+              <span class="pill">راه‌حل</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> یادگیری = پیدا کردن الگو؛ FL = آموزش مدل کنار داده، نه بردن داده.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>یادگیری یعنی پیدا کردن الگو از مثال‌ها. مثل بچه‌ای که با دیدن صدها سیب و پرتقال، تفاوتشان را یاد می‌گیرد.</p><p>حالا سه بیمارستان را تصور کنید: هر کدام دادهٔ بیماران خودش را دارد و نمی‌خواهد داده را بفرستد. هر بیمارستان مدل را روی دادهٔ خودش آموزش می‌دهد و فقط وزن‌های مدل را می‌فرستد.</p><p>وزن یعنی چه؟ وزن یک عدد است که نشان می‌دهد هر ویژگی چقدر مهم است. مثلاً مدل یاد می‌گیرد برای تشخیص بیماری، «ضربان» وزن ۰٫۶ و «سن» وزن ۰٫۴ داشته باشد. آموزش یعنی پیدا کردن همین عددها.</p><p>FedAvg یا میانگین‌گیری فدرال یعنی سرور از وزن‌های همهٔ بیمارستان‌ها میانگین می‌گیرد. اگر سه بیمارستان وزن‌های A، B و C بفرستند، سرور مجموعشان را تقسیم بر سه می‌کند و مدل جدید را می‌سازد.</p><p>اگر بیمارستانی دادهٔ بیشتری داشته باشد، وزنش در میانگین بیشتر حساب می‌شود؛ مثل نظر پزشکی که بیماران بیشتری دیده است. بعد سرور مدل جدید را برمی‌گرداند و این چرخه چند دور تکرار می‌شود تا مدل بهتر شود.</p><p>این روش ساده و کم‌هزینه است، اما اگر داده‌ها خیلی متفاوت باشند یا دستگاهی خرابکار باشد، FedAvg به‌تنهایی کافی نیست.</p>
+        </div>
+        <ul class="cues"><li>یادگیری را با مثال بگو</li><li>سه بیمارستان را مثال بزن</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>تحویل: موژان به دیانا.</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۷ از ۲۰</span>
+          <span>موژان · ۲:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-8" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-08.png" alt="اسلاید ۸: حریم خصوصی، ویژگی ذاتی یادگیری فدرال نیست">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۸</div>
+          <div>
+            <h2>حریم خصوصی، ویژگی ذاتی یادگیری فدرال نیست</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۲:۰۰</span>
+              <span class="pill cum">تجمعی: ۱۲:۰۰</span>
+              <span class="pill">ادعای اصلی</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> بازسازی گرادیان، دادهٔ نمونه را افشا می‌کند.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>فرض کنید به جای عکس، فقط خلاصهٔ عکس را برایتان بفرستند. آیا از خلاصه می‌شود عکس را بازسازی کرد؟ بله، گاهی.</p><p>گرادیان چیست؟ وقتی مدل یک نمونه را می‌بیند، می‌فهمد چقدر اشتباه کرده و یک یادداشت کوچک می‌سازد: «این وزن‌ها را کمی کم یا زیاد کن.» به این یادداشت گرادیان می‌گوییم؛ یعنی جهت و مقدار اصلاح مدل.</p><p>Zhu و همکاران (۲۰۱۹) نشان دادند از همین گرادیان می‌توان تصویر یا متن را بازسازی کرد [6]. این حمله روی گرادیان یک دستگاه یا یک نمونه کار می‌کند، نه روی میانگین همهٔ دستگاه‌ها.</p><p>تجمیع امن یعنی سرور فقط جمع گرادیان‌ها را ببیند، نه گرادیان هر دستگاه را؛ مثل جمع کردن نامه‌های سربسته. DP یا حریم خصوصی تفاضلی یعنی کمی نویز اضافه کنیم تا حضور یک نفر در نتیجه گم شود. بنابراین اولین سؤال طراحی این است: چه کسی گرادیان‌های فردی را می‌بیند؟ اگر سرور تک‌تک را ببیند، خطر بازسازی دارد.</p>
+        </div>
+        <ul class="cues"><li>بازسازی از گرادیان فردی</li><li>میانگین تجمیع‌شده را جدا کن</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>دیانا → مدل تهدید</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۸ از ۲۰</span>
+          <span>دیانا · ۲:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-9" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-09.png" alt="اسلاید ۹: مدل تهدید">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۹</div>
+          <div>
+            <h2>مدل تهدید</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۱۳:۳۰</span>
+              <span class="pill">تهدیدها</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> سه بازیگر، دو دستهٔ حمله.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>در یک آزمون گروهی، سه نفر می‌توانند تقلب کنند: کسی که برگه‌ها را جمع می‌کند، کسی که برگهٔ جعلی می‌دهد، و کسی که وسط راه برگه را عوض می‌کند.</p><p>اینجا هم سه بازیگر داریم. اول سرور مرکزی که به‌روزرسانی مدل دستگاه‌ها را جمع و میانگین می‌گیرد. او تقلب نمی‌کند، اما می‌تواند به عددهای هر دستگاه نگاه کند.</p><p>مثال: سه بیمارستان هر کدام وزن‌های مدلشان را می‌فرستند؛ سرور جمع و میانگین می‌گیرد. اگر سرور عددهای هر بیمارستان را تک‌تک ببیند، ممکن است از آن‌ها اطلاعات بیماران را حدس بزند.</p><p>بازیگر دوم مشتری مخرب است که داده یا به‌روزرسانی را تحریف می‌کند؛ بازیگر سوم مهاجم شبکه است که در مسیر ارتباط شنود یا جعل هویت می‌کند.</p><p>از این سه بازیگر، دو دسته حمله شکل می‌گیرد: حملات علیه حریم خصوصی و حملات علیه یکپارچگی. هر دسته دفاع خودش را می‌طلبد.</p><p>حریم خصوصی یعنی اطلاعات شخصی لو نرود؛ کسی نفهمد چه کسی در آموزش بود یا چه ویژگی حساسی دارد. یکپارچگی یعنی مدل دستکاری نشود و پیش‌بینی‌ها قابل اعتماد بمانند.</p>
+        </div>
+        <ul class="cues"><li>سه بازیگر</li><li>دو دسته</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>دیانا → حملات</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۹ از ۲۰</span>
+          <span>دیانا · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-10" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-10.png" alt="اسلاید ۱۰: حملات؛ دو دسته">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۰</div>
+          <div>
+            <h2>حملات؛ دو دسته</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۱۵:۰۰</span>
+              <span class="pill">تهدیدها</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> حریم خصوصی و یکپارچگی را با هم اشتباه نگیریم.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>مثل دزدهایی که از پنجره، در و پشت‌بام وارد می‌شوند؛ هر کدام یک راه دارند.</p><p>حمله به حریم خصوصی یعنی مهاجم می‌خواهد بفهمد در داده چه بوده یا چه کسی در آموزش بوده. مثال ساده: کسی پروندهٔ پزشکی شما را بخواند. مشکلی که می‌سازد: افشای دادهٔ بیماران و کاربران، نقض قانون و از دست رفتن اعتماد.</p><p>پنج نمونهٔ مهم: استنتاج عضویت (آیا این شخص در آموزش بود؟)، استنتاج ویژگی (چه ویژگی حساسی از یک گروه لو می‌رود؟)، معکوس‌سازی مدل (بازسازی نمونهٔ نمایندهٔ یک کلاس)، بازسازی گرادیان (بازگرداندن تصویر یا متن از گرادیان)، و استخراج مدل (ساختن مدل تقلبی با کوئری).</p><p>حمله به یکپارچگی یعنی مهاجم مدل را دستکاری می‌کند تا نتیجه غلط شود. مثال ساده: کسی نسخهٔ پزشک را عوض کند. مشکلی که می‌سازد: پیش‌بینی غلط، هشدار اشتباه، رفتار پنهان مدل و تصمیم ناایمن.</p><p>پنج نمونهٔ مهم: مسموم‌سازی داده (دادهٔ آلوده)، درِ پشتی (محرک پنهان)، سایبیل (هویت جعلی)، بهره‌مندی بدون مشارکت (مشارکت بی‌ارزش)، و بیزانسی (خرابکاری هماهنگ).</p><p>سایبیل در عمل: یک مهاجم ۵۰ دستگاه جعلی وارد شبکه می‌کند تا وزن خرابکارانه در میانگین غالب شود. مثال روزمره: یک دانشجو با ۵۰ حساب جعلی در نظرسنجی کلاس رأی می‌دهد.</p><p>بهره‌مندی بدون مشارکت در عمل: دستگاهی بدون آموزش، وزن تکراری یا صفر می‌فرستد و پاداش می‌گیرد. مثال روزمره: عضو گروهی که هیچ کاری نمی‌کند، اما نمرهٔ گروه را می‌گیرد.</p><p>بیزانسی در عمل: چند دستگاه هماهنگ وزن‌های خراب می‌فرستند تا مدل مشترک اشتباه کند. مثال روزمره: چند نفر هماهنگ جواب غلط می‌دهند تا پروژه خراب شود.</p><p>نکته: بازسازی معمولاً از گرادیان فردی انجام می‌شود، نه از میانگین تجمیع‌شده.</p>
+        </div>
+        <ul class="cues"><li>یک مثال برای هر دسته</li><li>بازسازی از گرادیان فردی</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>تحویل: دیانا به موژان برای دفاع‌ها.</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۰ از ۲۰</span>
+          <span>دیانا · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-11" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-11.png" alt="اسلاید ۱۱: حریم خصوصی تفاضلی">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۱</div>
+          <div>
+            <h2>حریم خصوصی تفاضلی</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۲:۰۰</span>
+              <span class="pill cum">تجمعی: ۱۷:۰۰</span>
+              <span class="pill">دفاع‌ها</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> حریم خصوصی تفاضلی تنها تضمین رسمی با ε است.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>نظرسنجی را تصور کنید: اگر بگویید «۳۰ ساله، تهران، شغل خاص»، شاید شناسایی شوید. راه‌حل ساده: کمی نویز به پاسخ اضافه کنیم تا فرد در جمع گم شود.</p><p>نویز یعنی چه؟ مثلاً به سن ۳۰ سال، تصادفی ۲ سال کم یا زیاد می‌کنیم. نتیجهٔ کلی قابل استفاده می‌ماند، ولی فرد خاص گم می‌شود.</p><p>حریم خصوصی تفاضلی (DP) همین کار را با تضمین ریاضی انجام می‌دهد: اگر یک نفر در داده باشد یا نباشد، نتیجه تقریباً یکی است؛ پس از خروجی نمی‌شود فهمید او بوده یا نه.</p><p>CDP و LDP: CDP نویز را در سرور اضافه می‌کند و به سرور اعتماد دارد؛ LDP نویز را در خود دستگاه اضافه می‌کند و نیازی به اعتماد به سرور نیست.</p><p>ε بودجهٔ حریم خصوصی است: کوچک‌تر یعنی حریم بیشتر، نویز بیشتر و دقت کمتر. در IoT، LDP مناسب‌تر است، ولی باید افت دقت و ترکیب چند دور را مدیریت کرد.</p>
+        </div>
+        <ul class="cues"><li>فرمول را سریع رد نکن</li><li>ε را به نویز و دقت وصل کن</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>موژان → رمزنگاری</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۱ از ۲۰</span>
+          <span>موژان · ۲:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-12" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-12.png" alt="اسلاید ۱۲: رمزنگاری">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۲</div>
+          <div>
+            <h2>رمزنگاری</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۱۸:۳۰</span>
+              <span class="pill">دفاع‌ها</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> رمزنگاری محرمانگی می‌دهد، نه لزوماً تضمین DP.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>نامه‌ای را در پاکت قفل‌شده بفرستید؛ پستچی آدرس را می‌بیند، اما متن نامه را نمی‌بیند.</p><p>تجمیع امن: هر دستگاه عددش را در پاکت سربسته می‌گذارد؛ سرور فقط جمع را می‌بیند، نه عدد هر دستگاه [8].</p><p>SMPC: چند نفر با هم یک محاسبه انجام می‌دهند، بدون اینکه عددشان را به دیگری بگویند؛ مثل رأی‌گیری مخفی.</p><p>HE: داده را در جعبهٔ قفل‌شده می‌گذاریم و روی همان جعبه حساب می‌کنیم؛ بدون بازکردن جعبه.</p><p>تقسیم دادهٔ محرمانه: دادهٔ محرمانه را به چند تکه تقسیم می‌کنیم و به چند نفر می‌دهیم؛ فقط با کنار هم گذاشتن تکه‌ها داده کامل می‌شود.</p><p>هزینه: این روش‌ها محاسبات سنگین‌تری دارند؛ روی ساعت یا حسگر کوچک، باتری و زمان بیشتری می‌گیرند. مهم‌تر: این روش‌ها فقط محرمانگی می‌دهند؛ یعنی محتوا را از سرور پنهان می‌کنند. اما تضمین DP نیستند؛ یعنی ممکن است از مدل نهایی باز هم اطلاعات فردی لو برود. جلوی مسموم‌سازی را هم نمی‌گیرند؛ اگر دستگاه خرابکار عدد غلط بفرستد، آن عدد غلط هم مخفی می‌شود. مثال: نامهٔ سربسته با عدد غلط؛ سرور متن را نمی‌بیند، ولی جمع نهایی غلط می‌شود.</p>
+        </div>
+        <ul class="cues"><li>محرمانگی ≠ DP</li><li>هزینه‌ها را مقایسه کن</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>موژان → بلاک‌چین</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۲ از ۲۰</span>
+          <span>موژان · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-13" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-13.png" alt="اسلاید ۱۳: بلاک‌چین">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۳</div>
+          <div>
+            <h2>بلاک‌چین</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۲۰:۰۰</span>
+              <span class="pill">دفاع‌ها</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> بلاک‌چین وابستگی را کم می‌کند، محرمانگی نمی‌دهد.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>دفتر حضور و غیاب کلاس را تصور کنید که هر دانشجو یک نسخه از آن دارد. اگر یک نفر غیبت را به حضور تغییر دهد، بقیه نسخه‌ها با او نمی‌خوانند و تغییر رد می‌شود.</p><p>بلاک‌چین همین دفتر مشترک است: نیازی به یک مدیر مرکزی نیست. هر دستگاه به‌روزرسانی را امضا می‌کند (مثل مهر شخصی)، قرارداد هوشمند قواعد را خودکار بررسی می‌کند (مثل ماشین فروش خودکار)، و مدل و پاداش ثبت می‌شود.</p><p>همه می‌توانند تاریخچه را ببینند و دستکاری لو می‌رود؛ این یعنی حسابرسی‌پذیر. اما محرمانگی محتوا را تضمین نمی‌کند؛ اگر داده رمز نشده باشد، ممکن است دیده شود.</p><p>مدل بزرگ در IPFS (انبار فایل توزیع‌شده) می‌ماند و فقط اثر انگشت دیجیتال (هش) آن روی زنجیره ثبت می‌شود. هزینه‌اش تأخیر اجماع است: برای ثبت هر مورد باید همهٔ نسخه‌ها تأیید کنند؛ برای هزاران دستگاه کوچک هم مقیاس‌پذیری محدود است.</p>
+        </div>
+        <ul class="cues"><li>بلاک‌چین محرمانگی نمی‌دهد</li><li>تأخیر اجماع</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>موژان → تجمیع مقاوم</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۳ از ۲۰</span>
+          <span>موژان · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-14" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-14.png" alt="اسلاید ۱۴: تجمیع مقاوم">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۴</div>
+          <div>
+            <h2>تجمیع مقاوم</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۲۱:۳۰</span>
+              <span class="pill">دفاع‌ها</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> تجمیع مقاوم برای یکپارچگی است، نه حریم خصوصی.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>در یک رأی‌گیری، چند رأی تقلبی می‌آید؛ می‌توانیم رأی‌های دور از اکثریت را کنار بگذاریم.</p><p>تجمیع مقاوم با به‌روزرسانی‌های پرت سروکار دارد: Krum، میانهٔ بریده‌شده، فیلتر پرت یک‌بعدی و آموزش خصمانه [10].</p><p>به‌روزرسانی‌های دور از اکثریت، پیش از تجمیع کنار گذاشته می‌شوند. این روش‌ها فقط یکپارچگی را حفظ می‌کنند؛ حریم خصوصی را تضمین نمی‌کنند. بنابراین در کنار DP یا رمزنگاری معنا دارند، نه به‌جای آن‌ها.</p>
+        </div>
+        <ul class="cues"><li>یکپارچگی ≠ حریم خصوصی</li><li>Krum را نام ببر</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>تحویل: موژان به دیانا برای مقایسه.</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۴ از ۲۰</span>
+          <span>موژان · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-15" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-15.png" alt="اسلاید ۱۵: مقایسهٔ روش‌ها در یک نگاه">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۵</div>
+          <div>
+            <h2>مقایسهٔ روش‌ها در یک نگاه</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۲:۰۰</span>
+              <span class="pill cum">تجمعی: ۲۳:۳۰</span>
+              <span class="pill">مقایسه</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> انتخاب روش به تهدید، بودجه و توان دستگاه بستگی دارد.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>مثل انتخاب وسیله برای سفر: دوچرخه، ماشین یا قطار؛ هیچ‌کدام همیشه بهترین نیست.</p><p>جدول را ستون‌به‌ستون بخوانیم. DP: تضمین رسمی با ε، تهدید سرور کنجکاو، هزینهٔ متوسط و بلوغ بالا. تجمیع امن / SMPC: محرمانگی به‌روزرسانی‌ها، تهدید سرور یا شبکه، بدون ε و هزینهٔ متوسط. HE: محرمانگی محاسبه، هزینهٔ بسیار زیاد و بلوغ پایین.</p><p>بلاک‌چین: یکپارچگی و حسابرسی، نه محرمانگی؛ هزینهٔ زیاد. تجمیع مقاوم: یکپارچگی و هزینهٔ کم. انتخاب روش به تهدید، بودجه و توان دستگاه بستگی دارد.</p>
+        </div>
+        <ul class="cues"><li>ستون‌ها را از راست بخوان</li><li>«بدون ε» را توضیح بده</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>دیانا → خانهٔ هوشمند</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۵ از ۲۰</span>
+          <span>دیانا · ۲:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-16" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-16.png" alt="اسلاید ۱۶: خانهٔ هوشمند؛ یک معماری ترکیبی">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۶</div>
+          <div>
+            <h2>خانهٔ هوشمند؛ یک معماری ترکیبی</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۲۵:۰۰</span>
+              <span class="pill">مطالعهٔ موردی</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> یک سناریوی مفهومی برای ترکیب روش‌ها.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>یک خانهٔ واقعی را تصور کنید: ترموستات، دوربین، گوشی، یک سرور محله، بلاک‌چین و سازنده.</p><p>لوازم خانگی دادهٔ محلی را نگه می‌دارند؛ گوشی نویز DP اضافه می‌کند؛ سرور محلی لایه‌ها را آموزش می‌دهد؛ بلاک‌چین تجمیع و پاداش را ثبت می‌کند؛ سازنده مدل مشترک را می‌گیرد.</p><p>چه چیزی محافظت می‌شود؟ دادهٔ خام در خانه می‌ماند، DP پیش از خروج ویژگی‌ها اعمال می‌شود و امضای دیجیتال مانع جعل می‌شود. چه هزینه‌ای دارد؟ هماهنگی گوشی، سرور محلی و بلاک‌چین؛ تأخیر اجماع و ذخیره‌سازی مدل. این معماری ترکیبی است، نه یک روش واحد.</p>
+        </div>
+        <ul class="cues"><li>بگو مفهومی است</li><li>پنج مؤلفه را دنبال کن</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>دیانا → تشخیص نفوذ</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۶ از ۲۰</span>
+          <span>دیانا · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-17" data-speaker="diana">
+      <div class="slide-media">
+        <img src="slides/slide-17.png" alt="اسلاید ۱۷: تشخیص نفوذ با یادگیری فدرال">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۷</div>
+          <div>
+            <h2>تشخیص نفوذ با یادگیری فدرال</h2>
+            <div class="meta">
+              <span class="pill diana">دیانا</span>
+              <span class="pill time">مدت: ۲:۰۰</span>
+              <span class="pill cum">تجمعی: ۲۷:۰۰</span>
+              <span class="pill">مطالعهٔ موردی</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> جدول ۳: دقت ۹۵٫۰۵٪ و FPR ۳٫۹٪؛ بدون سنجش نشت.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>یک شبکهٔ کوچک را تصور کنید که حمله می‌شود؛ می‌خواهیم مدل، حمله را زود تشخیص دهد.</p><p>روی اسلاید، جدول ۳ مقاله را همان‌طور که منتشر شده می‌بینید؛ اعداد را بازسازی نکرده‌ام. FedAvg دقت ۹۴٫۰۵ و FedAvgM دقت ۹۵٫۰۵ دارد؛ نرخ مثبت کاذب از ۵٫۱ به ۳٫۹ کاهش می‌یابد؛ تعداد دور تا دقت ۹۰٪ از ۲۴ به ۱۷ می‌رسد.</p><p>آموزش محلی ۰٫۸۹ ثانیه در هر دوره و ارتباط هر دستگاه ۳۲۰ کیلوبایت است [5، جدول ۳]. FedAvgM سریع‌تر و پایدارتر است. محدودیت: جدول ۴ مقاله فقط کیفی است و نشت حریم خصوصی اندازه‌گیری نشده؛ پس این مطالعه عملکرد IDS را می‌سنجد، نه تضمین حریم خصوصی را.</p>
+        </div>
+        <ul class="cues"><li>جدول ۳ را نشان بده</li><li>محدودیت مطالعه را بگو</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>تحویل: دیانا به موژان برای جمع‌بندی.</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۷ از ۲۰</span>
+          <span>دیانا · ۲:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-18" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-18.png" alt="اسلاید ۱۸: چالش‌ها و مسیر پیش‌رو">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۸</div>
+          <div>
+            <h2>چالش‌ها و مسیر پیش‌رو</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۱:۳۰</span>
+              <span class="pill cum">تجمعی: ۲۸:۳۰</span>
+              <span class="pill">جمع‌بندی</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> چهار چالش، سه مسیر، یک ملاحظهٔ قانونی.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>مثل ورزشکاری که هم سرعت می‌خواهد هم دقت؛ نمی‌شود هر دو را بی‌هزینه داشت.</p><p>چهار چالش اصلی: ناهمگونی داده یا Non-IID؛ محدودیت منابع باتری و پردازنده؛ بده‌بستان حریم خصوصی و دقت؛ و نبود بنچمارک مشترک.</p><p>سه مسیر پیش‌رو: ترکیب لایه‌ها، رمزنگاری سبک‌وزن و مدل شخصی‌سازی‌شده. ملاحظات قانونی هم داریم: رضایت، کمینه‌سازی داده و انطباق با GDPR.</p><p>در پنج مقالهٔ علمی بررسی‌شده، هیچ روشی به‌تنهایی کافی نبود.</p>
+        </div>
+        <ul class="cues"><li>چهار چالش</li><li>سه مسیر + قانون</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>موژان → نتیجه</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۸ از ۲۰</span>
+          <span>موژان · ۱:۳۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-19" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-19.png" alt="اسلاید ۱۹: جمع‌بندی و نتیجه">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۱۹</div>
+          <div>
+            <h2>جمع‌بندی و نتیجه</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۱:۰۰</span>
+              <span class="pill cum">تجمعی: ۲۹:۳۰</span>
+              <span class="pill">جمع‌بندی</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> ضرورت، نتیجه و گام بعدی.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>اگر بخواهیم کل ارائه را در یک جمله بگوییم: دادهٔ حساس را از دستگاه بیرون نفرستیم، اما مدل را هوشمند نگه داریم.</p><p>نتیجه: یادگیری فدرال داده را جابه‌جا نمی‌کند، اما به‌روزرسانی‌ها را جابه‌جا می‌کند؛ چهار دستهٔ دفاعی با هزینه‌های متفاوت داریم؛ سیستم‌های واقعی همیشه ترکیبی‌اند.</p><p>ضرورت انتخاب موضوع: رشد پرشتاب دستگاه‌ها و داده‌های حساس، شکاف میان ادعای FL و تضمین واقعی، و نیاز به چارچوب انتخاب روش.</p><p>کاری که می‌توانم انجام دهم: ارزیابی ترکیب DP و تجمیع امن روی یک بنچمارک واقعی IoT. جملهٔ پایانی: ۹۵٪ دقت، بدون سنجش نشت حریم خصوصی.</p>
+        </div>
+        <ul class="cues"><li>سه جملهٔ نتیجه</li><li>گام بعدی</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>موژان → منابع</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۱۹ از ۲۰</span>
+          <span>موژان · ۱:۰۰</span>
+        </div>
+      </div>
+    </article>
+    <article class="slide-card" id="slide-20" data-speaker="mozhan">
+      <div class="slide-media">
+        <img src="slides/slide-20.png" alt="اسلاید ۲۰: منابع و مراجع">
+      </div>
+      <div class="slide-body">
+        <div class="slide-head">
+          <div class="slide-num">۲۰</div>
+          <div>
+            <h2>منابع و مراجع</h2>
+            <div class="meta">
+              <span class="pill mozhan">موژان</span>
+              <span class="pill time">مدت: ۰:۳۰</span>
+              <span class="pill cum">تجمعی: ۳۰:۰۰</span>
+              <span class="pill">پایان</span>
+            </div>
+          </div>
+        </div>
+        <div class="key"><b>پیام کلیدی:</b> منابع کلیدی برای پیگیری.</div>
+        <div class="script">
+          <h3>چه بگویید</h3>
+          <p>منابع مثل نقشهٔ راه هستند؛ اگر خواستید بیشتر بخوانید، از همین‌ها شروع کنید.</p><p>منابع اصلی: پنج مقالهٔ ۲۰۲۴–۲۰۲۵ و پنج مرجع بنیادی؛ از FedAvg و Secure Aggregation تا DP و Krum.</p><p>از توجه شما ممنونم؛ آمادهٔ پرسش‌وپاسخ هستم.</p>
+        </div>
+        <ul class="cues"><li>تشکر</li><li>دعوت به پرسش</li></ul>
+        <div class="transition"><strong>انتقال:</strong><span>پایان: پرسش‌وپاسخ</span></div>
+        <div class="print-foot">
+          <span>اسلاید ۲۰ از ۲۰</span>
+          <span>موژان · ۰:۳۰</span>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="footer no-print">راهنمای ارائه · دانشگاه سلمان فارسی کازرون · گروه مهندسی کامپیوتر · پاییز ۱۴۰۵</footer>
+<script src="app.js"></script>
+</body>
+</html>
