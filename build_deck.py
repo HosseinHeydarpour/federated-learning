@@ -1081,7 +1081,7 @@ def slide_conclusion(prs):
     tf = textbox(s, X0, 5.76, CW, 0.40)
     p = para(tf, first=True, align="r", line=1.35)
     run(p, "کاری که می^توانم انجام دهم: ", 11.0, BLUE, bold=True)
-    run(p, "ارزیابی ترکیب DP با تجمیع امن روی یک بنچمارک واقعی IoT.", 11.0, BODY)
+    run(p, "ارزیابی ترکیب حریم خصوصی تفاضلی با تجمیع امن روی یک آزمون واقعی اینترنت اشیا.", 11.0, BODY)
 
     txt(s, X0, 6.55, CW, 0.24, "پایان  ·  پرسش و پاسخ", 8.0, FAINT, font=FA, align="r", spacing=0.6)
     footer(s, 19)
