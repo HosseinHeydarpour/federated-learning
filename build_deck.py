@@ -497,7 +497,7 @@ def slide_central(prs):
     s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
     sec_header(s, "اینترنت اشیا و یادگیری فدرال", "چرا آموزش متمرکز پاسخ نیست؟", 6, title_size=30)
 
-    rect(s, 8.85, 1.92, 3.70, 3.82, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=92)
+    rect(s, 8.85, 1.92, 3.70, 3.55, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=92)
     txt(s, 9.10, 2.06, 3.20, 0.28, "دستگاه^های محلی", 11.6, BLUE, bold=True, align="r")
     txt(s, 9.10, 2.34, 3.20, 0.24, "منبع داده خام", 8.5, MUTED, align="r")
     chips = ["دوربین", "ساعت", "ترموستات", "خودرو", "حسگر", "گوشی"]
@@ -523,11 +523,11 @@ def slide_central(prs):
     txt(s, 5.35, 3.82, 2.30, 0.24, "ابر", 9.5, MUTED, align="c")
     arrow_left(s, 4.50, 3.50, 0.55, 0.28, color=RGBColor(0x9D,0xB5,0xD4))
 
-    rect(s, X0, 1.92, 3.55, 3.82, fill=PINK_PALE, line=RGBColor(0xF3,0xC8,0xD6), radius=0.12, shadow=True, alpha=96)
+    rect(s, X0, 1.92, 3.55, 3.55, fill=PINK_PALE, line=RGBColor(0xF3,0xC8,0xD6), radius=0.12, shadow=True, alpha=96)
     txt(s, 1.00, 2.08, 3.10, 0.28, "چهار پیامد", 11.6, RED, bold=True, align="r")
     tf = textbox(s, 1.00, 2.50, 3.08, 2.35)
-    body(tf, ["انتقال داده خام و حساس", "نقطهٔ شکست واحد", "هزینه و الزامات قانونی", "از دست رفتن کنترل کاربر"], 11.4, INK, bullet_color=RED, gap=8, line=1.35)
-    txt(s, 1.00, 5.08, 3.05, 0.34, "نتیجه: یک نقطهٔ شکست برای همه", 10.0, RED, bold=True, align="r")
+    body(tf, ["انتقال داده خام و حساس", "نقطهٔ شکست واحد", "هزینه و الزامات قانونی", "از دست رفتن کنترل کاربر"], 12.2, INK, bullet_color=RED, gap=16, line=1.5)
+    txt(s, 1.00, 4.85, 3.05, 0.34, "نتیجه: یک نقطهٔ شکست برای همه", 10.0, RED, bold=True, align="r")
 
     band(s, "بنابراین داده را جابه^جا نمی^کنیم؛ مدل را جابه^جا می^کنیم.", y=6.20, h=0.50)
     footer(s, 6)
@@ -549,13 +549,13 @@ def slide_fl(prs):
     gap = (CW - 4 * 2.58) / 3
     for i, (num, t, d, ic) in enumerate(steps):
         x = XR - 2.58 - i * (2.58 + gap)
-        rect(s, x, 2.18, 2.58, 2.85, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=93)
+        rect(s, x, 2.18, 2.58, 2.55, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=93)
         num_circle(s, num, x + 2.58 - 0.50, 2.30, d=0.38, size=8.0)
         icon_circle(s, ic, x + 0.20, 2.42, d=0.56, size=19)
-        txt(s, x + 0.18, 3.12, 2.22, 0.46, t, 13.0, INK, bold=True, align="r", line=1.2)
-        txt(s, x + 0.18, 3.65, 2.22, 0.85, d, 10.3, BODY, align="r", line=1.5)
+        txt(s, x + 0.18, 3.05, 2.22, 0.46, t, 14.6, INK, bold=True, align="r", line=1.2)
+        txt(s, x + 0.18, 3.60, 2.22, 0.85, d, 10.4, BODY, align="r", line=1.5)
         if i < 3:
-            arrow_left(s, x - gap / 2 - 0.15, 3.50, 0.30, 0.22, color=BLUE_MID)
+            arrow_left(s, x - gap / 2 - 0.15, 3.35, 0.30, 0.22, color=BLUE_MID)
 
     q = rect(s, 2.40, 5.34, 8.53, 0.52, fill=BLUE_PALE, line=RGBColor(0xC9,0xDB,0xF2), radius=0.5, shadow=False)
     tf = textbox(s, 2.40, 5.34, 8.53, 0.52, anchor="m")
@@ -588,9 +588,9 @@ def slide_thesis(prs):
     w = (CW - 2 * gap) / 3
     for i, (t, ic, col, bg) in enumerate(points):
         x = XR - w - i * (w + gap)
-        rect(s, x, 3.92, w, 1.55, fill=bg, line=RGBColor(0xE2,0xE9,0xF5), radius=0.12, shadow=False)
-        icon(s, ic, x + 0.18, 4.06, size=21, color=col)
-        txt(s, x + 0.18, 4.48, w - 0.36, 0.90, t, 11.2, INK, line=1.45, align="c")
+        rect(s, x, 3.92, w, 1.32, fill=bg, line=RGBColor(0xE2,0xE9,0xF5), radius=0.12, shadow=False)
+        icon(s, ic, x + 0.18, 4.02, size=21, color=col)
+        txt(s, x + 0.18, 4.34, w - 0.36, 0.82, t, 11.6, INK, line=1.45, align="c")
 
     flow = [("داده محلی", 0xE912), ("گرادیان", 0xE9D9), ("بازسازی نمونه", 0xE7B3)]
     for i, (t, ic) in enumerate(flow):
@@ -1022,15 +1022,15 @@ def slide_challenges(prs):
     w = (CW - 3 * gap) / 4
     for i, (t, en, d, note_, ic, col) in enumerate(items):
         x = XR - w - i * (w + gap)
-        rect(s, x, 1.98, w, 3.10, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=94)
+        rect(s, x, 1.98, w, 3.00, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=94)
         icon_circle(s, ic, x + 0.20, 2.16, d=0.56, color=col, size=19)
         num_circle(s, fa(i + 1), x + w - 0.52, 2.22, d=0.34, size=7.2)
-        txt(s, x + 0.20, 2.86, w - 0.40, 0.46, t, 11.8, INK, bold=True, align="r", line=1.2)
+        txt(s, x + 0.20, 2.80, w - 0.40, 0.46, t, 12.4, INK, bold=True, align="r", line=1.2)
         is_latin = en.isascii()
-        txt(s, x + 0.20, 3.34, w - 0.40, 0.22, en, 7.2, MUTED,
+        txt(s, x + 0.20, 3.28, w - 0.40, 0.22, en, 7.2, MUTED,
             font=(EN_BODY if is_latin else FA), align="r", latin=is_latin)
-        txt(s, x + 0.20, 3.66, w - 0.40, 0.62, d, 9.4, BODY, align="r", line=1.4)
-        txt(s, x + 0.20, 4.28, w - 0.40, 0.56, note_, 8.4, MUTED, align="r", line=1.35)
+        txt(s, x + 0.20, 3.60, w - 0.40, 0.62, d, 10.0, BODY, align="r", line=1.4)
+        txt(s, x + 0.20, 4.20, w - 0.40, 0.56, note_, 9.0, MUTED, align="r", line=1.35)
 
     txt(s, 8.90, 5.24, 3.65, 0.24, "مسیر پیش^رو", 9.6, BLUE_MID, font=EN, align="r", latin=True, spacing=1.6)
     futures = [("ترکیب لایه^ها", 0xE8F1), ("رمزنگاری سبک^وزن", 0xE72E), ("مدل شخصی^سازی^شده", 0xE716)]
