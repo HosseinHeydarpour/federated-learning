@@ -818,7 +818,7 @@ def slide_robust(prs):
     ring = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(ox - 0.30), Inches(3.00), Inches(0.60), Inches(0.60))
     ring.fill.background(); ring.line.color.rgb = PINK; ring.line.width = Pt(1.2); ring.line.dash_style = 4
     txt(s, 4.60, 2.70, 0.9, 0.24, "پرت", 9.5, PINK, bold=True, align="c")
-    txt(s, 1.05, 4.42, 5.10, 0.75, "به^روزرسانی^های دور از اکثریت، پیش از تجمیع کنار گذاشته می^شوند.", 10.2, BODY, align="r", line=1.4)
+    txt(s, 1.05, 4.42, 5.10, 0.75, "به^روزرسانی^های دور از اکثریت کنار گذاشته می^شوند؛ با میانه، یک عدد پرت بی^اثر است.", 10.2, BODY, align="r", line=1.4)
 
     # methods
     methods = [
