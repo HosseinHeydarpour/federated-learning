@@ -2,6 +2,9 @@ __pycache__/
 preview/
 *.pyc
 
+# figures extracted from papers (copyright), kept local only
+paper-figures/
+
 # reference papers and scratch files, not part of the site
 *.pdf
 !presenter-guide/presenter-guide.pdf
