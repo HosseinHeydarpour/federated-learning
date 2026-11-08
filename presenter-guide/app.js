@@ -93,3 +93,170 @@
     btn.addEventListener("click", () => window.print());
   });
 })();
+
+// ---------- guided tour ----------
+(function () {
+  const KEY = "guide-tour-done";
+  const fa = n => String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+  const steps = [
+    {
+      sel: '[data-filter="all"]',
+      title: "این صفحه چه کاری می‌کند؟",
+      text: "راهنمای اسلاید به اسلاید ارائه است. با دکمه‌های دیانا و موژان فقط اسلایدهای خودتان را می‌بینید.",
+    },
+    {
+      sel: '[data-tour="files"]',
+      title: "سه فایل برای دانلود",
+      text: "پاورپوینت ارائه، بستهٔ فونت‌ها و PDF راهنما. هر سه از همین صفحه دانلود می‌شوند.",
+    },
+    {
+      sel: '[data-tour="deck"]',
+      title: "۱ · پاورپوینت",
+      text: "۲۰ اسلاید آمادهٔ پخش؛ همین فایل را در سالن باز می‌کنید. زمان‌بندی ۳۰ دقیقه در یادداشت اسلایدهاست.",
+    },
+    {
+      sel: '[data-tour="fonts"]',
+      title: "۲ · فونت‌ها",
+      text: "B Nazanin و B Titr. قبل از ارائه نصبشان کنید؛ بدون این دو، متن اسلایدها در سیستم شما بد باز می‌شود.",
+    },
+    {
+      sel: '[data-tour="pdf"]',
+      title: "۳ · PDF راهنما",
+      text: "نسخهٔ چاپی ۲۲ صفحه‌ای برای تمرین و خواندن روی کاغذ. اگر لپ‌تاپ ندارید، همین را چاپ کنید.",
+    },
+  ];
+
+  const startBtn = document.querySelector("[data-tour-start]");
+  let layer, spot, card, stepEl, titleEl, textEl, prevBtn, nextBtn, dotsEl;
+  let idx = 0;
+  let lastFocus = null;
+
+  function build() {
+    layer = document.createElement("div");
+    layer.className = "tour-layer no-print";
+    layer.hidden = true;
+    layer.innerHTML =
+      '<div class="tour-spot"></div>' +
+      '<div class="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title" tabindex="-1">' +
+      '<div class="tour-head"><span class="tour-step"></span>' +
+      '<button class="tour-close" type="button" aria-label="بستن تور">×</button></div>' +
+      '<h3 id="tour-title"></h3><p></p>' +
+      '<div class="tour-actions"><button class="tour-skip" type="button">رد کردن</button>' +
+      '<span class="tour-dots"></span>' +
+      '<button class="tour-prev" type="button">قبلی</button>' +
+      '<button class="tour-next" type="button">بعدی</button></div>' +
+      "</div>";
+    document.body.appendChild(layer);
+
+    spot = layer.querySelector(".tour-spot");
+    card = layer.querySelector(".tour-card");
+    stepEl = layer.querySelector(".tour-step");
+    titleEl = layer.querySelector("#tour-title");
+    textEl = layer.querySelector(".tour-card p");
+    prevBtn = layer.querySelector(".tour-prev");
+    nextBtn = layer.querySelector(".tour-next");
+    dotsEl = layer.querySelector(".tour-dots");
+
+    dotsEl.innerHTML = steps.map(() => "<span></span>").join("");
+    syncDots();
+
+    nextBtn.addEventListener("click", () => (idx === steps.length - 1 ? close() : show(idx + 1)));
+    prevBtn.addEventListener("click", () => show(idx - 1));
+    layer.querySelector(".tour-skip").addEventListener("click", close);
+    layer.querySelector(".tour-close").addEventListener("click", close);
+    layer.addEventListener("click", e => {
+      if (e.target === layer) close();
+    });
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", () => { if (!layer.hidden) place(); }, { passive: true });
+  }
+
+  function syncDots() {
+    Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle("on", i === idx));
+  }
+
+  function place() {
+    if (!layer || layer.hidden) return;
+    const el = document.querySelector(steps[idx].sel);
+    if (!el) return close();
+    const r = el.getBoundingClientRect();
+    const pad = 8;
+    const top = r.top - pad;
+    const left = r.left - pad;
+    const w = r.width + pad * 2;
+    const h = r.height + pad * 2;
+    spot.style.top = top + "px";
+    spot.style.left = left + "px";
+    spot.style.width = w + "px";
+    spot.style.height = h + "px";
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const cw = card.offsetWidth;
+    const ch = card.offsetHeight;
+    let t = top + h + 14;
+    if (t + ch > vh - 10) t = top - ch - 14;
+    if (t < 10) t = Math.max(10, vh - ch - 10);
+    let l = left + w / 2 - cw / 2;
+    l = Math.min(Math.max(10, l), vw - cw - 10);
+    card.style.top = t + "px";
+    card.style.left = l + "px";
+  }
+
+  function show(i) {
+    idx = Math.max(0, Math.min(steps.length - 1, i));
+    const el = document.querySelector(steps[idx].sel);
+    if (!el) return close();
+
+    stepEl.textContent = "گام " + fa(idx + 1) + " از " + fa(steps.length);
+    titleEl.textContent = steps[idx].title;
+    textEl.textContent = steps[idx].text;
+    prevBtn.hidden = idx === 0;
+    nextBtn.textContent = idx === steps.length - 1 ? "پایان" : "بعدی";
+    syncDots();
+
+    const prevBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "auto";
+    el.scrollIntoView({ block: "center", inline: "nearest" });
+    document.documentElement.style.scrollBehavior = prevBehavior;
+    place();
+  }
+
+  function open(i) {
+    if (!layer) build();
+    lastFocus = document.activeElement;
+    layer.hidden = false;
+    document.body.classList.add("tour-on");
+    show(i);
+    card.focus({ preventScroll: true });
+  }
+
+  function close() {
+    if (!layer) return;
+    layer.hidden = true;
+    document.body.classList.remove("tour-on");
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+
+  document.addEventListener("keydown", e => {
+    if (!layer || layer.hidden) return;
+    if (e.key === "Escape") {
+      e.preventDefault();
+      close();
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      idx === steps.length - 1 ? close() : show(idx + 1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      show(idx - 1);
+    }
+  });
+
+  if (startBtn) startBtn.addEventListener("click", () => open(0));
+
+  let done = false;
+  try { done = localStorage.getItem(KEY) === "1"; } catch (e) {}
+  const printable = window.matchMedia && window.matchMedia("print").matches;
+  if (!done && !printable) setTimeout(() => open(0), 900);
+})();

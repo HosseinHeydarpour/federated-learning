@@ -220,6 +220,46 @@ img{max-width:100%;height:auto}
   border-color:transparent;color:#fff;
 }
 
+/* ---------- tour ---------- */
+.tour-layer{position:fixed;inset:0;z-index:200}
+.tour-spot{
+  position:fixed;border-radius:14px;pointer-events:none;
+  box-shadow:0 0 0 9999px rgba(10,20,38,.66), 0 0 0 2px var(--lav);
+  transition:top .2s ease,left .2s ease,width .2s ease,height .2s ease;
+}
+.tour-card{
+  position:fixed;width:344px;max-width:calc(100vw - 20px);
+  background:var(--paper);border:1px solid var(--line);border-radius:18px;
+  padding:14px 16px 16px;box-shadow:0 26px 60px rgba(16,30,60,.38);
+  outline:none;color:var(--body);text-align:right;
+}
+.tour-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.tour-step{font-size:11px;font-weight:800;color:var(--muted);letter-spacing:.02em}
+.tour-close{
+  border:0;background:transparent;color:var(--muted);cursor:pointer;
+  font-family:inherit;font-size:20px;line-height:1;padding:0 2px;
+}
+.tour-close:hover{color:var(--ink)}
+.tour-card h3{margin:4px 0 6px;font-size:16px;line-height:1.6;color:var(--ink)}
+.tour-card p{margin:0 0 14px;font-size:13px;line-height:1.9}
+.tour-actions{display:flex;align-items:center;gap:8px}
+.tour-actions button{
+  border:1px solid var(--line);background:var(--paper);color:var(--ink);
+  border-radius:999px;padding:7px 15px;cursor:pointer;
+  font-family:inherit;font-size:12px;font-weight:800;
+}
+.tour-actions button:hover{border-color:var(--blue-mid);color:var(--blue)}
+.tour-actions .tour-next{
+  background:linear-gradient(90deg,var(--blue),var(--lav));
+  border-color:transparent;color:#fff;
+}
+.tour-actions .tour-next:hover{color:#fff;opacity:.92}
+.tour-actions .tour-skip{border:0;background:transparent;color:var(--muted);padding:7px 0}
+.tour-actions .tour-prev[hidden]{display:none}
+.tour-dots{display:flex;align-items:center;gap:4px;margin:0 auto}
+.tour-dots span{display:block;width:6px;height:6px;border-radius:999px;background:var(--line)}
+.tour-dots span.on{width:16px;background:var(--blue)}
+
 @media screen{
   html[data-theme="dark"]{
     --ink:#e8eefb;
