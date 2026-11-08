@@ -100,9 +100,10 @@
   const fa = n => String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const steps = [
     {
-      sel: '[data-filter="all"]',
+      sel: '[data-tour="filters"]',
+      interactive: true,
       title: "این صفحه چه کاری می‌کند؟",
-      text: "راهنمای اسلاید به اسلاید ارائه است. با دکمه‌های دیانا و موژان فقط اسلایدهای خودتان را می‌بینید.",
+      text: "راهنمای اسلاید به اسلاید ارائه است. روی «دیانا» یا «موژان» بزن تا فقط اسلایدهای خودت را ببینی؛ تور سر جایش می‌ماند.",
     },
     {
       sel: '[data-tour="files"]',
@@ -165,7 +166,27 @@
     layer.querySelector(".tour-skip").addEventListener("click", close);
     layer.querySelector(".tour-close").addEventListener("click", close);
     layer.addEventListener("click", e => {
-      if (e.target === layer) close();
+      if (e.target !== layer) return;
+      const st = steps[idx];
+      if (st.interactive) {
+        const r = spot.getBoundingClientRect();
+        const inside =
+          e.clientX >= r.left && e.clientX <= r.right &&
+          e.clientY >= r.top && e.clientY <= r.bottom;
+        if (inside) {
+          // let the page element under the spotlight receive the click
+          layer.style.pointerEvents = "none";
+          const hit = document.elementFromPoint(e.clientX, e.clientY);
+          layer.style.pointerEvents = "";
+          const btn = hit && hit.closest && hit.closest("button");
+          if (btn) {
+            btn.click();
+            requestAnimationFrame(place);
+            return;
+          }
+        }
+      }
+      close();
     });
     window.addEventListener("resize", place);
     window.addEventListener("scroll", () => { if (!layer.hidden) place(); }, { passive: true });
