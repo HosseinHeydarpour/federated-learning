@@ -296,7 +296,6 @@ def sec_header(s, kicker, title, idx, center=False, sub=None, title_size=30, log
             rect(s, X0, 1.68, CW, 0.014, fill=GOLD, line=None, shadow=False)
         if sub:
             txt(s, X0, 1.80, CW, 0.34, sub, 12.5, BODY, align="r")
-    footer(s, idx)
 
 
 def footer(s, idx):
@@ -623,15 +622,15 @@ def slide_threat(prs):
     w = (CW - 2 * gap) / 3
     for i, (title, sub_t, desc, tag, ic, col, bg, goal) in enumerate(actors):
         x = XR - w - i * (w + gap)
-        rect(s, x, 1.98, w, 3.58, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=93)
+        rect(s, x, 1.98, w, 3.02, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=93)
         icon_circle(s, ic, x + w - 0.86, 2.08, d=0.62, color=col)
         txt(s, x + 0.24, 2.22, w - 1.20, 0.34, title, 15.5, INK, bold=True, align="r")
         txt(s, x + 0.24, 2.60, w - 1.20, 0.26, sub_t, 10.5, col, bold=True, align="r")
-        txt(s, x + 0.24, 2.98, w - 0.48, 0.92, desc, 11.3, BODY, align="r", line=1.55)
-        txt(s, x + 0.24, 4.10, w - 0.48, 0.30, goal, 8.6, MUTED, align="r")
-        pill(s, x + w - 1.30, 4.72, 1.06, 0.34, tag, bg=bg, fg=col, line=None, size=8.6)
+        txt(s, x + 0.24, 2.98, w - 0.48, 0.78, desc, 11.3, BODY, align="r", line=1.55)
+        txt(s, x + 0.24, 3.84, w - 0.48, 0.30, goal, 8.6, MUTED, align="r")
+        pill(s, x + w - 1.30, 4.30, 1.06, 0.34, tag, bg=bg, fg=col, line=None, size=8.6)
 
-    txt(s, X0, 5.68, CW, 0.34, "مثال: سه بیمارستان وزن می^فرستند؛ سرور جمع و میانگین می^گیرد. او تقلب نمی^کند، اما می^تواند عددهای هر دستگاه را نگاه کند.", 9.0, MUTED, align="c", line=1.3)
+    txt(s, X0, 5.28, CW, 0.34, "مثال: سه بیمارستان وزن می^فرستند؛ سرور جمع و میانگین می^گیرد. او تقلب نمی^کند، اما می^تواند عددهای هر دستگاه را نگاه کند.", 9.0, MUTED, align="c", line=1.3)
     band(s, "دو نوع حمله: حریم خصوصی (داده لو نرود) و یکپارچگی (مدل دستکاری نشود).", y=6.12, h=0.52)
     footer(s, 9)
 
@@ -1076,7 +1075,7 @@ def slide_conclusion(prs):
     gradient_rect(s, X0, 4.46, CW, 1.12, BLUE_MID, LAVENDER, radius=0.12)
     tf = textbox(s, X0 + 0.36, 4.46, CW - 0.72, 1.12, anchor="m")
     p = para(tf, first=True, align="r", line=1.2)
-    run(p, "«۹۵٪ دقت، بدون سنجش نشت حریم خصوصی.»", 21.5, WHITE, bold=True, font="IRNazanin")
+    run(p, "«۹۵٫۰۵٪ دقت، بدون سنجش نشت حریم خصوصی.»", 21.5, WHITE, bold=True, font=FA)
 
     tf = textbox(s, X0, 5.76, CW, 0.40)
     p = para(tf, first=True, align="r", line=1.35)
@@ -1132,6 +1131,7 @@ def slide_refs(prs):
     run(p, "با تشکر از توجه شما", 17.5, WHITE, bold=True)
     run(p, "        ·        ", 15.0, RGBColor(0xE6,0xE0,0xF7), bold=True)
     run(p, "پرسش و پاسخ", 13.0, RGBColor(0xF2,0xEE,0xFF))
+    footer(s, 20)
 
 # ------------------------------------------------------------------ methodology
 def slide_method(prs):
@@ -1253,16 +1253,17 @@ SOURCES = {
     4: "منابع: [1] تا [5]",
     5: "منابع: [1]، [2]",
     6: "منابع: [1]، [2]",
-    7: "منبع: [7]",
-    8: "منبع: [6]",
+    7: "منابع: [7]",
+    8: "منابع: [6]",
     9: "منابع: [1]، [2]",
     10: "منابع: [1]، [2]، [6]، [10]",
-    11: "منبع: [9]",
+    11: "منابع: [9]",
     12: "منابع: [2]، [8]",
     13: "منابع: [1]، [3]",
-    14: "منبع: [10]",
-    15: "مبنا: ارزیابی کیفی بر اساس [1] تا [5]",
-    16: "مبنا: سناریوی مفهومی بر اساس [1] تا [5]",
+    14: "منابع: [10]",
+    15: "منابع: ارزیابی کیفی بر اساس [1] تا [5]",
+    16: "منابع: سناریوی مفهومی بر اساس [1] تا [5]",
+    17: "منابع: [5]",
     18: "منابع: [1] تا [5]",
 }
 
