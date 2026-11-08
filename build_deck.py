@@ -603,10 +603,9 @@ def slide_thesis(prs):
         b = rect(s, x, 5.78, 2.30, 0.52, fill=WHITE, line=LINE, radius=0.5, shadow=False)
         tf = b.text_frame; tf.margin_left = tf.margin_right = 0; tf.vertical_anchor = MSO_ANCHOR.MIDDLE
         p = tf.paragraphs[0]; p.alignment = PP_ALIGN.CENTER; p._p.get_or_add_pPr().set("rtl", "1")
-        r = p.add_run(); r.text = chr(ic); r.font.name = ICON_FONT; r.font.size = Pt(12); r.font.color.rgb = BLUE
-        run(p, "  " + t, 9.8, INK)
+        run(p, t, 14, INK)
         if i < 2:
-            arrow_left(s, x - 1.28, 5.92, 0.26, 0.18, color=BLUE_MID)
+            arrow_left(s, x - 0.77, 5.97, 0.26, 0.18, color=BLUE_MID)
 
     band(s, "بنابراین اولین سؤال طراحی: چه کسی به این به^روزرسانی^ها دسترسی دارد؟", y=6.50, h=0.40)
     footer(s, 8)
@@ -628,14 +627,14 @@ def slide_threat(prs):
     for i, (title, sub_t, desc, tag, ic, col, bg, goal) in enumerate(actors):
         x = XR - w - i * (w + gap)
         rect(s, x, 1.98, w, 3.02, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=93)
-        icon_circle(s, ic, x + w - 0.86, 2.08, d=0.62, color=col)
-        txt(s, x + 0.24, 2.22, w - 1.20, 0.34, title, 15.5, INK, bold=True, align="r")
-        txt(s, x + 0.24, 2.60, w - 1.20, 0.26, sub_t, 10.5, col, bold=True, align="r")
+        icon_circle(s, ic, x + w - 0.86, 2.12, d=0.62, color=col)
+        txt(s, x + 0.24, 2.10, w - 1.20, 0.34, title, 15.5, INK, bold=True, align="r")
+        txt(s, x + 0.24, 2.48, w - 1.20, 0.26, sub_t, 10.5, col, bold=True, align="r")
         txt(s, x + 0.24, 2.98, w - 0.48, 0.78, desc, 11.3, BODY, align="r", line=1.55)
-        txt(s, x + 0.24, 3.84, w - 0.48, 0.30, goal, 8.6, MUTED, align="r")
+        txt(s, x + 0.24, 3.84, w - 0.48, 0.30, goal, 10.0, MUTED, align="r")
         pill(s, x + w - 1.30, 4.30, 1.06, 0.34, tag, bg=bg, fg=col, line=None, size=8.6)
 
-    txt(s, X0, 5.28, CW, 0.34, "مثال: سه بیمارستان وزن می^فرستند؛ سرور جمع و میانگین می^گیرد. او تقلب نمی^کند، اما می^تواند عددهای هر دستگاه را نگاه کند.", 9.0, MUTED, align="c", line=1.3)
+    txt(s, X0, 5.28, CW, 0.34, "مثال: سه بیمارستان وزن می^فرستند؛ سرور جمع و میانگین می^گیرد. او تقلب نمی^کند، اما می^تواند پارامترهای هر دستگاه را نگاه کند.", 16.0, MUTED, align="c", line=1.3)
     band(s, "دو نوع حمله: نقض حریم خصوصی (افشای داده) و نقض یکپارچگی (دستکاری مدل).", y=6.12, h=0.52)
     footer(s, 9)
 
@@ -782,7 +781,7 @@ def slide_blockchain(prs):
     ]
     y = 1.98
     for num, t, d, ic in steps:
-        num_circle(s, num, 11.95, y, d=0.44, size=8.4)
+        num_circle(s, num, 11.95, y + 0.07, d=0.44, size=8.4)
         txt(s, 6.00, y - 0.04, 5.70, 0.34, t, 14.6, INK, bold=True, align="r")
         txt(s, 6.00, y + 0.30, 5.70, 0.28, d, 10.2, BODY, align="r")
         rect(s, 4.90, y + 0.74, 7.55, 0.012, fill=RGBColor(0xE6,0xEE,0xF9), line=None, shadow=False)
