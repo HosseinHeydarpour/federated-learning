@@ -78,6 +78,7 @@
   const PODCASTS = {
     diana: { src: "audio/diana.m4a", label: "بخش دیانا — اسلایدهای ۱–۴، ۸–۱۰ و ۱۵–۱۷ · ۱۴:۲۶" },
     mozhan: { src: "audio/mozhan.m4a", label: "بخش موژان — اسلایدهای ۵–۷، ۱۱–۱۴ و ۱۸–۲۰ · ۱۶:۲۰" },
+    all: { src: "audio/all.m4a", label: "کل ارائه — هر ۲۰ اسلاید · ۱۳:۴۳" },
   };
 
   function choosePodcast(who, opts) {
@@ -194,7 +195,7 @@
     {
       sel: '[data-tour="podcasts"]',
       title: "اول، پادکست خودت را گوش کن",
-      text: "قبل از خواندن راهنما، نسخهٔ صوتی بخش خودت را گوش کن. بگو دیانا هستی یا موژان؛ پخش‌کننده باز می‌شود و فیلتر صفحه هم روی همان بخش می‌ماند.",
+      text: "قبل از خواندن راهنما، نسخهٔ صوتی بخش خودت را گوش کن. بگو دیانا هستی، موژان، یا کل ارائه را می‌خواهی؛ پخش‌کننده باز می‌شود و فیلتر صفحه هم روی همان بخش می‌ماند.",
       choice: true,
     },
     {
@@ -243,6 +244,7 @@
       '<div class="tour-choice" hidden>' +
       '<button type="button" data-tour-pick="diana">من دیانا هستم</button>' +
       '<button type="button" data-tour-pick="mozhan">من موژان هستم</button>' +
+      '<button type="button" data-tour-pick="all">کل ارائه</button>' +
       '</div>' +
       '<div class="tour-actions"><button class="tour-skip" type="button">رد کردن</button>' +
       '<span class="tour-dots"></span>' +
