@@ -70,6 +70,47 @@
   if (!["all", "diana", "mozhan"].includes(savedFilter)) savedFilter = "all";
   applyFilter(savedFilter);
 
+  // ---------- podcasts ----------
+  const podBtns = Array.from(document.querySelectorAll("[data-podcast]"));
+  const podBox = document.querySelector("[data-podcast-player]");
+  const podAudio = podBox ? podBox.querySelector("audio") : null;
+  const podMeta = document.querySelector("[data-podcast-meta]");
+  const PODCASTS = {
+    diana: { src: "audio/diana.m4a", label: "بخش دیانا — اسلایدهای ۱–۴، ۸–۱۰ و ۱۵–۱۷ · ۱۴:۲۶" },
+    mozhan: { src: "audio/mozhan.m4a", label: "بخش موژان — اسلایدهای ۵–۷، ۱۱–۱۴ و ۱۸–۲۰ · ۱۶:۲۰" },
+  };
+
+  function choosePodcast(who, opts) {
+    const item = PODCASTS[who];
+    if (!item || !podBtns.length) return;
+    opts = opts || {};
+    podBtns.forEach(btn => {
+      const on = btn.dataset.podcast === who;
+      btn.classList.toggle("is-active", on);
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+    if (podAudio) {
+      if (podAudio.getAttribute("src") !== item.src) {
+        podAudio.src = item.src;
+        podAudio.load();
+      }
+      if (opts.play) podAudio.play().catch(() => {});
+    }
+    if (podMeta) podMeta.textContent = item.label;
+    if (podBox) podBox.hidden = false;
+    if (opts.filter !== false) applyFilter(who);
+    try { localStorage.setItem("guide-podcast", who); } catch (e) {}
+  }
+
+  podBtns.forEach(btn => {
+    btn.addEventListener("click", () => choosePodcast(btn.dataset.podcast, { play: true }));
+  });
+  window.guideChoosePodcast = choosePodcast;
+
+  let savedPodcast = null;
+  try { savedPodcast = localStorage.getItem("guide-podcast"); } catch (e) {}
+  if (savedPodcast && PODCASTS[savedPodcast]) choosePodcast(savedPodcast, { filter: false });
+
   // ---------- scroll spy ----------
   function setupSpy() {
     if (spy) spy.disconnect();
@@ -152,6 +193,12 @@
   const fa = n => String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const steps = [
     {
+      sel: '[data-tour="podcasts"]',
+      title: "اول، پادکست خودت را گوش کن",
+      text: "قبل از خواندن راهنما، نسخهٔ صوتی بخش خودت را گوش کن. بگو دیانا هستی یا موژان؛ پخش‌کننده باز می‌شود و فیلتر صفحه هم روی همان بخش می‌ماند.",
+      choice: true,
+    },
+    {
       sel: '[data-tour="filters"]',
       interactive: true,
       title: "این صفحه چه کاری می‌کند؟",
@@ -180,7 +227,7 @@
   ];
 
   const startBtn = document.querySelector("[data-tour-start]");
-  let layer, spot, card, stepEl, titleEl, textEl, prevBtn, nextBtn, dotsEl;
+  let layer, spot, card, stepEl, titleEl, textEl, prevBtn, nextBtn, dotsEl, choiceEl;
   let idx = 0;
   let lastFocus = null;
 
@@ -194,6 +241,10 @@
       '<div class="tour-head"><span class="tour-step"></span>' +
       '<button class="tour-close" type="button" aria-label="بستن تور">×</button></div>' +
       '<h3 id="tour-title"></h3><p></p>' +
+      '<div class="tour-choice" hidden>' +
+      '<button type="button" data-tour-pick="diana">من دیانا هستم</button>' +
+      '<button type="button" data-tour-pick="mozhan">من موژان هستم</button>' +
+      '</div>' +
       '<div class="tour-actions"><button class="tour-skip" type="button">رد کردن</button>' +
       '<span class="tour-dots"></span>' +
       '<button class="tour-prev" type="button">قبلی</button>' +
@@ -209,9 +260,17 @@
     prevBtn = layer.querySelector(".tour-prev");
     nextBtn = layer.querySelector(".tour-next");
     dotsEl = layer.querySelector(".tour-dots");
+    choiceEl = layer.querySelector(".tour-choice");
 
     dotsEl.innerHTML = steps.map(() => "<span></span>").join("");
     syncDots();
+
+    choiceEl.querySelectorAll("[data-tour-pick]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (window.guideChoosePodcast) window.guideChoosePodcast(btn.dataset.tourPick, { play: true });
+        show(idx + 1);
+      });
+    });
 
     nextBtn.addEventListener("click", () => (idx === steps.length - 1 ? close() : show(idx + 1)));
     prevBtn.addEventListener("click", () => show(idx - 1));
@@ -286,6 +345,7 @@
     textEl.textContent = steps[idx].text;
     prevBtn.hidden = idx === 0;
     nextBtn.textContent = idx === steps.length - 1 ? "پایان" : "بعدی";
+    if (choiceEl) choiceEl.hidden = !steps[idx].choice;
     syncDots();
 
     const prevBehavior = document.documentElement.style.scrollBehavior;

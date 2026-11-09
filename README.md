@@ -17,6 +17,7 @@ presenter-guide/               # سایت راهنما (همین پوشه روی
 ├─ index.html                  # خروجی make_guide.py
 ├─ styles.css, app.js
 ├─ slides/slide-01..20.png     # تصاویر اسلایدها
+├─ audio/                      # پادکست‌های تمرین (دیانا و موژان)
 ├─ downloads/                  # فایل‌های دانلودی سایت
 └─ make_guide.py               # سازندهٔ سایت و PDF
 .github/workflows/pages.yml    # انتشار خودکار روی GitHub Pages
