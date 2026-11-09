@@ -6,6 +6,9 @@ preview/
 # figures extracted from papers (copyright), kept local only
 paper-figures/
 
+# local source packs for NotebookLM, generated from the guide
+notebooklm-packs/
+
 # reference papers and scratch files, not part of the site
 *.pdf
 !presenter-guide/presenter-guide.pdf
