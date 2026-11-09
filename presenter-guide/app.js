@@ -90,10 +90,7 @@
       btn.setAttribute("aria-pressed", on ? "true" : "false");
     });
     if (podAudio) {
-      if (podAudio.getAttribute("src") !== item.src) {
-        podAudio.src = item.src;
-        podAudio.load();
-      }
+      if (podAudio.getAttribute("src") !== item.src) podAudio.src = item.src;
       if (opts.play) podAudio.play().catch(() => {});
     }
     if (podMeta) podMeta.textContent = item.label;
@@ -109,7 +106,9 @@
 
   let savedPodcast = null;
   try { savedPodcast = localStorage.getItem("guide-podcast"); } catch (e) {}
-  if (savedPodcast && PODCASTS[savedPodcast]) choosePodcast(savedPodcast, { filter: false });
+  if (savedPodcast && savedPodcast === savedFilter && PODCASTS[savedPodcast]) {
+    choosePodcast(savedPodcast, { filter: false });
+  }
 
   // ---------- scroll spy ----------
   function setupSpy() {
