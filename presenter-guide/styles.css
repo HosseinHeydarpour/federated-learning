@@ -235,6 +235,11 @@ img{max-width:100%;height:auto}
 }
 .podcast h2{margin:0 0 6px;color:var(--ink);font-size:21px}
 .podcast-lead{margin:0;font-size:13px;color:var(--body);max-width:820px}
+.podcast-order{
+  margin:10px 0 0;padding:8px 12px;border:1px dashed var(--line);border-radius:12px;
+  background:#fff;font-size:12px;color:var(--muted);
+}
+.podcast-order strong{color:var(--ink)}
 .podcast-choose{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
 .podcast-btn{
   display:flex;align-items:center;gap:12px;text-align:right;
@@ -276,6 +281,12 @@ img{max-width:100%;height:auto}
 .tour-close:hover{color:var(--ink)}
 .tour-card h3{margin:4px 0 6px;font-size:16px;line-height:1.6;color:var(--ink)}
 .tour-card p{margin:0 0 14px;font-size:13px;line-height:1.9}
+.tour-list{
+  margin:0 0 14px;padding:0;list-style:none;
+  display:flex;flex-direction:column;gap:6px;
+  font-size:12px;line-height:1.85;color:var(--body);
+}
+.tour-list li{background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:7px 10px}
 .tour-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 12px}
 .tour-choice button{
   border:1px solid var(--line);background:#fff;color:var(--ink);
@@ -359,6 +370,8 @@ img{max-width:100%;height:auto}
   html[data-theme="dark"] .tour-choice button{
     background:var(--paper);border-color:var(--line);
   }
+  html[data-theme="dark"] .podcast-order{background:var(--paper)}
+  html[data-theme="dark"] .tour-list li{background:#1a2336;border-color:var(--line)}
   html[data-theme="dark"] .podcast-btn.is-active{
     background:linear-gradient(135deg,#1a2b45,#2a2340);border-color:transparent;
   }

@@ -193,6 +193,16 @@
   const fa = n => String(n).replace(/[0-9]/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
   const steps = [
     {
+      sel: '[data-tour="podcast-order"]',
+      title: "به چه ترتیبی گوش کنم؟",
+      text: "سه نسخه هست؛ این ترتیب بیشترین فایده را دارد:",
+      list: [
+        "۱) «کل ارائه» (۱۳:۴۳) را اول گوش کن تا کل مسیر، داستان و نقطهٔ تحویل را یک‌جا ببینی.",
+        "۲) بعد بخش خودت را گوش کن: دیانا ۱۴:۲۶ یا موژان ۱۶:۲۰؛ هم‌زمان راهنما و اسلایدها را جلو ببر.",
+        "۳) اگر وقت داشتی، آخر بخش هم‌گروهی‌ات را هم بشنو تا بدانی حرف را کجا تحویل می‌گیری.",
+      ],
+    },
+    {
       sel: '[data-tour="podcasts"]',
       title: "اول، پادکست خودت را گوش کن",
       text: "قبل از خواندن راهنما، نسخهٔ صوتی بخش خودت را گوش کن. بگو دیانا هستی، موژان، یا کل ارائه را می‌خواهی؛ پخش‌کننده باز می‌شود و فیلتر صفحه هم روی همان بخش می‌ماند.",
@@ -227,7 +237,7 @@
   ];
 
   const startBtn = document.querySelector("[data-tour-start]");
-  let layer, spot, card, stepEl, titleEl, textEl, prevBtn, nextBtn, dotsEl, choiceEl;
+  let layer, spot, card, stepEl, titleEl, textEl, prevBtn, nextBtn, dotsEl, choiceEl, listEl;
   let idx = 0;
   let lastFocus = null;
 
@@ -241,6 +251,7 @@
       '<div class="tour-head"><span class="tour-step"></span>' +
       '<button class="tour-close" type="button" aria-label="بستن تور">×</button></div>' +
       '<h3 id="tour-title"></h3><p></p>' +
+      '<ul class="tour-list" hidden></ul>' +
       '<div class="tour-choice" hidden>' +
       '<button type="button" data-tour-pick="diana">من دیانا هستم</button>' +
       '<button type="button" data-tour-pick="mozhan">من موژان هستم</button>' +
@@ -262,6 +273,7 @@
     nextBtn = layer.querySelector(".tour-next");
     dotsEl = layer.querySelector(".tour-dots");
     choiceEl = layer.querySelector(".tour-choice");
+    listEl = layer.querySelector(".tour-list");
 
     dotsEl.innerHTML = steps.map(() => "<span></span>").join("");
     syncDots();
@@ -347,6 +359,11 @@
     prevBtn.hidden = idx === 0;
     nextBtn.textContent = idx === steps.length - 1 ? "پایان" : "بعدی";
     if (choiceEl) choiceEl.hidden = !steps[idx].choice;
+    const list = steps[idx].list || [];
+    if (listEl) {
+      listEl.innerHTML = list.map(item => "<li>" + item + "</li>").join("");
+      listEl.hidden = !list.length;
+    }
     syncDots();
 
     const prevBehavior = document.documentElement.style.scrollBehavior;

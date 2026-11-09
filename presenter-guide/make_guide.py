@@ -415,6 +415,7 @@ try {{
       <div class="eyebrow">قبل از خواندن راهنما</div>
       <h2>پادکست بخش خودت را اول گوش کن</h2>
       <p class="podcast-lead">نسخهٔ صوتی همان بخشی که ارائه می‌دهی، از روی همین راهنما ساخته شده. بگو دیانا هستی یا موژان؛ پخش‌کننده باز می‌شود و فیلتر صفحه هم روی همان بخش می‌ماند.</p>
+      <p class="podcast-order" data-tour="podcast-order"><strong>ترتیب پیشنهادی:</strong> ۱) کل ارائه (۱۳:۴۳) ۲) بخش خودت ۳) بخش هم‌گروهی</p>
       <div class="podcast-choose" role="group" aria-label="انتخاب ارائه‌دهنده">
         <button class="podcast-btn diana" type="button" data-podcast="diana" aria-pressed="false">
           <span class="avatar" aria-hidden="true">د</span>
