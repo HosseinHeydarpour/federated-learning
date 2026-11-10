@@ -285,6 +285,21 @@ def esc(x):
     return html.escape(str(x))
 
 
+def size_label(path):
+    kb = path.stat().st_size / 1024
+    if kb < 1024:
+        return f"{fa(round(kb))} کیلوبایت"
+    return f"{fa(f'{kb / 1024:.1f}')} مگابایت".replace(".", "٫")
+
+
+DL = HERE / "downloads"
+FILE_LIST = " · ".join([
+    f"FL_IoT_Privacy_FA.pptx ({size_label(DL / 'FL_IoT_Privacy_FA.pptx')})",
+    f"fonts.zip ({size_label(DL / 'fonts.zip')})",
+    f"presenter-guide.pdf ({size_label(HERE / 'presenter-guide.pdf')})",
+])
+
+
 def card(s):
     speaker_cls = "diana" if s["speaker"] == "دیانا" else "mozhan"
     paras = "".join(f"<p>{esc(x)}</p>" for x in s["script"])
@@ -404,6 +419,7 @@ try {{
         <a class="download-btn" data-tour="fonts" href="downloads/fonts.zip" download>دانلود فونت‌ها</a>
         <a class="download-btn" data-tour="pdf" href="presenter-guide.pdf" download>دانلود PDF راهنما</a>
       </div>
+      <p class="screen-note no-print"><b>لیست فایل‌های دسکتاپ:</b> {FILE_LIST} — همین سه فایل برای ارائه کافی است.</p>
       <p class="screen-note no-print">برای چاپ: دکمهٔ بالا را بزنید یا Ctrl+P. در تنظیمات چاپ، A4، جهت عمودی و «چاپ پس‌زمینه‌ها» (Print backgrounds) را روشن کنید.</p>
       <p class="screen-note no-print"><b>مشخصات سیستم برای اجرا:</b> مرورگر به‌روز (کروم، اج یا فایرفاکس) با جاوااسکریپت روشن · نمایشگر ۱۶:۹ برای اسلایدهای ۱۶۰۰×۹۰۰ · فونت‌های B Nazanin و B Titr فقط برای ویرایش پاورپوینت لازم است (fonts.zip) · اینترنت برای پخش پادکست · بدون سایت هم PDF راهنما و فایل پاورپوینت کافی است.</p>
       <div class="read-progress no-print">
