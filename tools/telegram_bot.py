@@ -212,6 +212,19 @@ def pending_pop(rid):
     return item
 
 
+def latest_revision(uid, max_age=1800):
+    """Newest request of this user that is waiting for a corrected version."""
+    now = int(time.time())
+    best = None
+    for rid, item in load_pending()["items"].items():
+        if item.get("uid") != uid or item.get("stage") != "revise":
+            continue
+        ts = item.get("revise_ts", 0)
+        if now - ts <= max_age and (best is None or ts > best[2]):
+            best = (rid, item, ts)
+    return best
+
+
 def find_cli():
     env = os.environ.get("OPENCODE_CLI", "").strip()
     if env and Path(env).exists():
@@ -346,6 +359,27 @@ def request_change(chat_id, uid, name, text):
     )
 
 
+def revise_request(rid, item, chat_id, name, text):
+    if outside_request(text):
+        send(chat_id, esc(REFUSAL))
+        return
+    combined = item["text"] + "\n\nاصلاح درخواست: " + text
+    pending_update(rid, text=combined, stage="understand", understanding="", revise_ts=0)
+    send(chat_id, f"⏳ اصلاحیه را می‌خوانم (<b>{rid}</b>)…")
+    understanding = plan_request(combined, name)
+    if not pending_get(rid):
+        return
+    if not understanding:
+        understanding = "نسخهٔ اصلاح‌شده را همان‌طور که نوشته‌ای اجرا می‌کنم."
+    pending_update(rid, understanding=understanding)
+    send(
+        chat_id,
+        f"📝 <b>فهم من از درخواستت {rid} (اصلاح‌شده)</b>\n\n{md_to_html(understanding)}\n\n"
+        "همین درست است؟ اگر نه، «اصلاح می‌کنم» را بزن و نسخهٔ درست را بنویس.",
+        confirm_markup(rid),
+    )
+
+
 def start_execution(rid, item, admin_chat=None):
     send(item["chat"], f"✅ <b>{rid}</b> تایید شد؛ در حال اجرا…")
     if admin_chat and admin_chat != item["chat"]:
@@ -390,7 +424,10 @@ def handle(msg):
             return
         lines = [f"<b>در انتظار</b> ({len(items)})"]
         for rid, item in list(items.items())[-10:]:
-            stage = "منتظر تایید درخواست‌دهنده" if item.get("stage") == "understand" else "منتظر تایید تو"
+            stage_names = {"understand": "منتظر تایید درخواست‌دهنده",
+                           "revise": "منتظر اصلاح",
+                           "approve": "منتظر تایید تو"}
+            stage = stage_names.get(item.get("stage"), item.get("stage"))
             lines.append(f"<b>{rid}</b> · {esc(item['name'])} · {stage}\n{esc(item['text'][:120])}")
         send(chat_id, "\n\n".join(lines))
     elif text.startswith(("/approve", "/reject")):
@@ -422,7 +459,11 @@ def handle(msg):
     elif text.startswith("/"):
         send(chat_id, "دستور ناشناخته. /help")
     else:
-        request_change(chat_id, uid, name, text)
+        revision = latest_revision(uid)
+        if revision:
+            revise_request(revision[0], revision[1], chat_id, name, text)
+        else:
+            request_change(chat_id, uid, name, text)
 
 
 def handle_callback(cq):
@@ -446,10 +487,10 @@ def handle_callback(cq):
         if uid != item["uid"] and not is_admin:
             return
         if action == "cx":
-            pending_pop(rid)
+            pending_update(rid, stage="revise", revise_ts=int(time.time()))
             if chat_id and message_id:
-                edit(chat_id, message_id, f"✏️ <b>{rid}</b> اصلاح می‌شود.")
-            send(item["chat"], f"باشه، نسخهٔ درست‌شده را بنویس تا از نو شروع کنیم.")
+                edit(chat_id, message_id, f"✏️ <b>{rid}</b> در حال اصلاح.")
+            send(item["chat"], f"باشه، نسخهٔ درست‌شدهٔ درخواست <b>{rid}</b> را بنویس.")
             return
         if chat_id and message_id:
             edit(chat_id, message_id, f"✅ <b>{rid}</b> فهم تایید شد.")
