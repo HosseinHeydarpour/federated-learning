@@ -30,7 +30,6 @@ ADMIN_FILE = TOOLS / "admins.txt"
 CLI_GLOB = Path(os.environ.get("APPDATA", "")) / "ai.opencode.desktop" / "cli"
 MAX_MSG = 3800
 AGENT_TIMEOUT = 1800
-PLAN_TIMEOUT = 420
 DEFAULT_MODEL = "opencode-go/deepseek-v4.1-flash"
 
 REFUSAL = ("نمی‌تونم — فقط داخل پوشهٔ پروژه کار می‌کنم.\n"
@@ -70,7 +69,7 @@ def outside_request(text):
 
 HELP = """<b>ربات تغییرات راهنمای ارائه</b>
 
-هر پیام معمولی را به‌عنوان درخواست تغییر می‌فرستم. اول خلاصهٔ فهمم را می‌فرستم؛ اگر تایید کنی، درخواست اعضای عادی برای تایید مدیر پروژه می‌رود و بعد اجرا می‌شود.
+هر پیام معمولی را به‌عنوان درخواست تغییر می‌فرستم. درخواست خودت بلافاصله اجرا می‌شود؛ درخواست ارائه‌دهنده‌های دیگر برای تایید مدیر پروژه می‌رود.
 
 دستورها:
 /status — وضعیت مخزن و آخرین کامیت‌ها
@@ -188,7 +187,7 @@ def pending_add(uid, name, chat, text):
     data["seq"] += 1
     rid = f"A{data['seq']}"
     data["items"][rid] = {"uid": uid, "name": name, "chat": chat, "text": text,
-                          "understanding": "", "stage": "understand",
+                          "understanding": "", "stage": "approve",
                           "ts": int(time.time())}
     save_pending(data)
     return rid
@@ -210,19 +209,6 @@ def pending_pop(rid):
     item = data["items"].pop(rid, None)
     save_pending(data)
     return item
-
-
-def latest_revision(uid, max_age=1800):
-    """Newest request of this user that is waiting for a corrected version."""
-    now = int(time.time())
-    best = None
-    for rid, item in load_pending()["items"].items():
-        if item.get("uid") != uid or item.get("stage") != "revise":
-            continue
-        ts = item.get("revise_ts", 0)
-        if now - ts <= max_age and (best is None or ts > best[2]):
-            best = (rid, item, ts)
-    return best
 
 
 def find_cli():
@@ -276,16 +262,6 @@ def run_cli(prompt, title, timeout):
     return texts[-1] if texts else ""
 
 
-def plan_request(request, sender):
-    prompt = (
-        f"این پیام یک درخواست تغییر برای «راهنمای ارائه» است (سایت و پاورپوینت):\n{request}\n\n"
-        "فقط در حداکثر ۳ خط فارسی بگو چه چیزی را قرار است عوض کنیم: کدام فایل یا بخش، و چه تغییری. "
-        "این فقط مرحلهٔ فهمیدن است: هیچ فایلی را تغییر نده، هیچ ابزاری برای نوشتن اجرا نکن و کامیت نکن. "
-        "اگر درخواست مبهم یا چندمعناست، همان را صریح بگو و بپرس کدام را می‌خواهد."
-    )
-    return run_cli(prompt, f"فهم درخواست: {sender}", PLAN_TIMEOUT)
-
-
 def run_agent(request, sender, understanding=""):
     extra = f"\nفهم تاییدشده توسط درخواست‌دهنده:\n{understanding}\n" if understanding else ""
     prompt = (
@@ -324,13 +300,6 @@ def result_message(text):
     return "🤖 <b>نتیجه</b>\n\n" + md_to_html(body)
 
 
-def confirm_markup(rid):
-    return {"inline_keyboard": [[
-        {"text": "✅ درست است", "callback_data": f"cf:{rid}"},
-        {"text": "✏️ اصلاح می‌کنم", "callback_data": f"cx:{rid}"},
-    ]]}
-
-
 def approve_markup(rid):
     return {"inline_keyboard": [[
         {"text": "✅ تایید", "callback_data": f"ap:{rid}"},
@@ -343,41 +312,24 @@ def request_change(chat_id, uid, name, text):
         log("refused outside:", text[:80].replace("\n", " "))
         send(chat_id, esc(REFUSAL))
         return
-    rid = pending_add(uid, name, chat_id, text)
-    send(chat_id, f"⏳ دارم درخواستت را می‌خوانم (<b>{rid}</b>)…")
-    understanding = plan_request(text, name)
-    if not pending_get(rid):
+    if uid in allowed_ids(ADMIN_FILE):
+        send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
+        send(chat_id, result_message(run_agent(text, name)))
         return
-    if not understanding:
-        understanding = "درخواست را همان‌طور که نوشته‌ای اجرا می‌کنم."
-    pending_update(rid, understanding=understanding)
-    send(
-        chat_id,
-        f"📝 <b>فهم من از درخواستت {rid}</b>\n\n{md_to_html(understanding)}\n\n"
-        "همین درست است؟ اگر نه، «اصلاح می‌کنم» را بزن و نسخهٔ درست را بنویس.",
-        confirm_markup(rid),
-    )
 
+    items = load_pending()["items"]
+    rid = next((key for key, item in items.items()
+                if item.get("uid") == uid and item.get("stage") == "approve"), None)
+    if rid:
+        pending_update(rid, text=text, name=name, chat=chat_id)
+        send(chat_id, f"✏️ درخواستت به‌روز شد (<b>{rid}</b>) و برای تایید مدیر رفت.")
+    else:
+        rid = pending_add(uid, name, chat_id, text)
+        send(chat_id, f"⏳ درخواستت ثبت شد (<b>{rid}</b>) و برای تایید مدیر پروژه رفت.")
 
-def revise_request(rid, item, chat_id, name, text):
-    if outside_request(text):
-        send(chat_id, esc(REFUSAL))
-        return
-    combined = item["text"] + "\n\nاصلاح درخواست: " + text
-    pending_update(rid, text=combined, stage="understand", understanding="", revise_ts=0)
-    send(chat_id, f"⏳ اصلاحیه را می‌خوانم (<b>{rid}</b>)…")
-    understanding = plan_request(combined, name)
-    if not pending_get(rid):
-        return
-    if not understanding:
-        understanding = "نسخهٔ اصلاح‌شده را همان‌طور که نوشته‌ای اجرا می‌کنم."
-    pending_update(rid, understanding=understanding)
-    send(
-        chat_id,
-        f"📝 <b>فهم من از درخواستت {rid} (اصلاح‌شده)</b>\n\n{md_to_html(understanding)}\n\n"
-        "همین درست است؟ اگر نه، «اصلاح می‌کنم» را بزن و نسخهٔ درست را بنویس.",
-        confirm_markup(rid),
-    )
+    for admin in sorted(allowed_ids(ADMIN_FILE)):
+        send(admin, f"📥 <b>درخواست {rid}</b>\nاز: {esc(name)}\n\n{esc(text[:1200])}",
+             approve_markup(rid))
 
 
 def start_execution(rid, item, admin_chat=None):
@@ -424,11 +376,7 @@ def handle(msg):
             return
         lines = [f"<b>در انتظار</b> ({len(items)})"]
         for rid, item in list(items.items())[-10:]:
-            stage_names = {"understand": "منتظر تایید درخواست‌دهنده",
-                           "revise": "منتظر اصلاح",
-                           "approve": "منتظر تایید تو"}
-            stage = stage_names.get(item.get("stage"), item.get("stage"))
-            lines.append(f"<b>{rid}</b> · {esc(item['name'])} · {stage}\n{esc(item['text'][:120])}")
+            lines.append(f"<b>{rid}</b> · {esc(item['name'])} · منتظر تایید تو\n{esc(item['text'][:120])}")
         send(chat_id, "\n\n".join(lines))
     elif text.startswith(("/approve", "/reject")):
         if not is_admin:
@@ -459,68 +407,32 @@ def handle(msg):
     elif text.startswith("/"):
         send(chat_id, "دستور ناشناخته. /help")
     else:
-        revision = latest_revision(uid)
-        if revision:
-            revise_request(revision[0], revision[1], chat_id, name, text)
-        else:
-            request_change(chat_id, uid, name, text)
+        request_change(chat_id, uid, name, text)
 
 
 def handle_callback(cq):
     uid = cq.get("from", {}).get("id")
     api("answerCallbackQuery", {"callback_query_id": cq["id"]})
     action, _, rid = (cq.get("data") or "").partition(":")
-    if action not in ("cf", "cx", "ap", "rj"):
+    if action not in ("ap", "rj"):
+        return
+    if uid not in allowed_ids(ADMIN_FILE):
         return
     item = pending_get(rid)
     msg = cq.get("message") or {}
     chat_id = (msg.get("chat") or {}).get("id")
     message_id = msg.get("message_id")
-    is_admin = uid in allowed_ids(ADMIN_FILE)
 
     if not item:
         if chat_id and message_id:
             edit(chat_id, message_id, f"این درخواست (<b>{rid}</b>) دیگر در صف نیست.")
         return
 
-    if action in ("cf", "cx"):
-        if uid != item["uid"] and not is_admin:
-            return
-        if action == "cx":
-            pending_update(rid, stage="revise", revise_ts=int(time.time()))
-            if chat_id and message_id:
-                edit(chat_id, message_id, f"✏️ <b>{rid}</b> در حال اصلاح.")
-            send(item["chat"], f"باشه، نسخهٔ درست‌شدهٔ درخواست <b>{rid}</b> را بنویس.")
-            return
-        if chat_id and message_id:
-            edit(chat_id, message_id, f"✅ <b>{rid}</b> فهم تایید شد.")
-        if is_admin:
-            pending_pop(rid)
-            start_execution(rid, item)
-            return
-        pending_update(rid, stage="approve")
-        send(item["chat"], f"✅ ثبت شد. درخواستت (<b>{rid}</b>) برای تایید مدیر پروژه رفت.")
-        for admin in sorted(allowed_ids(ADMIN_FILE)):
-            send(
-                admin,
-                f"📥 <b>درخواست {rid}</b> · {esc(item['name'])}\n\n"
-                f"<b>درخواست:</b> {esc(item['text'][:1200])}\n\n"
-                f"<b>فهم تاییدشده:</b> {md_to_html(item.get('understanding', '')[:1200])}",
-                approve_markup(rid),
-            )
-        return
-
-    if not is_admin:
-        return
     if action == "rj":
         pending_pop(rid)
         if chat_id and message_id:
             edit(chat_id, message_id, f"❌ <b>{rid}</b> رد شد.\nاز: {esc(item['name'])}")
         send(item["chat"], f"❌ درخواستت (<b>{rid}</b>) رد شد.")
-        return
-    if item.get("stage") != "approve":
-        if chat_id and message_id:
-            edit(chat_id, message_id, f"این درخواست (<b>{rid}</b>) هنوز توسط درخواست‌دهنده تایید نشده.")
         return
     pending_pop(rid)
     if chat_id and message_id:
