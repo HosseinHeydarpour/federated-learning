@@ -63,7 +63,10 @@ HELP = """<b>ربات تغییرات راهنمای ارائه</b>
 
 def log(*a):
     line = time.strftime("%H:%M:%S") + " " + " ".join(str(x) for x in a)
-    print(line, flush=True)
+    try:
+        print(line, flush=True)
+    except Exception:
+        pass
     try:
         with LOG_FILE.open("a", encoding="utf-8") as f:
             f.write(line + "\n")
@@ -310,7 +313,10 @@ def selftest():
 
 def main():
     load_env()
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
     if "--selftest" in sys.argv:
         return selftest()
     if not allowed_ids(ALLOW_FILE):
