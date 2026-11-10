@@ -44,11 +44,14 @@ OUTSIDE_PATH_RE = re.compile(
 OUTSIDE_WORDS = ("دسکتاپ", "دانلودها", "خارج از پوشه", "خارج از پروژه",
                  "خارج از ریپو", "کل درایو", "my documents", "desktop", "downloads",
                  "مشخصات سیستم", "اطلاعات سیستم", "systeminfo", "system info")
+PROJECT_WORDS = ("پروژه", "سایت", "اسلاید", "راهنما", "ریپو", "ریورت", "حذف",
+                 "پادکست", "گیت", "پوش")
 
 
 def outside_request(text):
     """True when the request names a path outside the repository."""
-    if any(word in text.lower() for word in OUTSIDE_WORDS):
+    low = text.lower()
+    if any(word in low for word in OUTSIDE_WORDS) and not any(word in low for word in PROJECT_WORDS):
         return True
     for raw in OUTSIDE_PATH_RE.findall(text):
         if not raw or raw.startswith("..") or raw.startswith("~") or raw.startswith("%"):
