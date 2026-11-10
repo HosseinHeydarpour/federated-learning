@@ -36,3 +36,17 @@ python presenter-guide\make_guide.py   # ساخت index.html
 
 هر push روی `main` به‌صورت خودکار با GitHub Actions روی GitHub Pages منتشر می‌شود.
 اگر Pages تنظیم نشده باشد: Settings → Pages → Source = **GitHub Actions**.
+
+## ربات تلگرام
+
+ارائه‌دهنده‌ها می‌توانند درخواست تغییر را از تلگرام بفرستند؛ ربات آن را به یک اجرای خودکار OpenCode در همین مخزن می‌دهد تا تغییر را اعمال، تست، کامیت و پوش کند.
+
+```powershell
+copy tools\.env.example tools\.env      # توکن @BotFather را داخلش بگذار
+python tools\telegram_bot.py --selftest
+python tools\telegram_bot.py
+```
+
+اولین پیام هر نفر، شناسهٔ تلگرامش را نشان می‌دهد؛ همان عدد را در `tools/allowlist.txt` بگذار و ربات را دوباره اجرا کن. توکن، لیست مجاز و وضعیت polling در گیت نیستند. ربات هر درخواست را با `opencode-go/deepseek-v4.1-flash` اجرا می‌کند (قابل تغییر با `OPENCODE_MODEL`).
+
+دستورها: `/status`، `/id`، `/help`، `/ask متن`. هر پیام معمولی هم به‌عنوان درخواست تغییر اجرا می‌شود.

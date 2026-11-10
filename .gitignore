@@ -9,6 +9,11 @@ paper-figures/
 # local source packs for NotebookLM, generated from the guide
 notebooklm-packs/
 
+# telegram bot secrets, allowlist and polling state
+tools/.env
+tools/allowlist.txt
+tools/telegram-state.json
+
 # reference papers and scratch files, not part of the site
 *.pdf
 !presenter-guide/presenter-guide.pdf
