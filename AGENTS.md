@@ -1,5 +1,11 @@
 # Project rules
 
+- Work only inside this repository (`D:\dima`). Never read or write files outside
+  it: no home directory, AppData, temp, other drives, or `..` escapes. If a
+  request needs an outside path, stop and reply exactly:
+  «نمی‌تونم — فقط داخل پوشهٔ پروژه کار می‌کنم.»
+- The Telegram bot (`tools/telegram_bot.py`) runs headless agents under the same
+  rule, and `opencode.json` denies `external_directory` for tool access.
 - Every change must be committed and pushed to `origin/main` before the reply ends.
   No exceptions, no "later", no leaving work uncommitted.
 - Commit messages: short, imperative, English (e.g. `Fix blockchain slide wording`).

@@ -21,12 +21,48 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 STATE = TOOLS / "telegram-state.json"
+LOG_FILE = TOOLS / "bot.log"
 ENV_FILE = TOOLS / ".env"
 ALLOW_FILE = TOOLS / "allowlist.txt"
 CLI_GLOB = Path(os.environ.get("APPDATA", "")) / "ai.opencode.desktop" / "cli"
 MAX_MSG = 3800
 AGENT_TIMEOUT = 1800
 DEFAULT_MODEL = "opencode-go/deepseek-v4.1-flash"
+
+REFUSAL = ("نمی‌تونم — فقط داخل پوشهٔ پروژه کار می‌کنم.\n"
+           "این درخواست به فایل یا پوشه‌ای بیرون از مخزن نیاز دارد.")
+
+OUTSIDE_PATH_RE = re.compile(
+    r"[A-Za-z]:[\\/][^\s\"'<>|]*"          # C:\...
+    r"|\\\\[^\\\s]+"                        # \\server\share
+    r"|(?<![\w])~[\\/]"                     # ~/
+    r"|(?<![\w])\.\.[\\/]"                  # ..\ or ../
+    r"|%(?:appdata|userprofile|temp|programdata|windir|systemroot)%"
+    r"|(?:^|\s)/(?:etc|home|usr|var|root|opt|bin|tmp)/",
+    re.I,
+)
+OUTSIDE_WORDS = ("دسکتاپ", "دانلودها", "خارج از پوشه", "خارج از پروژه",
+                 "خارج از ریپو", "کل درایو", "my documents", "desktop", "downloads")
+
+
+def outside_request(text):
+    """True when the request names a path outside the repository."""
+    if any(word in text.lower() for word in OUTSIDE_WORDS):
+        return True
+    for raw in OUTSIDE_PATH_RE.findall(text):
+        if not raw or raw.startswith("..") or raw.startswith("~") or raw.startswith("%"):
+            return True
+        if raw.startswith("\\\\"):
+            return True
+        if raw.startswith("/"):
+            return True
+        try:
+            target = Path(raw.strip("\"'")).resolve()
+        except OSError:
+            return True
+        if target != ROOT and ROOT not in target.parents:
+            return True
+    return False
 
 HELP = """ربات تغییرات راهنمای ارائه.
 
@@ -38,11 +74,19 @@ HELP = """ربات تغییرات راهنمای ارائه.
 /id — شناسهٔ تلگرام تو (برای اضافه‌شدن به لیست مجاز)
 /help — همین راهنما
 
-نمونه: «عنوان اسلاید ۹ را با متن اسلاید یکی کن و پوش کن.»"""
+نمونه: «عنوان اسلاید ۹ را با متن اسلاید یکی کن و پوش کن.»
+
+فقط داخل پوشهٔ پروژه کار می‌کنم؛ هر درخواستی که فایل یا پوشهٔ بیرون را بخواند یا عوض کند رد می‌شود."""
 
 
 def log(*a):
-    print(time.strftime("%H:%M:%S"), *a, flush=True)
+    line = time.strftime("%H:%M:%S") + " " + " ".join(str(x) for x in a)
+    print(line, flush=True)
+    try:
+        with LOG_FILE.open("a", encoding="utf-8") as f:
+            f.write(line + "\n")
+    except OSError:
+        pass
 
 
 def load_env():
@@ -112,6 +156,9 @@ def run_agent(request, sender):
         return "خطا: opencode-cli پیدا نشد. OPENCODE_CLI را در tools/.env بگذار."
     prompt = (
         f"درخواست یکی از ارائه‌دهنده‌ها از تلگرام ({sender}):\n{request}\n\n"
+        "مرز دسترسی: فقط داخل ریشهٔ همین مخزن کار کن. هیچ مسیر مطلقی بیرون از آن را "
+        "باز نکن، حتی برای خواندن. اگر درخواست به فایل یا پوشه‌ای بیرون از مخزن نیاز داشت، "
+        "هیچ کاری نکن و پاسخ را با این جمله شروع کن: «نمی‌تونم — فقط داخل پوشهٔ پروژه کار می‌کنم.»\n\n"
         "قواعد: فقط داخل همین مخزن کار کن و هیچ فایل بیرون از آن را تغییر نده. "
         "اگر درخواست مبهم است حدس نزن؛ در پایان یک سؤال کوتاه بپرس. "
         "تغییر را با اسکریپت‌های پروژه بساز و تست کن. "
@@ -159,6 +206,14 @@ def handle(msg):
         log("denied", uid, name)
         return
 
+    def request_change(request):
+        if outside_request(request):
+            log("refused outside:", request[:80].replace("\n", " "))
+            send(chat_id, REFUSAL)
+            return
+        send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
+        send(chat_id, run_agent(request, name))
+
     if text in ("/start", "/help"):
         send(chat_id, HELP)
     elif text == "/id":
@@ -170,13 +225,11 @@ def handle(msg):
         if not request:
             send(chat_id, "بعد از /ask متن درخواست را بنویس.")
             return
-        send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
-        send(chat_id, run_agent(request, name))
+        request_change(request)
     elif text.startswith("/"):
         send(chat_id, "دستور ناشناخته. /help")
     else:
-        send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
-        send(chat_id, run_agent(text, name))
+        request_change(text)
 
 
 def load_offset():

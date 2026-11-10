@@ -13,6 +13,7 @@ notebooklm-packs/
 tools/.env
 tools/allowlist.txt
 tools/telegram-state.json
+tools/bot.log
 
 # reference papers and scratch files, not part of the site
 *.pdf
