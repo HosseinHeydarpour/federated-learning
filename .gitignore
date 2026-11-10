@@ -12,6 +12,8 @@ notebooklm-packs/
 # telegram bot secrets, allowlist and polling state
 tools/.env
 tools/allowlist.txt
+tools/admins.txt
+tools/pending.json
 tools/telegram-state.json
 tools/bot.log
 
