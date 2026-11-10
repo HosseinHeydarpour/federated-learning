@@ -51,6 +51,23 @@ OUTSIDE_WORDS = ("دسکتاپ", "دانلودها", "خارج از پوشه", "
 PROJECT_WORDS = ("پروژه", "سایت", "اسلاید", "راهنما", "ریپو", "ریورت", "حذف",
                  "پادکست", "گیت", "پوش")
 
+
+def outside_request(text):
+    """True when the request names a path outside the repository."""
+    low = text.lower()
+    if any(word in low for word in OUTSIDE_WORDS) and not any(word in low for word in PROJECT_WORDS):
+        return True
+    for raw in OUTSIDE_PATH_RE.findall(text):
+        if not raw or raw.startswith(("..", "~", "%", "\\\\", "/")):
+            return True
+        try:
+            target = Path(raw.strip("\"'")).resolve()
+        except OSError:
+            return True
+        if target != ROOT and ROOT not in target.parents:
+            return True
+    return False
+
 HELP = """<b>ربات تغییرات راهنمای ارائه</b>
 
 هر پیام معمولی را به‌عنوان درخواست تغییر می‌فرستم. اول خلاصهٔ فهمم را می‌فرستم؛ اگر تایید کنی، درخواست اعضای عادی برای تایید مدیر پروژه می‌رود و بعد اجرا می‌شود.
