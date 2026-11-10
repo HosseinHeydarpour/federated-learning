@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """Telegram bridge for the presenter guide.
 
-Flow for a change request:
-  1. the bot restates what it understood and asks the requester to confirm;
-  2. a non-admin request then waits for the project manager's approval;
-  3. only then a headless OpenCode run edits, tests, commits and pushes.
+Every request runs immediately in a headless OpenCode run (edit, test, commit,
+push). The project manager is notified of requests from the presenters; nobody
+has to approve anything.
 
 Run:  python tools/telegram_bot.py
 Config: tools/.env (token), tools/allowlist.txt, tools/admins.txt
@@ -22,7 +21,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TOOLS = ROOT / "tools"
 STATE = TOOLS / "telegram-state.json"
-PENDING = TOOLS / "pending.json"
 LOG_FILE = TOOLS / "bot.log"
 ENV_FILE = TOOLS / ".env"
 ALLOW_FILE = TOOLS / "allowlist.txt"
@@ -50,36 +48,15 @@ OUTSIDE_WORDS = ("دسکتاپ", "دانلودها", "خارج از پوشه", "
 PROJECT_WORDS = ("پروژه", "سایت", "اسلاید", "راهنما", "ریپو", "ریورت", "حذف",
                  "پادکست", "گیت", "پوش")
 
-
-def outside_request(text):
-    """True when the request names a path outside the repository."""
-    low = text.lower()
-    if any(word in low for word in OUTSIDE_WORDS) and not any(word in low for word in PROJECT_WORDS):
-        return True
-    for raw in OUTSIDE_PATH_RE.findall(text):
-        if not raw or raw.startswith(("..", "~", "%", "\\\\", "/")):
-            return True
-        try:
-            target = Path(raw.strip("\"'")).resolve()
-        except OSError:
-            return True
-        if target != ROOT and ROOT not in target.parents:
-            return True
-    return False
-
 HELP = """<b>ربات تغییرات راهنمای ارائه</b>
 
-هر پیام معمولی را به‌عنوان درخواست تغییر می‌فرستم. درخواست خودت بلافاصله اجرا می‌شود؛ درخواست ارائه‌دهنده‌های دیگر برای تایید مدیر پروژه می‌رود.
+هر پیام معمولی را به‌عنوان درخواست تغییر اجرا می‌کنم: فایل‌ها را عوض می‌کنم، تست می‌گیرم، کامیت و پوش می‌کنم و نتیجه را می‌فرستم. درخواست‌های ارائه‌دهنده‌ها هم فوری اجرا می‌شود و مدیر پروژه فقط در جریان قرار می‌گیرد.
 
 دستورها:
 /status — وضعیت مخزن و آخرین کامیت‌ها
 /ask متن — همان درخواست تغییر
 /id — شناسهٔ تلگرام تو
 /help — همین راهنما
-
-اگر مدیر پروژه هستی:
-/pending — درخواست‌های در انتظار
-/approve A1 · /reject A1 — تایید یا رد با شناسه
 
 فقط داخل پوشهٔ پروژه کار می‌کنم؛ درخواست بیرونی رد می‌شود."""
 
@@ -141,19 +118,6 @@ def send(chat_id, text, markup=None):
     api("sendMessage", payload)
 
 
-def edit(chat_id, message_id, text, markup=None):
-    payload = {"chat_id": chat_id, "message_id": message_id,
-               "text": str(text)[:MAX_MSG], "parse_mode": "HTML",
-               "disable_web_page_preview": True}
-    if markup:
-        payload["reply_markup"] = markup
-    try:
-        api("editMessageText", payload)
-    except RuntimeError as e:
-        if "not modified" not in str(e):
-            log("edit failed:", e)
-
-
 def allowed_ids(path):
     if not path.exists():
         return set()
@@ -165,50 +129,21 @@ def allowed_ids(path):
     return ids
 
 
-def load_pending():
-    try:
-        data = json.loads(PENDING.read_text(encoding="utf-8"))
-        data.setdefault("seq", 0)
-        data.setdefault("items", {})
-        return data
-    except Exception:
-        return {"seq": 0, "items": {}}
-
-
-def save_pending(data):
-    try:
-        PENDING.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8")
-    except OSError as e:
-        log("pending save failed:", e)
-
-
-def pending_add(uid, name, chat, text):
-    data = load_pending()
-    data["seq"] += 1
-    rid = f"A{data['seq']}"
-    data["items"][rid] = {"uid": uid, "name": name, "chat": chat, "text": text,
-                          "understanding": "", "stage": "approve",
-                          "ts": int(time.time())}
-    save_pending(data)
-    return rid
-
-
-def pending_get(rid):
-    return load_pending()["items"].get(rid)
-
-
-def pending_update(rid, **fields):
-    data = load_pending()
-    if rid in data["items"]:
-        data["items"][rid].update(fields)
-        save_pending(data)
-
-
-def pending_pop(rid):
-    data = load_pending()
-    item = data["items"].pop(rid, None)
-    save_pending(data)
-    return item
+def outside_request(text):
+    """True when the request names a path outside the repository."""
+    low = text.lower()
+    if any(word in low for word in OUTSIDE_WORDS) and not any(word in low for word in PROJECT_WORDS):
+        return True
+    for raw in OUTSIDE_PATH_RE.findall(text):
+        if not raw or raw.startswith(("..", "~", "%", "\\\\", "/")):
+            return True
+        try:
+            target = Path(raw.strip("\"'")).resolve()
+        except OSError:
+            return True
+        if target != ROOT and ROOT not in target.parents:
+            return True
+    return False
 
 
 def find_cli():
@@ -245,27 +180,12 @@ def parse_texts(stdout):
     return texts
 
 
-def run_cli(prompt, title, timeout):
+def run_agent(request, sender):
     cli = find_cli()
     if not cli:
-        return ""
-    cmd = [cli, "run", "--auto", "--format", "json", "--title", title]
-    model = os.environ.get("OPENCODE_MODEL", "").strip() or DEFAULT_MODEL
-    cmd += ["--model", model, prompt]
-    log("agent start:", title)
-    try:
-        proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True,
-                              encoding="utf-8", errors="replace", timeout=timeout)
-    except subprocess.TimeoutExpired:
-        return ""
-    texts = parse_texts(proc.stdout)
-    return texts[-1] if texts else ""
-
-
-def run_agent(request, sender, understanding=""):
-    extra = f"\nفهم تاییدشده توسط درخواست‌دهنده:\n{understanding}\n" if understanding else ""
+        return "خطا: opencode-cli پیدا نشد. OPENCODE_CLI را در tools/.env بگذار."
     prompt = (
-        f"درخواست یکی از ارائه‌دهنده‌ها از تلگرام ({sender}):\n{request}\n{extra}\n"
+        f"درخواست یکی از ارائه‌دهنده‌ها از تلگرام ({sender}):\n{request}\n\n"
         "مرز دسترسی: فقط داخل ریشهٔ همین مخزن کار کن. هیچ مسیر مطلقی بیرون از آن را "
         "باز نکن، حتی برای خواندن. اگر درخواست به فایل یا پوشه‌ای بیرون از مخزن نیاز داشت، "
         "هیچ کاری نکن و پاسخ را با این جمله شروع کن: «نمی‌تونم — فقط داخل پوشهٔ پروژه کار می‌کنم.»\n\n"
@@ -278,10 +198,20 @@ def run_agent(request, sender, understanding=""):
         "طبق AGENTS.md همه‌چیز را کامیت و روی origin/main پوش کن. "
         "پاسخ نهایی حداکثر ۵ خط فارسی و بدون فهرست بلند: چه عوض شد، هش کامیت، و اگر سؤالی هست."
     )
-    body = run_cli(prompt, f"تلگرام: {sender}", AGENT_TIMEOUT)
-    if body:
-        return body
-    return "اجرا تمام شد ولی متنی برنگشت. /status را بزن یا درخواست را دوباره بفرست."
+    cmd = [cli, "run", "--auto", "--format", "json", "--title", f"تلگرام: {sender}"]
+    model = os.environ.get("OPENCODE_MODEL", "").strip() or DEFAULT_MODEL
+    cmd += ["--model", model, prompt]
+    log("agent start:", f"{sender}: {request[:50]}".replace("\n", " "))
+    try:
+        proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True,
+                              encoding="utf-8", errors="replace", timeout=AGENT_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        return "زمان اجرا تمام شد؛ تغییرات نیمه‌کاره ممکن است مانده باشد. /status را بزن."
+    texts = parse_texts(proc.stdout)
+    if texts:
+        return texts[-1]
+    err = strip_ansi((proc.stderr or "").strip())[-500:]
+    return f"اجرا با کد {proc.returncode} تمام شد و متنی برنگشت.\n{err}".strip()
 
 
 def git_status():
@@ -300,11 +230,8 @@ def result_message(text):
     return "🤖 <b>نتیجه</b>\n\n" + md_to_html(body)
 
 
-def approve_markup(rid):
-    return {"inline_keyboard": [[
-        {"text": "✅ تایید", "callback_data": f"ap:{rid}"},
-        {"text": "❌ رد", "callback_data": f"rj:{rid}"},
-    ]]}
+def managers():
+    return sorted(allowed_ids(ADMIN_FILE))
 
 
 def request_change(chat_id, uid, name, text):
@@ -312,34 +239,16 @@ def request_change(chat_id, uid, name, text):
         log("refused outside:", text[:80].replace("\n", " "))
         send(chat_id, esc(REFUSAL))
         return
-    if uid in allowed_ids(ADMIN_FILE):
-        send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
-        send(chat_id, result_message(run_agent(text, name)))
-        return
-
-    items = load_pending()["items"]
-    rid = next((key for key, item in items.items()
-                if item.get("uid") == uid and item.get("stage") == "approve"), None)
-    if rid:
-        pending_update(rid, text=text, name=name, chat=chat_id)
-        send(chat_id, f"✏️ درخواستت به‌روز شد (<b>{rid}</b>) و برای تایید مدیر رفت.")
-    else:
-        rid = pending_add(uid, name, chat_id, text)
-        send(chat_id, f"⏳ درخواستت ثبت شد (<b>{rid}</b>) و برای تایید مدیر پروژه رفت.")
-
-    for admin in sorted(allowed_ids(ADMIN_FILE)):
-        send(admin, f"📥 <b>درخواست {rid}</b>\nاز: {esc(name)}\n\n{esc(text[:1200])}",
-             approve_markup(rid))
-
-
-def start_execution(rid, item, admin_chat=None):
-    send(item["chat"], f"✅ <b>{rid}</b> تایید شد؛ در حال اجرا…")
-    if admin_chat and admin_chat != item["chat"]:
-        send(admin_chat, f"✅ <b>{rid}</b> تایید شد؛ در حال اجرا…")
-    result = result_message(run_agent(item["text"], item["name"], item.get("understanding", "")))
-    send(item["chat"], result)
-    if admin_chat and admin_chat != item["chat"]:
-        send(admin_chat, result)
+    is_manager = uid in managers()
+    if not is_manager:
+        for admin in managers():
+            send(admin, f"📥 <b>درخواست {esc(name)}</b>\n\n{esc(text[:1500])}\n\nدر حال اجراست.")
+    send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
+    raw = run_agent(text, name)
+    send(chat_id, result_message(raw))
+    if not is_manager:
+        for admin in managers():
+            send(admin, f"✅ <b>نتیجهٔ درخواست {esc(name)}</b>\n\n{md_to_html(raw[:2500])}")
 
 
 def handle(msg):
@@ -357,47 +266,12 @@ def handle(msg):
         log("denied", uid, name)
         return
 
-    is_admin = uid in allowed_ids(ADMIN_FILE)
-
     if text in ("/start", "/help"):
         send(chat_id, HELP)
     elif text == "/id":
-        send(chat_id, f"شناسهٔ تلگرام: {uid}\nشناسهٔ چت: {chat_id}\n"
-                      f"نقش: {'مدیر پروژه' if is_admin else 'ارائه‌دهنده'}")
+        send(chat_id, f"شناسهٔ تلگرام: {uid}\nشناسهٔ چت: {chat_id}")
     elif text == "/status":
         send(chat_id, git_status())
-    elif text == "/pending":
-        if not is_admin:
-            send(chat_id, "فقط مدیر پروژه.")
-            return
-        items = load_pending()["items"]
-        if not items:
-            send(chat_id, "صف خالی است.")
-            return
-        lines = [f"<b>در انتظار</b> ({len(items)})"]
-        for rid, item in list(items.items())[-10:]:
-            lines.append(f"<b>{rid}</b> · {esc(item['name'])} · منتظر تایید تو\n{esc(item['text'][:120])}")
-        send(chat_id, "\n\n".join(lines))
-    elif text.startswith(("/approve", "/reject")):
-        if not is_admin:
-            send(chat_id, "فقط مدیر پروژه.")
-            return
-        cmd, _, rid = text.partition(" ")
-        rid = rid.strip()
-        item = pending_get(rid)
-        if not item:
-            send(chat_id, "این شناسه در صف نیست.")
-            return
-        if cmd == "/reject":
-            pending_pop(rid)
-            send(chat_id, f"❌ <b>{rid}</b> رد شد.")
-            send(item["chat"], f"❌ درخواستت (<b>{rid}</b>) رد شد.")
-            return
-        if item.get("stage") != "approve":
-            send(chat_id, "این درخواست هنوز توسط درخواست‌دهنده تایید نشده.")
-            return
-        pending_pop(rid)
-        start_execution(rid, item, chat_id)
     elif text.startswith("/ask"):
         request = text[4:].strip()
         if not request:
@@ -408,36 +282,6 @@ def handle(msg):
         send(chat_id, "دستور ناشناخته. /help")
     else:
         request_change(chat_id, uid, name, text)
-
-
-def handle_callback(cq):
-    uid = cq.get("from", {}).get("id")
-    api("answerCallbackQuery", {"callback_query_id": cq["id"]})
-    action, _, rid = (cq.get("data") or "").partition(":")
-    if action not in ("ap", "rj"):
-        return
-    if uid not in allowed_ids(ADMIN_FILE):
-        return
-    item = pending_get(rid)
-    msg = cq.get("message") or {}
-    chat_id = (msg.get("chat") or {}).get("id")
-    message_id = msg.get("message_id")
-
-    if not item:
-        if chat_id and message_id:
-            edit(chat_id, message_id, f"این درخواست (<b>{rid}</b>) دیگر در صف نیست.")
-        return
-
-    if action == "rj":
-        pending_pop(rid)
-        if chat_id and message_id:
-            edit(chat_id, message_id, f"❌ <b>{rid}</b> رد شد.\nاز: {esc(item['name'])}")
-        send(item["chat"], f"❌ درخواستت (<b>{rid}</b>) رد شد.")
-        return
-    pending_pop(rid)
-    if chat_id and message_id:
-        edit(chat_id, message_id, f"✅ <b>{rid}</b> تایید شد؛ در حال اجرا…\nاز: {esc(item['name'])}")
-    start_execution(rid, item)
 
 
 def load_offset():
@@ -458,8 +302,7 @@ def selftest():
     load_env()
     print("token:", "ok" if os.environ.get("TELEGRAM_BOT_TOKEN") else "MISSING (tools/.env)")
     print("allowlist:", sorted(allowed_ids(ALLOW_FILE)) or "empty (everyone refused)")
-    print("admins:", sorted(allowed_ids(ADMIN_FILE)) or "empty (nobody can approve)")
-    print("pending:", len(load_pending()["items"]))
+    print("managers:", managers() or "empty (no notifications)")
     print("cli:", find_cli() or "not found")
     print("git:\n" + strip_ansi(git_status()).replace("<pre>", "").replace("</pre>", ""))
     return 0 if os.environ.get("TELEGRAM_BOT_TOKEN") else 1
@@ -472,25 +315,19 @@ def main():
         return selftest()
     if not allowed_ids(ALLOW_FILE):
         log("warning: tools/allowlist.txt is empty; everyone is refused")
-    if not allowed_ids(ADMIN_FILE):
-        log("warning: tools/admins.txt is empty; nobody can approve")
+    if not managers():
+        log("warning: tools/admins.txt is empty; nobody is notified")
     offset = load_offset()
     log("bot started; repo:", ROOT)
     while True:
         try:
             updates = api("getUpdates", {"offset": offset, "timeout": 30,
-                                         "allowed_updates": ["message", "callback_query"]},
-                          timeout=60)
+                                         "allowed_updates": ["message"]}, timeout=60)
             for upd in updates:
                 offset = upd["update_id"] + 1
                 save_offset(offset)
                 if "message" in upd:
                     handle(upd["message"])
-                elif "callback_query" in upd:
-                    try:
-                        handle_callback(upd["callback_query"])
-                    except Exception as e:
-                        log("callback error", repr(e))
         except urllib.error.HTTPError as e:
             log("http", e.code, e.read()[:200])
             time.sleep(5)
