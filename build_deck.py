@@ -694,8 +694,6 @@ def slide_integrity_attacks(prs):
 def slide_dp(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
-    panel(s, FORMAL_PANEL, 0.0, 1.22, 4.15, 5.19)
-    rect(s, 4.15, 1.22, 0.02, 5.19, fill=WHITE, line=None, shadow=False)
 
     small_logo(s)
     txt(s, 4.72, 0.40, 7.8, 0.24, "روش^های حفظ حریم خصوصی", 8.2, BLUE_MID, font=FA, align="r", spacing=0.8)
@@ -766,10 +764,8 @@ def slide_crypto(prs):
 def slide_blockchain(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
-    panel(s, FORMAL_PANEL, 0.0, 0, 4.15, 7.5)
-    rect(s, 4.15, 0, 0.03, 7.5, fill=WHITE, line=None, shadow=False)
 
-    small_logo(s, white=True)
+    small_logo(s)
     txt(s, 4.75, 0.40, 7.8, 0.24, "روش^های حفظ حریم خصوصی", 8.2, BLUE_MID, font=FA, align="r", spacing=0.8)
     txt(s, 4.75, 0.74, 7.8, 0.86, "بلاک‌چین؛ دفتر مشترک و قابل اعتماد", 28, BLUE, bold=True, align="r", anchor="b", line=1.1)
     rect(s, 4.75, 1.68, 7.8, 0.014, fill=GOLD, line=None, shadow=False)
