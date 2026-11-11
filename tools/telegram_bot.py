@@ -10,9 +10,11 @@ Config: tools/.env (token), tools/allowlist.txt, tools/admins.txt
 """
 import json
 import os
+import queue
 import re
 import subprocess
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -29,6 +31,7 @@ CLI_GLOB = Path(os.environ.get("APPDATA", "")) / "ai.opencode.desktop" / "cli"
 MAX_MSG = 3800
 AGENT_TIMEOUT = 1800
 DEFAULT_MODEL = "opencode-go/deepseek-v4.1-flash"
+JOBS = queue.Queue()
 
 REFUSAL = ("نمی‌تونم — فقط داخل پوشهٔ پروژه کار می‌کنم.\n"
            "این درخواست به فایل یا پوشه‌ای بیرون از مخزن نیاز دارد.")
@@ -242,16 +245,39 @@ def request_change(chat_id, uid, name, text):
         log("refused outside:", text[:80].replace("\n", " "))
         send(chat_id, esc(REFUSAL))
         return
+    JOBS.put({"chat": chat_id, "uid": uid, "name": name, "text": text})
+    if JOBS.qsize() > 1:
+        send(chat_id, "⏳ در صف است؛ به‌ترتیب اجرا می‌شود.")
+    else:
+        send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
+
+
+def run_job(job):
+    chat_id, uid, name, text = job["chat"], job["uid"], job["name"], job["text"]
     is_manager = uid in managers()
     if not is_manager:
         for admin in managers():
             send(admin, f"📥 <b>درخواست {esc(name)}</b>\n\n{esc(text[:1500])}\n\nدر حال اجراست.")
-    send(chat_id, "⏳ در حال اعمال؛ ممکن است چند دقیقه طول بکشد.")
     raw = run_agent(text, name)
     send(chat_id, result_message(raw))
     if not is_manager:
         for admin in managers():
             send(admin, f"✅ <b>نتیجهٔ درخواست {esc(name)}</b>\n\n{md_to_html(raw[:2500])}")
+
+
+def worker():
+    while True:
+        job = JOBS.get()
+        try:
+            run_job(job)
+        except Exception as e:
+            log("job error", repr(e))
+            try:
+                send(job["chat"], "خطا در اجرا؛ tools/bot.log را ببین.")
+            except Exception:
+                pass
+        finally:
+            JOBS.task_done()
 
 
 def handle(msg):
@@ -324,6 +350,7 @@ def main():
     if not managers():
         log("warning: tools/admins.txt is empty; nobody is notified")
     offset = load_offset()
+    threading.Thread(target=worker, daemon=True).start()
     log("bot started; repo:", ROOT)
     while True:
         try:
