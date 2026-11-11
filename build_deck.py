@@ -50,7 +50,7 @@ WHITE     = RGBColor(0xFF, 0xFF, 0xFF)
 
 X0, XR = 0.78, 12.55
 CW = XR - X0
-DECK_TITLE = "بررسی روش^های حفظ حریم خصوصی داده^های شخصی در یادگیری فدرال برای اینترنت اشیا"
+DECK_TITLE = "بررسی روش^های حفظ حریم خصوصی داده^های شخصی در یادگیری فدرالِ اینترنت اشیا"
 FORMAL = True
 BG = "formal_bg.jpg"
 FORMAL_PANEL = "formal_panel.jpg"
@@ -304,8 +304,7 @@ def sec_header(s, kicker, title, idx, center=False, sub=None, title_size=30, log
 
 
 def footer(s, idx):
-    txt(s, 0.78, 7.14, 1.5, 0.18, "%s از ۲۰" % fa(idx), 7.2, MUTED, font=FA, align="l", spacing=0.4)
-    txt(s, 8.9, 7.14, 3.65, 0.18, "سمینار پژوهشی  ·  گروه مهندسی کامپیوتر", 6.4, FAINT, font=FA, align="r", spacing=0.2)
+    txt(s, 0.72, 6.98, 2.4, 0.36, "%s از ۲۰" % fa(idx), 11.0, MUTED, font=FA, align="l", spacing=0.4)
 
 
 def band(s, text, y=6.45, h=0.52, icon_code=0xE946):
@@ -365,7 +364,7 @@ def slide_cover(prs):
     p = para(tf, first=True, align="r", line=1.30)
     run(p, "بررسی روش^های حفظ حریم خصوصی داده^های شخصی", 39, BLUE, bold=True)
     p.add_line_break()
-    run(p, "در یادگیری فدرال برای اینترنت اشیا", 39, BLUE, bold=True)
+    run(p, "در یادگیری فدرالِ اینترنت اشیا", 39, BLUE, bold=True)
 
     txt(s, X0, 3.98, CW, 0.56, "A Review of Methods for Preserving Personal Data Privacy in Federated Learning for the Internet of Things",
         11.5, MUTED, font=EN_BODY, line=1.4, align="r", latin=True)
@@ -381,7 +380,7 @@ def slide_cover(prs):
         txt(s, x, 5.22, w, 0.22, label, 8.6, MUTED, font=FA, align="r")
         txt(s, x, 5.50, w, 0.38, value, 12.5, BLUE, bold=True, align="r")
 
-    txt(s, X0, 6.92, 3.0, 0.20, "%s از ۲۰" % fa(1), 7.2, MUTED, font=FA, align="l", spacing=0.4)
+    txt(s, X0, 6.92, 3.0, 0.20, "%s از ۲۰" % fa(1), 11.0, MUTED, font=FA, align="l", spacing=0.4)
 
 
 # ------------------------------------------------------------------ 2 agenda
@@ -1248,26 +1247,6 @@ NOTES = {
     20: "۰:۳۰ | تشکر و آماده پرسش.",
 }
 
-SOURCES = {
-    3: "منابع: [1] تا [5]",
-    4: "منابع: [1] تا [5]",
-    5: "منابع: [1]، [2]",
-    6: "منابع: [1]، [2]",
-    7: "منابع: [7]",
-    8: "منابع: [6]",
-    9: "منابع: [1]، [2]",
-    10: "منابع: [1]، [2]، [6]، [10]",
-    11: "منابع: [9]",
-    12: "منابع: [2]، [8]",
-    13: "منابع: [1]، [3]",
-    14: "منابع: [10]",
-    15: "منابع: ارزیابی کیفی بر اساس [1] تا [5]",
-    16: "منابع: سناریوی مفهومی بر اساس [1] تا [5]",
-    17: "منابع: [5]",
-    18: "منابع: [1] تا [5]",
-}
-
-
 def build(path):
     prs = Presentation()
     prs.slide_width = Inches(13.333)
@@ -1288,14 +1267,10 @@ def build(path):
         if i in NOTES:
             s.notes_slide.notes_text_frame.text = NOTES[i]
 
-    for i, s in enumerate(prs.slides, 1):
-        if i in SOURCES:
-            txt(s, 6.00, 6.98, 6.55, 0.18, SOURCES[i], 6.5, FAINT, align="r")
-
     cp = prs.core_properties
     cp.author = "دیانا صباحی؛ موژان شجاعی"
     cp.last_modified_by = "دیانا صباحی"
-    cp.title = "بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرال اینترنت اشیا"
+    cp.title = "بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرالِ اینترنت اشیا"
     cp.subject = "سمینار پژوهشی — دانشگاه سلمان فارسی کازرون"
     cp.comments = ""
     cp.keywords = "Federated Learning; IoT; Privacy; Differential Privacy; Secure Aggregation"
