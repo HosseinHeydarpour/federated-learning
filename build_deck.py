@@ -1026,39 +1026,46 @@ def slide_conclusion(prs):
     s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
     sec_header(s, "جمع^بندی و منابع", "جمع^بندی و نتیجه^گیری", 19, title_size=32)
 
-    cols = [
-        (6.75, "نتیجه", BLUE, [
-            "یادگیری فدرال خطر افشا را کم می^کند، اما امنیت کامل نمی^دهد.",
-            "هیچ روشی همزمان امن، ارزان و دقیق نیست.",
-            "سیستم^های واقعی همیشه ترکیبی هستند.",
-        ]),
-        (0.78, "چرا مهم است", LAVENDER, [
-            "دستگاه^های اینترنت اشیا همه^جا دادهٔ حساس می^سازند.",
-            "مدل^ها به همین داده نیاز دارند؛ آموزش را نمی^شود متوقف کرد.",
-            "هدف، تعادل بین پیشرفت فناوری و حریم خصوصی است.",
-        ]),
+    head = [(8.02, 4.55, "یافته"), (X0, 7.06, "پیامد برای سیستم")]
+    for x, w, label in head:
+        tf = textbox(s, x, 1.82, w, 0.32, anchor="m")
+        p = para(tf, first=True, align="r", line=1.1)
+        run(p, label, 8.4, BLUE_MID, bold=True, spacing=0.4)
+
+    rows = [
+        ("یادگیری فدرال دادهٔ خام را خارج نمی^کند", "خطر افشا کم می^شود، اما صفر نمی^شود.", BLUE, BLUE_PALE),
+        ("به^روزرسانی^های مدل هم حمله^پذیرند", "نشت گرادیان و مسموم^سازی، مسیر باقی^ماندهٔ افشاست.", RED, RED_PALE),
+        ("ترکیب روش^های حفاظتی لازم است", "حریم خصوصی تفاضلی و تجمیع امن، لایه^های مکمل^اند.", LAVENDER, LAV_PALE),
+        ("هر لایهٔ امنیتی هزینه دارد", "پردازش گران^تر یا دقت کمتر؛ انتخاب به شرایط سیستم بستگی دارد.", YELLOW, YEL_PALE),
+        ("حریم خصوصی از ابتدای طراحی", "نه قابلیتی که بعداً به سیستم اضافه شود.", GREEN, GREEN_PALE),
     ]
-    for x, title, col, items in cols:
-        tf = textbox(s, x, 1.92, 5.65, 2.40)
-        p = para(tf, first=True, align="r", line=1.0)
-        run(p, title, 10.5, col, bold=True, spacing=0.6)
-        for i, it in enumerate(items):
-            p = para(tf, align="r", line=1.5, before=12 if i == 0 else 8)
-            r = p.add_run(); r.text = chr(0xE73E); r.font.name = ICON_FONT; r.font.size = Pt(12); r.font.color.rgb = col
-            r2 = p.add_run(); r2.text = "  "; r2.font.size = Pt(11)
-            run(p, it, 11.6, INK)
+    y = 2.16
+    for i, (finding, impact, col, bg) in enumerate(rows):
+        if i % 2 == 0:
+            rect(s, X0, y - 0.02, CW, 0.44, fill=WHITE, line=None, radius=0.06, shadow=False, alpha=55)
+        num_circle(s, fa(i + 1), 12.19, y + 0.05, d=0.30, size=8, fill=bg, color=col)
+        txt(s, 8.02, y, 4.10, 0.42, finding, 10.4, INK, bold=True, align="r", anchor="m", line=1.2)
+        txt(s, X0 + 0.08, y, 7.02, 0.42, impact, 9.8, BODY, align="r", anchor="m", line=1.25)
+        y += 0.44
 
-    gradient_rect(s, X0, 4.46, CW, 1.12, BLUE_MID, LAVENDER, radius=0.12)
-    tf = textbox(s, X0 + 0.36, 4.46, CW - 0.72, 1.12, anchor="m")
+    rect(s, 7.90, 1.86, 0.008, 2.22, fill=RGBColor(0xDE, 0xE8, 0xF6), line=None, shadow=False)
+    for yy in (2.14, 2.58, 3.02, 3.46, 3.90, 4.34):
+        rect(s, X0, yy, CW, 0.008, fill=RGBColor(0xDE, 0xE8, 0xF6), line=None, shadow=False)
+
+    gradient_rect(s, X0, 4.54, CW, 0.98, BLUE_MID, LAVENDER, radius=0.12)
+    tf = textbox(s, X0 + 0.36, 4.54, CW - 0.72, 0.98, anchor="m")
     p = para(tf, first=True, align="r", line=1.2)
-    run(p, "«حریم خصوصی از ابتدای طراحی، نه یک قابلیت اضافی.»", 19.0, WHITE, bold=True, font=FA)
+    run(p, "«هدف، بیشترین امنیت نیست؛ تعادل بین حریم خصوصی، دقت و هزینه است.»", 16.5, WHITE, bold=True, font=FA)
 
-    tf = textbox(s, X0, 5.76, CW, 0.40)
+    tf = textbox(s, X0, 5.66, CW, 1.00)
     p = para(tf, first=True, align="r", line=1.35)
-    run(p, "مسیر پیشنهادی: ", 11.0, BLUE, bold=True)
-    run(p, "ترکیب یادگیری فدرال با حریم خصوصی تفاضلی و تجمیع امن.", 11.0, BODY)
+    run(p, "چرا مهم است: ", 10.6, LAVENDER, bold=True)
+    run(p, "دستگاه^های اینترنت اشیا در خانه، سلامت، خودرو و صنعت دادهٔ حساس می^سازند و قدرت پردازش محدودی دارند؛ پس راه^حل باید هم امن باشد، هم قابل اجرا.", 10.6, BODY)
+    p = para(tf, align="r", line=1.35, before=6)
+    run(p, "مسیر پیشنهادی: ", 10.6, BLUE, bold=True)
+    run(p, "ترکیب یادگیری فدرال با حریم خصوصی تفاضلی و تجمیع امن، از مرحلهٔ طراحی.", 10.6, BODY)
 
-    txt(s, X0, 6.55, CW, 0.24, "پایان  ·  پرسش و پاسخ", 8.0, FAINT, font=FA, align="r", spacing=0.6)
+    txt(s, X0, 6.62, CW, 0.24, "پایان  ·  پرسش و پاسخ", 8.0, FAINT, font=FA, align="r", spacing=0.6)
     footer(s, 19)
 
 
