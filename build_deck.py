@@ -304,7 +304,7 @@ def sec_header(s, kicker, title, idx, center=False, sub=None, title_size=30, log
 
 
 def footer(s, idx):
-    txt(s, 0.72, 6.98, 2.4, 0.36, "%s از ۲۰" % fa(idx), 12.0, MUTED, font=FA, align="l", spacing=0.4)
+    txt(s, 0.72, 6.98, 2.4, 0.36, "%s از ۲۲" % fa(idx), 12.0, MUTED, font=FA, align="l", spacing=0.4)
 
 
 def band(s, text, y=6.45, h=0.52, icon_code=0xE946):
@@ -380,7 +380,7 @@ def slide_cover(prs):
         txt(s, x, 5.22, w, 0.22, label, 8.6, MUTED, font=FA, align="r")
         txt(s, x, 5.50, w, 0.38, value, vsize, BLUE, bold=True, align="r")
 
-    txt(s, X0, 6.92, 3.0, 0.20, "%s از ۲۰" % fa(1), 12.0, MUTED, font=FA, align="l", spacing=0.4)
+    txt(s, X0, 6.92, 3.0, 0.20, "%s از ۲۲" % fa(1), 12.0, MUTED, font=FA, align="l", spacing=0.4)
 
 
 # ------------------------------------------------------------------ 2 agenda
@@ -984,10 +984,109 @@ def slide_case_ids(prs):
     band(s, "تفاوت با حملهٔ استنتاج: اینجا هدف خواندن داده نیست؛ خراب کردن مدل است.", y=6.20, h=0.48)
     footer(s, 11)
 
+# ------------------------------------------------------------------ 18 case study smart city
+def slide_case_city(prs):
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
+    sec_header(s, "مقایسه و مطالعات موردی", "شهر هوشمند؛ دادهٔ ناهمگون، مهاجم در جمع", 18, title_size=27)
+
+    sources = [
+        ("حسگر محیطی", "دما و آلودگی هوا", 0xE9D9),
+        ("دوربین شهری", "تصویر و زمان عبور", 0xE774),
+        ("حمل^ونقل", "مسیر و ترافیک", 0xE804),
+        ("خدمات شهری", "مصرف و انرژی", 0xE80F),
+    ]
+    gap = 0.20
+    w = (CW - 3 * gap) / 4
+    for i, (t, d, ic) in enumerate(sources):
+        x = XR - w - i * (w + gap)
+        rect(s, x, 1.94, w, 1.04, fill=WHITE, line=LINE, radius=0.10, shadow=True, alpha=94)
+        icon(s, ic, x + w - 0.44, 2.04, size=17, color=BLUE)
+        txt(s, x + 0.18, 2.06, w - 0.66, 0.26, t, 10.6, INK, bold=True, align="r")
+        txt(s, x + 0.18, 2.44, w - 0.36, 0.40, d, 8.8, BODY, align="r", line=1.25)
+
+    rect(s, X0, 3.16, 4.55, 2.06, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=94)
+    txt(s, X0 + 0.24, 3.28, 4.07, 0.26, "دقت گزارش^شده", 10.6, BLUE, bold=True, align="r")
+    rows = [("MNIST", 93, BLUE), ("CIFAR-10", 84, LAVENDER)]
+    y = 3.64
+    for name, pct, col in rows:
+        txt(s, X0 + 2.55, y - 0.02, 1.76, 0.28, name, 9.6, INK, font=EN_BODY, align="r", latin=True)
+        txt(s, X0 + 0.24, y - 0.02, 1.30, 0.28, "٪%s" % fa(pct), 12.0, col, bold=True, align="l")
+        rect(s, X0 + 0.24, y + 0.34, 4.07, 0.13, fill=RGBColor(0xE8, 0xEF, 0xF9), line=None, radius=0.2, shadow=False)
+        bw = 4.07 * pct / 100.0
+        rect(s, X0 + 0.24 + 4.07 - bw, y + 0.34, bw, 0.13, fill=col, line=None, radius=0.2, shadow=False)
+        y += 0.72
+    txt(s, X0 + 0.24, 4.94, 4.07, 0.20, "روی دو مجموعه^دادهٔ تصویری", 8.2, MUTED, align="r")
+
+    rect(s, 5.55, 3.16, 7.00, 2.06, fill=BLUE_PALE, line=RGBColor(0xCC,0xDD,0xF4), radius=0.12, shadow=False)
+    txt(s, 5.77, 3.28, 6.56, 0.26, "چارچوب PP-FDL", 10.8, BLUE_D, bold=True, align="r")
+    txt(s, 5.77, 3.54, 6.56, 0.24, "یادگیری فدرال عمیق با محاسبات مه", 8.8, BLUE_MID, align="r")
+    tf = textbox(s, 5.77, 3.88, 6.56, 1.24)
+    body(tf, [
+        "داده روی دستگاه می^ماند؛ گره^های مه مدل را با هم آموزش می^دهند.",
+        "برای هر کلاس داده یک شناسهٔ اختصاصی ساخته می^شود.",
+        "مهاجم کلاس هدف را نمی^شناسد و نمی^تواند داده را بازسازی کند.",
+    ], 10.4, BLUE_D, bullet_color=BLUE, gap=5, line=1.3, icon_code=0xE73E)
+
+    tf = textbox(s, X0, 5.36, CW, 0.62)
+    p = para(tf, first=True, align="r", line=1.35)
+    run(p, "محدودیت: ", 10.4, RED, bold=True)
+    run(p, "آزمایش^ها روی MNIST و CIFAR-10 انجام شده و آموزش مدل عمیق روی دستگاه^های کم^توان، و مقاومت در برابر همهٔ انواع حملات، هنوز بررسی نشده است.", 10.4, BODY)
+
+    band(s, "این چارچوب یک راهکار پژوهشی است؛ برای شهر واقعی به گره^های مه و هماهنگی بیشتر نیاز دارد.", y=6.34, h=0.46)
+    footer(s, 18)
+
+
+# ------------------------------------------------------------------ 19 case study intrusion detection
+def slide_case_detect(prs):
+    s = prs.slides.add_slide(prs.slide_layouts[6])
+    s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
+    sec_header(s, "مقایسه و مطالعات موردی", "تشخیص حملات سایبری؛ آموزش بدون دیدن ترافیک", 19, title_size=27)
+
+    nodes = [
+        ("ترافیک دستگاه", "دادهٔ شبکه، محلی", 0xE968),
+        ("آموزش محلی", "مدل تشخیص نفوذ", 0xE912),
+        ("ارسال وزن^ها", "بدون دادهٔ خام", 0xE72D),
+        ("تجمیع FedAvgM", "با مومنتوم", 0xE71B),
+        ("مدل مشترک", "تشخیص در لبه", 0xE7BA),
+    ]
+    gap = 0.20
+    w = (CW - 4 * gap) / 5
+    for i, (t, d, ic) in enumerate(nodes):
+        x = XR - w - i * (w + gap)
+        rect(s, x, 1.96, w, 1.72, fill=WHITE, line=LINE, radius=0.12, shadow=True, alpha=94)
+        icon_circle(s, ic, x + 0.16, 2.12, d=0.50, size=17)
+        txt(s, x + 0.16, 2.70, w - 0.32, 0.26, t, 10.2, INK, bold=True, align="r", line=1.2)
+        txt(s, x + 0.16, 2.98, w - 0.32, 0.42, d, 8.6, BODY, align="r", line=1.3)
+        if i < 4:
+            arrow_left(s, x - gap / 2 - 0.10, 2.72, 0.22, 0.16, color=BLUE_MID)
+
+    panels = [
+        (6.78, "چه چیزی محافظت می^شود", BLUE, BLUE_PALE, [
+            "ترافیک خام از شبکهٔ محلی خارج نمی^شود.",
+            "هر دستگاه الگوی حملهٔ خودش را یاد می^گیرد.",
+            "فقط به^روزرسانی مدل رد و بدل می^شود.",
+        ]),
+        (0.78, "چه چیزی گزارش شده", YELLOW, YEL_PALE, [
+            "دقت ۹۵٫۰۵ درصد روی دادهٔ N-BaIoT.",
+            "رسیدن به دقت ۹۰ درصد در ۱۷ دور آموزش.",
+            "حدود ۳۲۰ کیلوبایت تبادل، به ازای هر دستگاه در هر دور.",
+        ]),
+    ]
+    for x, title, col, bg, items in panels:
+        rect(s, x, 4.02, 5.68, 1.82, fill=bg, line=RGBColor(0xE1,0xE9,0xF5), radius=0.12, shadow=False)
+        txt(s, x + 0.24, 4.14, 5.20, 0.28, title, 11.4, col, bold=True, align="r")
+        tf = textbox(s, x + 0.24, 4.48, 5.20, 1.22)
+        body(tf, items, 10.4, INK, bullet_color=col, gap=7, line=1.35, icon_code=0xE73E)
+
+    band(s, "حریم دادهٔ شبکه حفظ می^شود؛ اما به^روزرسانی^ها هم به نویز تفاضلی و تجمیع مقاوم نیاز دارند.", y=6.14, h=0.48)
+    footer(s, 19)
+
+
 def slide_challenges(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
-    sec_header(s, "جمع^بندی و منابع", "چالش^ها: امنیت، هزینه، دقت", 18, title_size=31)
+    sec_header(s, "جمع^بندی و منابع", "چالش^ها: امنیت، هزینه، دقت", 20, title_size=31)
 
     items = [
         ("موازنهٔ امنیت و کارایی", "امنیت / هزینه / دقت", "روش امن^تر، پردازش سنگین^تر یا دقت کمتر دارد.", "هیچ روشی همزمان امن، ارزان و دقیق نیست.", 0xEA18, YELLOW),
@@ -1017,14 +1116,14 @@ def slide_challenges(prs):
     ], 10.2, INK, bullet_color=BLUE, gap=4, line=1.3, icon_code=0xE73E)
 
     band(s, "در پنج مقالهٔ بررسی^شده، هیچ روشی به^تنهایی هم امن، هم ارزان، هم دقیق نبود.", y=6.42, h=0.44, icon_code=0xE946)
-    footer(s, 18)
+    footer(s, 20)
 
 
 # ------------------------------------------------------------------ 19 conclusion
 def slide_conclusion(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
-    sec_header(s, "جمع^بندی و منابع", "جمع^بندی و نتیجه^گیری", 19, title_size=32)
+    sec_header(s, "جمع^بندی و منابع", "جمع^بندی و نتیجه^گیری", 21, title_size=32)
 
     head = [(8.02, 4.55, "یافته"), (X0, 7.06, "پیامد برای سیستم")]
     for x, w, label in head:
@@ -1066,14 +1165,14 @@ def slide_conclusion(prs):
     run(p, "ترکیب یادگیری فدرال با حریم خصوصی تفاضلی و تجمیع امن، از مرحلهٔ طراحی.", 10.6, BODY)
 
     txt(s, X0, 6.62, CW, 0.24, "پایان  ·  پرسش و پاسخ", 8.0, FAINT, font=FA, align="r", spacing=0.6)
-    footer(s, 19)
+    footer(s, 21)
 
 
 # ------------------------------------------------------------------ 20 references
 def slide_refs(prs):
     s = prs.slides.add_slide(prs.slide_layouts[6])
     s.shapes.add_picture(A(BG), 0, 0, width=prs.slide_width, height=prs.slide_height)
-    sec_header(s, "منابع", "منابع و مراجع", 20, title_size=31)
+    sec_header(s, "منابع", "منابع و مراجع", 22, title_size=31)
 
     refs = [
         ('[1]  J. Wang, Z. Liu, X. Yang, M. Li, Z. Lyu, "The Internet of Things under Federated Learning: A Review of the Latest Advances and Applications," Computers, Materials & Continua, 2025.',
@@ -1114,7 +1213,7 @@ def slide_refs(prs):
     run(p, "با تشکر از توجه شما", 17.5, WHITE, bold=True)
     run(p, "        ·        ", 15.0, RGBColor(0xE6,0xE0,0xF7), bold=True)
     run(p, "پرسش و پاسخ", 13.0, RGBColor(0xF2,0xEE,0xFF))
-    footer(s, 20)
+    footer(s, 22)
 
 # ------------------------------------------------------------------ methodology
 def slide_method(prs):
@@ -1200,9 +1299,11 @@ NOTES = {
     15: "۱:۳۰ | تجمیع مقاوم و تفاوت آن با حریم خصوصی تفاضلی.",
     16: "۲:۰۰ | ماتریس مقایسه؛ تضمین رسمی در برابر محرمانگی و هزینهٔ هر روش.",
     17: "۱:۳۰ | خانهٔ هوشمند به‌عنوان نمونهٔ ترکیبی.",
-    18: "۱:۳۰ | سه چالش و اینکه چرا این تحقیق ضرورت دارد.",
-    19: "۱:۰۰ | نتیجه، حریم خصوصی از ابتدای طراحی، و جملهٔ پایانی.",
-    20: "۱:۰۰ | تشکر و آمادهٔ پرسش.",
+    18: "۱:۳۰ | شهر هوشمند: دادهٔ ناهمگون، شناسهٔ کلاس و گره‌های مه در چارچوب PP-FDL.",
+    19: "۱:۳۰ | تشخیص حملات سایبری: ترافیک محلی، تبادل وزن‌ها و دقت ۹۵٪ روی N-BaIoT.",
+    20: "۱:۳۰ | سه چالش و اینکه چرا این تحقیق ضرورت دارد.",
+    21: "۱:۰۰ | نتیجه، حریم خصوصی از ابتدای طراحی، و جملهٔ پایانی.",
+    22: "۱:۰۰ | تشکر و آمادهٔ پرسش.",
 }
 
 def build(path):
@@ -1214,12 +1315,13 @@ def build(path):
         slide_cover, slide_toc, slide_intro, slide_threat, slide_thesis, slide_central,
         slide_method, slide_fl, slide_blockchain, slide_iot, slide_case_ids,
         slide_attacks, slide_dp, slide_crypto, slide_robust, slide_matrix,
-        slide_case_home, slide_challenges, slide_conclusion, slide_refs,
+        slide_case_home, slide_case_city, slide_case_detect,
+        slide_challenges, slide_conclusion, slide_refs,
     ]
     for fn in slides:
         fn(prs)
 
-    assert len(prs.slides) == 20, len(prs.slides)
+    assert len(prs.slides) == 22, len(prs.slides)
     for i, s in enumerate(prs.slides, 1):
         if i in NOTES:
             s.notes_slide.notes_text_frame.text = NOTES[i]
@@ -1250,8 +1352,8 @@ def fix_app_xml(path):
                 xml = data.decode("utf-8")
                 xml = re.sub(r"<Application>.*?</Application>", "<Application>Microsoft Office PowerPoint</Application>", xml)
                 xml = re.sub(r"<PresentationFormat>.*?</PresentationFormat>", "<PresentationFormat>Widescreen</PresentationFormat>", xml)
-                xml = re.sub(r"<Slides>.*?</Slides>", "<Slides>20</Slides>", xml)
-                xml = re.sub(r"<Notes>.*?</Notes>", "<Notes>20</Notes>", xml)
+                xml = re.sub(r"<Slides>.*?</Slides>", "<Slides>22</Slides>", xml)
+                xml = re.sub(r"<Notes>.*?</Notes>", "<Notes>22</Notes>", xml)
                 xml = re.sub(r"<Words>.*?</Words>", "<Words>1400</Words>", xml)
                 xml = re.sub(r"<Paragraphs>.*?</Paragraphs>", "<Paragraphs>220</Paragraphs>", xml)
                 xml = re.sub(r"<AppVersion>.*?</AppVersion>", "<AppVersion>16.0000</AppVersion>", xml)

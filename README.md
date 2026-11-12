@@ -16,7 +16,7 @@ fonts/                         # B Nazanin و B Titr
 presenter-guide/               # سایت راهنما (همین پوشه روی Pages منتشر می‌شود)
 ├─ index.html                  # خروجی make_guide.py
 ├─ styles.css, app.js
-├─ slides/slide-01..20.png     # تصاویر اسلایدها
+├─ slides/slide-01..22.png     # تصاویر اسلایدها
 ├─ audio/                      # پادکست‌های تمرین (دیانا، موژان، کل ارائه)
 ├─ downloads/                  # فایل‌های دانلودی سایت
 └─ make_guide.py               # سازندهٔ سایت و PDF

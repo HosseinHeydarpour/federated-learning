@@ -172,7 +172,27 @@ S = [
          ],
          cues=["پنج مؤلفه را به ترتیب دنبال کن", "هزینه را از فایده جدا بگو"],
          transition="تحویل: دیانا به موژان برای جمع‌بندی."),
-    dict(n=18, title="چالش‌ها: امنیت، هزینه، دقت", speaker="موژان", time="۱:۳۰", cum="۲۸:۰۰", section="جمع‌بندی و منابع",
+    dict(n=18, title="شهر هوشمند؛ دادهٔ ناهمگون، مهاجم در جمع", speaker="دیانا", time="۱:۰۰", cum="۲۷:۳۰", section="مقایسه و مطالعات موردی",
+         key="PP-FDL: برای هر کلاس داده یک شناسهٔ اختصاصی؛ داده روی دستگاه، آموزش روی گره‌های مه.",
+         script=[
+             "نمونهٔ دوم، شهر هوشمند است: حسگر محیطی، دوربین، حمل‌ونقل و خدمات شهری؛ هر کدام دادهٔ متفاوتی می‌سازند و بعضی از آن‌ها حساس‌اند.",
+             "دو مشکل هم‌زمان داریم: ناهمگونی داده، و شرکت‌کننده‌ای که می‌خواهد از اطلاعات بقیه آگاه شود.",
+             "چارچوب PP-FDL یادگیری فدرال عمیق را با محاسبات مه ترکیب می‌کند: برای هر کلاس داده یک شناسهٔ اختصاصی ساخته می‌شود تا مهاجم کلاس هدف را نشناسد و نتواند داده را بازسازی کند. داده روی دستگاه می‌ماند و گره‌های مه در آموزش مشترک نقش دارند.",
+             "نتیجه: حدود ۹۳ درصد روی MNIST و ۸۴ درصد روی CIFAR-10. اما آزمایش‌ها روی دادهٔ تصویری انجام شده؛ آموزش مدل عمیق روی دستگاه کم‌توان و مقاومت در برابر همهٔ انواع حملات هنوز بررسی نشده است.",
+         ],
+         cues=["چهار منبع داده را نام ببر", "شناسهٔ کلاس را دلیل اصلی بدان", "محدودیت را صریح بگو"],
+         transition="دیانا → تشخیص حملات سایبری"),
+    dict(n=19, title="تشخیص حملات سایبری؛ آموزش بدون دیدن ترافیک", speaker="دیانا", time="۱:۰۰", cum="۲۸:۳۰", section="مقایسه و مطالعات موردی",
+         key="مدل تشخیص نفوذ با تبادل وزن‌ها آموزش می‌بیند؛ ترافیک خام در شبکه می‌ماند.",
+         script=[
+             "سومین نمونه، تشخیص حملهٔ سایبری است: با زیاد شدن دستگاه‌های متصل، دسترسی غیرمجاز و بدافزار بیشتر می‌شود و سیستم باید رفتار غیرعادی را زود ببیند.",
+             "چرخه: ترافیک هر دستگاه محلی می‌ماند، دستگاه مدل تشخیص را با دادهٔ خودش آموزش می‌دهد، فقط وزن‌ها فرستاده می‌شود و با FedAvgM تجمیع می‌شود؛ مدل مشترک در لبه تشخیص می‌دهد.",
+             "چرا فدرال؟ ترافیک خام از شبکهٔ محلی خارج نمی‌شود و هر دستگاه الگوی حملهٔ خودش را یاد می‌گیرد.",
+             "اعداد گزارش‌شده روی دادهٔ N-BaIoT: دقت ۹۵٫۰۵ درصد، رسیدن به دقت ۹۰ درصد در ۱۷ دور، و حدود ۳۲۰ کیلوبایت تبادل برای هر دستگاه در هر دور. با این حال این به‌روزرسانی‌ها هم به نویز تفاضلی و تجمیع مقاوم نیاز دارند.",
+         ],
+         cues=["چرخه را از راست به چپ دنبال کن", "سه عدد نتیجه را بگو"],
+         transition="دیانا → جمع‌بندی و چالش‌ها"),
+    dict(n=20, title="چالش‌ها: امنیت، هزینه، دقت", speaker="موژان", time="۱:۳۰", cum="۳۰:۰۰", section="جمع‌بندی و منابع",
          key="سه چالش: امنیت و کارایی، محدودیت دستگاه، ناهمگونی داده.",
          script=[
              "جمع‌بندی کنیم؛ سه چالش اصلی باقی می‌ماند.",
@@ -182,7 +202,7 @@ S = [
          ],
          cues=["سه کارت را به ترتیب بگو", "جملهٔ پنج مقاله را تأکید کن"],
          transition="موژان → نتیجه"),
-    dict(n=19, title="جمع‌بندی و نتیجه‌گیری", speaker="موژان", time="۱:۰۰", cum="۲۹:۰۰", section="جمع‌بندی و منابع",
+    dict(n=21, title="جمع‌بندی و نتیجه‌گیری", speaker="موژان", time="۱:۰۰", cum="۳۱:۰۰", section="جمع‌بندی و منابع",
          key="پنج یافته و یک جملهٔ پایانی: تعادل، نه بیشترین امنیت.",
          script=[
              "نتیجه را در پنج ردیف ببینیم.",
@@ -192,7 +212,7 @@ S = [
          ],
          cues=["پنج ردیف را از بالا به پایین بگو", "جملهٔ پایانی را آرام بخوان"],
          transition="موژان → منابع"),
-    dict(n=20, title="منابع و مراجع", speaker="موژان", time="۱:۰۰", cum="۳۰:۰۰", section="منابع",
+    dict(n=22, title="منابع و مراجع", speaker="موژان", time="۱:۰۰", cum="۳۲:۰۰", section="منابع",
          key="منابع کلیدی برای پیگیری؛ پنج مقالهٔ اصلی و پنج مرجع بنیادی.",
          script=[
              "منابع، نقشهٔ راه ادامهٔ مطالعه هستند.",
@@ -209,7 +229,7 @@ RATIONALE = {
     1: ("سی ثانیهٔ اول فقط یک کار دارد: مخاطب بفهمد موضوع، ارائه‌دهنده و مدت روشن باشد.",
         "نقطهٔ شروع است؛ هنوز چیزی گفته نشده که این اسلاید به آن وصل شود."),
     2: ("قبل از جزئیات، نقشهٔ مسیر را می‌دهیم تا هر بخش جای خودش را داشته باشد.",
-        "ادامهٔ جلد؛ همین شش بخش، ترتیب اسلایدهای ۳ تا ۱۹ را می‌سازد."),
+        "ادامهٔ جلد؛ همین شش بخش، ترتیب اسلایدهای ۳ تا ۲۱ را می‌سازد."),
     3: ("دادهٔ حساس را از دستگاه‌های آشنای اطراف مخاطب شروع می‌کنیم تا مسئله ملموس شود.",
         "اولین ایستگاه فهرست؛ پرسشی را می‌سازد که کل ارائه جوابش است."),
     4: ("با سه مثال مشخص، تفاوت دادهٔ سلامت، رفتار و محیط را نشان می‌دهد.",
@@ -240,19 +260,23 @@ RATIONALE = {
         "جمع‌بندی دفاع‌های اسلایدهای ۱۳ تا ۱۵."),
     17: ("نشان می‌دهد این روش‌ها در یک سیستم واقعی چطور کنار هم می‌نشینند.",
         "مثال عملی جدول مقایسه؛ ترکیب چندلایه."),
-    18: ("بدون چالش‌ها، ادعای حل کامل مسئله بزرگ‌نمایی است.",
+    18: ("نمونهٔ دوم نشان می‌دهد مسئله فقط خانه نیست؛ دادهٔ ناهمگون و حضور مهاجم در جمع، دفاع دیگری می‌خواهد.",
+         "ادامهٔ مطالعهٔ موردی بعد از خانه؛ اول ناهمگونی، بعد شناسهٔ کلاس."),
+    19: ("کاربرد سوم، دفاع است نه فقط حریم خصوصی: تشخیص حمله با مدلی که ترافیک خام را نمی‌بیند.",
+         "همان مکانیزم فدرال، این بار روی دادهٔ شبکه؛ جواب نگرانی امنیتی اسلاید ۶."),
+    20: ("بدون چالش‌ها، ادعای حل کامل مسئله بزرگ‌نمایی است.",
         "برگشت به سطح کلان بعد از مثال خانه."),
-    19: ("پنج جمله‌ای که مخاطب باید با خودش ببرد.",
+    21: ("پنج جمله‌ای که مخاطب باید با خودش ببرد.",
         "جواب نهایی پرسش اسلاید ۵؛ مسیر ارائه اینجا بسته می‌شود."),
-    20: ("اعتبار و مسیر ادامهٔ مطالعه؛ مخاطب علاقه‌مند بداند از کجا شروع کند.",
+    22: ("اعتبار و مسیر ادامهٔ مطالعه؛ مخاطب علاقه‌مند بداند از کجا شروع کند.",
         "پایان مسیر؛ همان پنج مقاله و مراجع بنیادی دفاع‌ها."),
 }
 
 for _s in S:
     _s["why"], _s["link"] = RATIONALE[_s["n"]]
 
-TOTAL = "۳۰:۰۰"
-DIANA = "۱۶:۰۰"
+TOTAL = "۳۲:۰۰"
+DIANA = "۱۸:۰۰"
 MOZHAN = "۱۴:۰۰"
 
 
@@ -298,7 +322,7 @@ def card(s):
         <ul class="cues">{cues}</ul>
         <div class="transition"><strong>انتقال:</strong><span>{esc(s['transition'])}</span></div>
         <div class="print-foot">
-          <span>اسلاید {fa(s['n'])} از ۲۰</span>
+          <span>اسلاید {fa(s['n'])} از ۲۲</span>
           <span>{esc(s['speaker'])} · {esc(s['time'])}</span>
         </div>
       </div>
@@ -335,7 +359,7 @@ try {{
 </head>
 <body>
 <header class="topbar no-print">
-  <div class="brand"><span class="mark">SFU</span><div><div>راهنمای ارائه</div><div class="sub">نسخهٔ چاپی · ۲۰ اسلاید · ۳۰ دقیقه</div></div></div>
+  <div class="brand"><span class="mark">SFU</span><div><div>راهنمای ارائه</div><div class="sub">نسخهٔ چاپی · ۲۲ اسلاید · ۳۲ دقیقه</div></div></div>
   <div class="top-actions">
     <button class="theme-btn" type="button" data-tour-start aria-label="تور سایت">تور سایت</button>
     <button class="theme-btn" type="button" data-theme-toggle aria-label="تغییر حالت تاریک">
@@ -354,25 +378,25 @@ try {{
 
   <div class="content">
     <section class="hero">
-      <div class="eyebrow">PRESENTER GUIDE · 30 MIN</div>
+      <div class="eyebrow">PRESENTER GUIDE · 32 MIN</div>
       <h1>بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرالِ اینترنت اشیا</h1>
-      <p class="lead">راهنمای اسلاید به اسلاید برای دو ارائه‌دهنده؛ هر اسلاید شامل پیام کلیدی، دلیل وجود اسلاید و ربطش با قبل، متن پیشنهادی گفتار، نکته‌های اجرا و انتقال به اسلاید بعد است. زمان کل ۳۰ دقیقه است و برای چاپ A4 تنظیم شده است.</p>
+      <p class="lead">راهنمای اسلاید به اسلاید برای دو ارائه‌دهنده؛ هر اسلاید شامل پیام کلیدی، دلیل وجود اسلاید و ربطش با قبل، متن پیشنهادی گفتار، نکته‌های اجرا و انتقال به اسلاید بعد است. زمان کل ۳۲ دقیقه است و برای چاپ A4 تنظیم شده است.</p>
       <div class="chips">
-        <span class="chip"><strong>۲۰</strong> اسلاید</span>
-        <span class="chip"><strong>۳۰:۰۰</strong> دقیقه</span>
+        <span class="chip"><strong>۲۲</strong> اسلاید</span>
+        <span class="chip"><strong>۳۲:۰۰</strong> دقیقه</span>
         <span class="chip"><strong>۲</strong> ارائه‌دهنده</span>
         <span class="chip">هر اسلاید یک صفحهٔ چاپ</span>
       </div>
       <div class="roles">
-        <div class="role diana"><div class="avatar">د</div><div><h3>دیانا صباحی · {DIANA}</h3><p>اسلایدهای ۱–۵، ۹–۱۲ و ۱۶–۱۷</p></div></div>
-        <div class="role mozhan"><div class="avatar">م</div><div><h3>موژان شجاعی · {MOZHAN}</h3><p>اسلایدهای ۶–۸، ۱۳–۱۵ و ۱۸–۲۰</p></div></div>
+        <div class="role diana"><div class="avatar">د</div><div><h3>دیانا صباحی · {DIANA}</h3><p>اسلایدهای ۱–۵، ۹–۱۲ و ۱۶–۱۹</p></div></div>
+        <div class="role mozhan"><div class="avatar">م</div><div><h3>موژان شجاعی · {MOZHAN}</h3><p>اسلایدهای ۶–۸، ۱۳–۱۵ و ۲۰–۲۲</p></div></div>
       </div>
       <div class="filters no-print" role="group" aria-label="فیلتر ارائه‌دهنده" data-tour="filters">
         <span class="filter-label">نمایش بر اساس ارائه‌دهنده:</span>
         <button class="filter-btn is-active" type="button" data-filter="all" aria-pressed="true">همه</button>
         <button class="filter-btn" type="button" data-filter="diana" aria-pressed="false">دیانا</button>
         <button class="filter-btn" type="button" data-filter="mozhan" aria-pressed="false">موژان</button>
-        <span class="filter-count" data-filter-count>۲۰ اسلاید</span>
+        <span class="filter-count" data-filter-count>۲۲ اسلاید</span>
       </div>
       <div class="downloads no-print" data-tour="files">
         <a class="download-btn primary" data-tour="deck" href="downloads/FL_IoT_Privacy_FA.pptx" download>دانلود پاورپوینت</a>
@@ -381,7 +405,7 @@ try {{
       </div>
       <p class="screen-note no-print">برای چاپ: دکمهٔ بالا را بزنید یا Ctrl+P. در تنظیمات چاپ، A4، جهت عمودی و «چاپ پس‌زمینه‌ها» (Print backgrounds) را روشن کنید.</p>
       <div class="read-progress no-print">
-        <span class="read-count" data-read-text>۰ از ۲۰ اسلاید خوانده شده</span>
+        <span class="read-count" data-read-text>۰ از ۲۲ اسلاید خوانده شده</span>
         <span class="read-track"><i data-read-bar></i></span>
       </div>
     </section>
@@ -394,15 +418,15 @@ try {{
       <div class="podcast-choose" role="group" aria-label="انتخاب ارائه‌دهنده">
         <button class="podcast-btn diana" type="button" data-podcast="diana" aria-pressed="false">
           <span class="avatar" aria-hidden="true">د</span>
-          <span><strong>من دیانا هستم</strong><small>اسلایدهای ۱–۵، ۹–۱۲ و ۱۶–۱۷ · ۱۴:۲۶</small></span>
+          <span><strong>من دیانا هستم</strong><small>اسلایدهای ۱–۵، ۹–۱۲ و ۱۶–۱۹ · ۱۴:۲۶</small></span>
         </button>
         <button class="podcast-btn mozhan" type="button" data-podcast="mozhan" aria-pressed="false">
           <span class="avatar" aria-hidden="true">م</span>
-          <span><strong>من موژان هستم</strong><small>اسلایدهای ۶–۸، ۱۳–۱۵ و ۱۸–۲۰ · ۱۶:۲۰</small></span>
+          <span><strong>من موژان هستم</strong><small>اسلایدهای ۶–۸، ۱۳–۱۵ و ۲۰–۲۲ · ۱۶:۲۰</small></span>
         </button>
         <button class="podcast-btn all" type="button" data-podcast="all" aria-pressed="false">
           <span class="avatar" aria-hidden="true">کل</span>
-          <span><strong>کل ارائه</strong><small>هر ۲۰ اسلاید · ۱۳:۴۳</small></span>
+          <span><strong>کل ارائه</strong><small>هر ۲۲ اسلاید · ۱۳:۴۳</small></span>
         </button>
       </div>
       <div class="podcast-player" data-podcast-player hidden>
