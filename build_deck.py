@@ -304,7 +304,7 @@ def sec_header(s, kicker, title, idx, center=False, sub=None, title_size=30, log
 
 
 def footer(s, idx):
-    txt(s, 0.72, 6.98, 2.4, 0.36, "%s از ۲۰" % fa(idx), 11.0, MUTED, font=FA, align="l", spacing=0.4)
+    txt(s, 0.72, 6.98, 2.4, 0.36, "%s از ۲۰" % fa(idx), 12.0, MUTED, font=FA, align="l", spacing=0.4)
 
 
 def band(s, text, y=6.45, h=0.52, icon_code=0xE946):
@@ -355,9 +355,9 @@ def slide_cover(prs):
     txt(s, tx - 3.4, 0.52, 3.4, 0.26, "دانشگاه سلمان فارسی کازرون", 10.5, BLUE, bold=True)
     txt(s, tx - 3.4, 0.79, 3.4, 0.22, "گروه مهندسی کامپیوتر", 8.5, MUTED)
 
-    pill(s, X0, 0.56, 2.05, 0.36, "سمینار پژوهشی  ·  ۱۴۰۵", bg=WHITE, fg=BLUE, line=RGBColor(0xC9,0xDB,0xF2), size=9.2)
+    pill(s, X0, 0.56, 1.15, 0.36, "۱۴۰۵", bg=WHITE, fg=BLUE, line=RGBColor(0xC9,0xDB,0xF2), size=9.2)
 
-    txt(s, X0, 1.78, CW, 0.26, "سمینار پژوهشی  ·  گروه مهندسی کامپیوتر", 8.2, BLUE_MID,
+    txt(s, X0, 1.78, CW, 0.26, "گروه مهندسی کامپیوتر", 8.2, BLUE_MID,
         font=FA, align="r", spacing=0.6)
 
     tf = textbox(s, X0, 2.10, CW, 1.72, anchor="t")
@@ -372,15 +372,15 @@ def slide_cover(prs):
     rect(s, X0, 5.00, CW, 0.012, fill=RGBColor(0xB9,0xCE,0xE9), line=None, shadow=False)
 
     meta = [
-        (8.45, 4.10, "پژوهشگران", "دیانا صباحی، موژان شجاعی"),
-        (4.30, 3.90, "گروه", "مهندسی کامپیوتر"),
-        (0.78, 3.35, "نیمسال", "پاییز ۱۴۰۵"),
+        (8.45, 4.10, "پژوهشگران", "دیانا صباحی، موژان شجاعی", 16.0),
+        (4.30, 3.90, "گروه", "مهندسی کامپیوتر", 12.5),
+        (0.78, 3.35, "نیمسال", "پاییز ۱۴۰۵", 12.5),
     ]
-    for x, w, label, value in meta:
+    for x, w, label, value, vsize in meta:
         txt(s, x, 5.22, w, 0.22, label, 8.6, MUTED, font=FA, align="r")
-        txt(s, x, 5.50, w, 0.38, value, 12.5, BLUE, bold=True, align="r")
+        txt(s, x, 5.50, w, 0.38, value, vsize, BLUE, bold=True, align="r")
 
-    txt(s, X0, 6.92, 3.0, 0.20, "%s از ۲۰" % fa(1), 11.0, MUTED, font=FA, align="l", spacing=0.4)
+    txt(s, X0, 6.92, 3.0, 0.20, "%s از ۲۰" % fa(1), 12.0, MUTED, font=FA, align="l", spacing=0.4)
 
 
 # ------------------------------------------------------------------ 2 agenda
@@ -410,7 +410,6 @@ def slide_toc(prs):
         rect(s, 4.85, y + 0.55, 7.7, 0.012, fill=RGBColor(0xE8,0xEF,0xF9), line=None, shadow=False)
         y += 0.70
 
-    txt(s, 4.90, 6.36, 7.55, 0.26, "۲۰ اسلاید  ·  زمان پیشنهادی: ۳۰ دقیقه", 10.2, MUTED, align="r")
     footer(s, 2)
 
 
@@ -1271,7 +1270,7 @@ def build(path):
     cp.author = "دیانا صباحی؛ موژان شجاعی"
     cp.last_modified_by = "دیانا صباحی"
     cp.title = "بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرالِ اینترنت اشیا"
-    cp.subject = "سمینار پژوهشی — دانشگاه سلمان فارسی کازرون"
+    cp.subject = "دانشگاه سلمان فارسی کازرون"
     cp.comments = ""
     cp.keywords = "Federated Learning; IoT; Privacy; Differential Privacy; Secure Aggregation"
     cp.category = "Seminar"
