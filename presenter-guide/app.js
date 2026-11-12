@@ -76,8 +76,8 @@
   const podAudio = podBox ? podBox.querySelector("audio") : null;
   const podMeta = document.querySelector("[data-podcast-meta]");
   const PODCASTS = {
-    diana: { src: "audio/diana.m4a", label: "بخش دیانا — اسلایدهای ۱–۴، ۸–۱۰ و ۱۵–۱۷ · ۱۴:۲۶" },
-    mozhan: { src: "audio/mozhan.m4a", label: "بخش موژان — اسلایدهای ۵–۷، ۱۱–۱۴ و ۱۸–۲۰ · ۱۶:۲۰" },
+    diana: { src: "audio/diana.m4a", label: "بخش دیانا — اسلایدهای ۱–۵، ۹–۱۲ و ۱۶–۱۷ · ۱۴:۲۶" },
+    mozhan: { src: "audio/mozhan.m4a", label: "بخش موژان — اسلایدهای ۶–۸، ۱۳–۱۵ و ۱۸–۲۰ · ۱۶:۲۰" },
     all: { src: "audio/all.m4a", label: "کل ارائه — هر ۲۰ اسلاید · ۱۳:۴۳" },
   };
 
