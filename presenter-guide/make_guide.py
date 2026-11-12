@@ -349,7 +349,7 @@ HTML = f"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>راهنمای ارائه | بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرال اینترنت اشیا</title>
+<title>راهنمای ارائه | بررسی روش‌های حفظ حریم خصوصی داده‌های شخصی در یادگیری فدرالِ اینترنت اشیا</title>
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="vendor/fancybox/fancybox.css">
 <script>
